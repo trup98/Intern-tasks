@@ -5,9 +5,13 @@ class First{
     }
 }
 class Secound extends First{
+
     void secoundShow(){
+//      Calling Parent Class Method Through Super keyword
+        super.firstshow();
         System.out.println("Secound Class");
     }
+
 }
 class Third extends Secound{
     void show(){
