@@ -1,15 +1,17 @@
 package method_reference;
-interface Sayable{
+
+interface Sayable {
     void say();
 }
+
 public class InstanceMethodReference {
-    public void saySomething(){
+    public void saySomething() {
         System.out.println("cnun");
     }
 
     public static void main(String[] args) {
 //      Creating object
-        InstanceMethodReference imr= new InstanceMethodReference();
+        InstanceMethodReference imr = new InstanceMethodReference();
 //      Referring non-static method by reference
         Sayable sayable = imr::saySomething;
 //      Calling interface method

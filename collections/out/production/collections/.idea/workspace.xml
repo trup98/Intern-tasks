@@ -5,17 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e3e28b5-8ab0-44a7-9dca-6740bc408746" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/collections.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../oops/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../oops/inheritance/HierarchicalInheritance.java" beforeDir="false" afterPath="$PROJECT_DIR$/../oops/inheritance/HierarchicalInheritance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../oops/inheritance/MultilevelInheritance.java" beforeDir="false" afterPath="$PROJECT_DIR$/../oops/inheritance/MultilevelInheritance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../oops/out/production/oops/inheritance/A.class" beforeDir="false" afterPath="$PROJECT_DIR$/../oops/out/production/oops/inheritance/A.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../oops/out/production/oops/inheritance/B.class" beforeDir="false" afterPath="$PROJECT_DIR$/../oops/out/production/oops/inheritance/B.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../oops/out/production/oops/inheritance/C.class" beforeDir="false" afterPath="$PROJECT_DIR$/../oops/out/production/oops/inheritance/C.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../oops/out/production/oops/inheritance/HierarchicalInheritance.class" beforeDir="false" afterPath="$PROJECT_DIR$/../oops/out/production/oops/inheritance/HierarchicalInheritance.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../oops/out/production/oops/inheritance/MultilevelInheritance.class" beforeDir="false" afterPath="$PROJECT_DIR$/../oops/out/production/oops/inheritance/MultilevelInheritance.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../oops/out/production/oops/inheritance/Secound.class" beforeDir="false" afterPath="$PROJECT_DIR$/../oops/out/production/oops/inheritance/Secound.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../oops/out/production/oops/inheritance/Third.class" beforeDir="false" afterPath="$PROJECT_DIR$/../oops/out/production/oops/inheritance/Third.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linkelist/LinkeListExample.java" beforeDir="false" afterPath="$PROJECT_DIR$/linkelist/LinkeListExample.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java8features/foreach/ForeachExample.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java8features/foreach/ForeachExample.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java8features/out/production/java8features/foreach/ForeachExample.class" beforeDir="false" afterPath="$PROJECT_DIR$/../java8features/out/production/java8features/foreach/ForeachExample.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java8features/out/production/java8features/optional_class/OptionalClassExample.class" beforeDir="false" afterPath="$PROJECT_DIR$/../java8features/out/production/java8features/optional_class/OptionalClassExample.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java8features/parallel_ArraySort/ParallelArraySorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java8features/parallel_ArraySort/ParallelArraySorting.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,20 +39,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.ArrayListExample.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.ArrayListExample.executor&quot;: &quot;Run&quot;,
+    &quot;Application.HashMapExample.executor&quot;: &quot;Run&quot;,
+    &quot;Application.HashSetExample.executor&quot;: &quot;Run&quot;,
+    &quot;Application.LinkeListExample.executor&quot;: &quot;Run&quot;,
+    &quot;Application.LinkedHashSet.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PriorityQueueExample.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -75,7 +76,9 @@
       <updated>1702968573705</updated>
       <workItem from="1702968575635" duration="13000" />
       <workItem from="1702968841722" duration="298000" />
-      <workItem from="1702969626819" duration="380000" />
+      <workItem from="1702969626819" duration="20120000" />
+      <workItem from="1703134333553" duration="48000" />
+      <workItem from="1703138404376" duration="160000" />
     </task>
     <servers />
   </component>

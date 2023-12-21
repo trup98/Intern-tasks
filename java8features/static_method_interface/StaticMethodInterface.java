@@ -1,16 +1,20 @@
 package static_method_interface;
-interface abc{
-    default void dMethod(){
+
+interface abc {
+    default void dMethod() {
         System.out.println("Default Method");
     }
-    static void sMethod(){
+
+    static void sMethod() {
         System.out.println("Static Method");
     }
+
     void aMethod(String stringr);
 }
+
 public class StaticMethodInterface implements abc {
     @Override
-    public void aMethod(String str){
+    public void aMethod(String str) {
         System.out.println(str);
     }
 

@@ -7,7 +7,7 @@ import java.util.List;
 public class ParallelArraySorting {
     public static void main(String[] args) {
         List<Integer> numbers = new LinkedList<Integer>(Arrays.asList(4,8,9,7,3));
-        Arrays.parallelSort(numbers);
+//      Arrays.parallelSort(numbers);
         for(int i:numbers){
             System.out.println(i);
         }
