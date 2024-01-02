@@ -4,7 +4,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
     <!--    Scanning Controller package-->
-    <context:component-scan base-package="controller"/>
+    <context:component-scan base-package="com"/>
     <!--    View Resolver-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" name="viewResolver">
         <property name="prefix" value="/WEB-INF/view/"/>
@@ -13,7 +13,7 @@
     <!--    Data Source-->
     <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost/jdbc"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/springMvc"/>
         <property name="username" value="root"/>
         <property name="password" value="root@root"/>
     </bean>
@@ -21,6 +21,12 @@
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <!--        Data source-->
         <property name="dataSource" ref="dataSource"/>
+        <!--   Annotated Classes-->
+        <property name="annotatedClasses">
+            <list>
+                <value>com.Model.RegisterVo</value>
+            </list>
+        </property>
         <!--        hibernate properties-->
         <property name="hibernateProperties">
             <props>
@@ -30,5 +36,14 @@
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
+
+    </bean>
+
+    <bean class="org.springframework.orm.hibernate5.HibernateTemplate" name="hibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean class="org.springframework.orm.hibernate5.HibernateTransactionManager" name="transactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 </beans>
