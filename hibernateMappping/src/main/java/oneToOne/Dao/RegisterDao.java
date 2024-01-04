@@ -36,4 +36,22 @@ public class RegisterDao {
         transaction.commit();
         session.close();
     }
+
+    public List<RegisterVo> findById(RegisterVo registerVo) {
+        List<RegisterVo> findId;
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("from  RegisterVo where id='"+registerVo.getId()+"'");
+        findId = query.list();
+        return findId;
+    }
+
+    public void update(RegisterVo registerVo) {
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.update(registerVo);
+        transaction.commit();
+        session.close();
+    }
 }

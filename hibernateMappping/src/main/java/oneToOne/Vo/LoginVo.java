@@ -16,7 +16,7 @@ public class LoginVo {
     @Column(name = "password")
     private String passWord;
 
-    @OneToOne(mappedBy = "loginVo",cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private RegisterVo registerVo;
     public RegisterVo getRegisterVo() {
         return registerVo;

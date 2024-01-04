@@ -22,7 +22,7 @@
             <td>${i.lastName}</td>
             <td>${i.loginVo.userName}</td>
             <td>${i.loginVo.passWord}</td>
-            <td><a href="RegController?id=${i.loginVo.id}&flag=delete">Delete</a></td>
+            <td><a href="RegController?id=${i.id}&flag=delete">Delete</a></td>
             <td><a href="RegController?id=${i.id}&flag=edit">Edit</a></td>
         </tr>
     </c:forEach>
