@@ -6,7 +6,7 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/OnetoMany</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/OneToManyDb?createDatabaseIfNotExist=true</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root@root</property>
         <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
@@ -15,6 +15,5 @@
         <property name="format_sql">true</property>
         <mapping class="com.vo.CompanyVo"/>
         <mapping class="com.vo.EmployeeVo"/>
-
     </session-factory>
 </hibernate-configuration>
