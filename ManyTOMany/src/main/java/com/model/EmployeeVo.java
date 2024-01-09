@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Getter
@@ -21,9 +22,8 @@ public class EmployeeVo {
     @Column(name = "employee_name")
     private String employeeName;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "project_id",referencedColumnName = "project_id")
-    private List<ProjectVo> projectVos;
+    @ManyToMany(mappedBy = "employeeVos")
+    private Set<ProjectVo> projectVos;
 
 }
 

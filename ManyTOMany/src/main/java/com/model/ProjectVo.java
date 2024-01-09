@@ -23,7 +23,10 @@ public class ProjectVo {
     @Column(name = "project_name")
     private String projectName;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "employee_id",referencedColumnName = "employee_id")
-    private List<EmployeeVo> employeeVoList;
+    @ManyToMany
+    @JoinTable(name = "employee_project",
+            joinColumns = {@JoinColumn(name = "p_id")},
+            inverseJoinColumns = {@JoinColumn(name = "e_id")}
+    )
+    private Set<EmployeeVo> employeeVos;
 }
