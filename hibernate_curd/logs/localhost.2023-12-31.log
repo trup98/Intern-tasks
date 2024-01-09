@@ -1,0 +1,2 @@
+31-Dec-2023 13:46:04.287 INFO [main] org.apache.catalina.core.ApplicationContext.log No Spring WebApplicationInitializer types detected on classpath
+31-Dec-2023 13:46:04.306 WARNING [main] org.apache.catalina.session.StandardSession.doReadObject Cannot deserialize session attribute [list] for session [4C75147E8D0531F9ADFF64D379E7707D]

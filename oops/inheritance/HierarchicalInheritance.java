@@ -1,10 +1,11 @@
 package inheritance;
 class A{
-    void methodA(){
+    public void methodA(){
         System.out.println("Method Of Class A");
     }
 }
 class B extends A{
+
     void methodB(){
         System.out.println("Method of Class B");
     }

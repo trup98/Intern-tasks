@@ -1,0 +1,4 @@
+0:0:0:0:0:0:0:1 - - [31/Dec/2023:13:46:05 +0530] "GET /hibernate_curd HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [31/Dec/2023:13:46:06 +0530] "GET /hibernate_curd/ HTTP/1.1" 200 290
+0:0:0:0:0:0:0:1 - - [31/Dec/2023:13:46:14 +0530] "POST /hibernate_curd/RegController HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [31/Dec/2023:13:46:14 +0530] "GET /hibernate_curd/search.jsp HTTP/1.1" 200 740
