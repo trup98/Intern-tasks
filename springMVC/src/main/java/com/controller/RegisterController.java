@@ -17,7 +17,7 @@ public class RegisterController {
 
     @Autowired
     RegisterDao registerDao;
-    
+
 //    final
 //    RegisterDao registerDao;
 //
@@ -26,12 +26,12 @@ public class RegisterController {
 //    }
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
-    @ResponseBody
-    public ModelAndView load() {
+    public ModelAndView load()
+    {
         return new ModelAndView("RegisterPage", "RegVo", new RegisterVo());
     }
 
-    @RequestMapping(value = "insert.html", method = RequestMethod.POST)
+     @RequestMapping(value = "insert.html", method = RequestMethod.POST)
     public ModelAndView insert(@ModelAttribute RegisterVo registerVo) {
 
         registerDao.insert(registerVo);
