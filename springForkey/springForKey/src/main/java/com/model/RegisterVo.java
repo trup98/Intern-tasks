@@ -12,7 +12,7 @@ public class RegisterVo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Register_id")
-    private int id;
+    private int regId;
     @Column(name = "Username")
     private String userName;
     @Column(name = "Password")

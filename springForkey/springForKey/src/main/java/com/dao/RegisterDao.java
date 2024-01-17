@@ -41,7 +41,7 @@ public class RegisterDao {
 
     public List<RegisterVo> findById(RegisterVo registerVo) {
         Session session = sessionFactory.openSession();
-        Query query = session.createQuery("from RegisterVo where id='" + registerVo.getId() + "'");
+        Query query = session.createQuery("from RegisterVo where id='" + registerVo.getRegId() + "'");
         List<RegisterVo> registerVos = query.list();
         return registerVos;
     }

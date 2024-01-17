@@ -17,13 +17,13 @@
     </tr>
     <m:forEach items="${searchList}" var="i">
         <tr>
-            <td>${i.id}</td>
+            <td>${i.regId}</td>
             <td>${i.userName}</td>
             <td>${i.password}</td>
             <td>${i.loginVo.firstName}</td>
             <td>${i.loginVo.lastName}</td>
-            <td><a href="delete?id=${i.id}">Delete</a></td>
-            <td><a href="edit?id=${i.id}">Edit</a></td>
+            <td><a href="delete?id=${i.regId}">Delete</a></td>
+            <td><a href="edit?id=${i.regId}">Edit</a></td>
         </tr>
 
     </m:forEach>

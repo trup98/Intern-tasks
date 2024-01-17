@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Queue;
 
 @Repository
 public class LoginDao {
@@ -26,10 +25,10 @@ public class LoginDao {
     }
 
     public List<LoginVo> search() {
-        Session session =sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         Query query = session.createQuery("from LoginVo ");
         List<LoginVo> loginVos = query.list();
-        return  loginVos;
+        return loginVos;
     }
 
     public void delete(LoginVo loginVo) {
@@ -38,12 +37,5 @@ public class LoginDao {
         session.delete(loginVo);
         transaction.commit();
         session.close();
-    }
-
-    public List<LoginVo> findById(LoginVo loginVo) {
-        Session session =sessionFactory.openSession();
-        Query query = session.createQuery("from LoginVo where id='"+loginVo.getId()+"'");
-        List<LoginVo> loginVos = query.list();
-        return  loginVos;
     }
 }
