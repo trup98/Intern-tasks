@@ -6,7 +6,7 @@
 </head>
 <body>
 <m:form action="insert" method="post" modelAttribute="RegVo">
-    <i:hidden path="id"/>
+    <i:hidden path="regId"/>
     First Name:<m:input path="loginVo.firstName"/><br><br>
     Last Name:<m:input path="loginVo.lastName"/><br><br>
     User Name:<m:input path="userName"/><br><br>

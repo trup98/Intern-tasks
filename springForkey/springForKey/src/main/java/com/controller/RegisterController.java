@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -43,7 +41,7 @@ public class RegisterController {
 
     @RequestMapping(value = "search", method = RequestMethod.GET)
     public ModelAndView search() {
-//      List<LoginVo> loginVos = loginDao.search();
+
         List<RegisterVo> registerVos = registerDao.search();
         System.out.println("registerVos.size() ========== " + registerVos.size());
 
@@ -51,9 +49,9 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.GET)
-    public ModelAndView delete(@ModelAttribute RegisterVo registerVo, HttpServletRequest request, @RequestParam int id) {
+    public ModelAndView delete(@ModelAttribute RegisterVo registerVo, @RequestParam int id) {
 
-        registerVo.setId(id);
+        registerVo.setRegId(id);
         registerDao.delete(registerVo);
 
         LoginVo loginVo = new LoginVo();
@@ -64,18 +62,15 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.GET)
-    public ModelAndView edit(@ModelAttribute RegisterVo registerVo, @ModelAttribute LoginVo loginVo, HttpServletRequest request, @RequestParam int id) {
+    public ModelAndView edit(@ModelAttribute RegisterVo registerVo, @RequestParam int id) {
+        LoginVo loginVo = new LoginVo();
 
-        registerVo.setId(id);
+        registerVo.setRegId(id);
         loginVo.setId(id);
 
         List<RegisterVo> registerVos = registerDao.findById(registerVo);
-        RegisterVo vo = registerVos.get(0);
+        RegisterVo registerVo1 = registerVos.get(0);
 
-//        vo.getLoginVo();
-//        List<LoginVo> loginVos = loginDao.findById(loginVo);
-//        LoginVo vo1 = loginVos.get(0);
-
-        return new ModelAndView("RegisterPage", "RegVo", vo);
+        return new ModelAndView("RegisterPage", "RegVo", registerVo1);
     }
 }
