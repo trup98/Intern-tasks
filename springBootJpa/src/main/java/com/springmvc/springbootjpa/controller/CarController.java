@@ -32,7 +32,7 @@ public class CarController {
         return this.carService.findId(findId);
     }
 //  Delete Data By Id
-    @DeleteMapping("/id/{findId}")
+    @DeleteMapping("/delete/id/{findId}")
     public String deleteById(@PathVariable Long findId){
         return this.carService.delete(findId);
     }

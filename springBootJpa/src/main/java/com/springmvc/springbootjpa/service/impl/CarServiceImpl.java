@@ -29,6 +29,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<CarEntity> search() {
         return this.carRepository.findAll();
+
     }
 
     @Override
@@ -49,8 +50,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public String update(Long id, CarRequestDTO carRequestDTO) {
         // method 1
-        CarEntity carEntity = this.carRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("error"));
+        CarEntity carEntity = this.carRepository.findById(id).orElseThrow(() -> new RuntimeException("error"));
         carEntity.setCarName(carRequestDTO.getCarName());
         this.carRepository.save(carEntity);
 
