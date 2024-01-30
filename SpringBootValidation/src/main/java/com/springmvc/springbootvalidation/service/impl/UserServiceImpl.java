@@ -1,5 +1,6 @@
 package com.springmvc.springbootvalidation.service.impl;
 
+import com.springmvc.springbootvalidation.exception.UserNotFoundException;
 import com.springmvc.springbootvalidation.model.UserEntity;
 import com.springmvc.springbootvalidation.repository.UserRepository;
 import com.springmvc.springbootvalidation.reques.dto.UserRequestDto;
@@ -28,12 +29,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserEntity> findAll() {
-        return this.userRepository.findAll();
+        if (findAll().isEmpty()) {
+            throw new UserNotFoundException("Database Is Empty !!");
+        }
+        else {
+            return this.userRepository.findAll();    
+        }
     }
 
     @Override
     public Optional<UserEntity> getById(Long findId) {
-        return this.userRepository.findById(findId);
+        if (userRepository.findById(findId).isPresent()) {
+            return this.userRepository.findById(findId);
+        }
+        else {
+            throw new UserNotFoundException("User Not Found!");
+        }
     }
 
     @Override
