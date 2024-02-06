@@ -35,6 +35,7 @@ public class UserServiceImpl implements UserService {
 
     //    Add User
     public UserEntity addNewUser(UserEntity userEntity) {
+        System.out.println(userEntity);
         this.userEntities.add(userEntity);
         return userEntity;
     }
