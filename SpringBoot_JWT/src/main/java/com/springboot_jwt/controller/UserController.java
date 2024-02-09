@@ -38,7 +38,7 @@ public class UserController {
 
     //    Find User By ID;
     @GetMapping("/findById/{findById}")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     public UserEntity findById(@PathVariable Long findById) {
         return this.userService.findUserById(findById);
     }
