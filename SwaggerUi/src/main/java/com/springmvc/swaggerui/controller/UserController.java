@@ -35,23 +35,23 @@ public class UserController {
     }
 
     //  Get Particular Data
-    @GetMapping("/findById/{findbyId}")
-    @Operation(summary = "Method used to get particular user Data from Database", description = "FETCH DATA BY PARTICULAR ID")
-    public UserEntity findById(@Parameter(description = "Give Id to find a User") @PathVariable Long findbyId) {
-        return this.userService.findUserById(findbyId);
+    @GetMapping("/findById/{id}")
+    public UserEntity findById(@PathVariable (value = "id") Long id) {
+        return this.userService.findUserById(id);
     }
 
     //  Update Particular User
-    @PutMapping("/update/{updateId}")
+    @PutMapping("/update/{id}")
     @Operation(summary = "Method used to Update particular Data from Database", description = "UPDATE USER")
-    public UserEntity updateUser(@PathVariable Long updateId, @RequestBody UserRequestDto userRequestDto) {
-        return this.userService.updateUserById(updateId, userRequestDto);
+    public UserEntity updateUser(@PathVariable (value = "id") Long id, @RequestBody UserRequestDto userRequestDto) {
+        return this.userService.updateUserById(id, userRequestDto);
     }
 
     //  Delete Particular User
-    @DeleteMapping("/delete/{deleteId}")
+    @DeleteMapping("/delete/{id}")
     @Operation(summary = "Method used to delete particular Data from Database", description = "DELETE USER")
-    public void deleteUser(@Parameter(description = "Give Id to delete the User") @PathVariable Long deleteId) {
-        this.userService.deleteUserById(deleteId);
+    public void deleteUser(@PathVariable (value = "id") Long id)
+    {
+        this.userService.deleteUserById(id);
     }
 }

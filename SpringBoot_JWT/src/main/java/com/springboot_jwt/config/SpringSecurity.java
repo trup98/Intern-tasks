@@ -1,5 +1,6 @@
 package com.springboot_jwt.config;
 
+import com.springboot_jwt.filter.JwtFilter;
 import com.springboot_jwt.service.CustomUserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -10,17 +11,19 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SpringSecurity {
     private final AuthenticationConfiguration authConfiguration;
-
+    private final JwtFilter jwtFilter;
     @Bean
     public UserDetailsService userDetailsService() {
         return new CustomUserDetailService();
@@ -35,11 +38,17 @@ public class SpringSecurity {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.
                 csrf().disable().
-                authorizeHttpRequests().requestMatchers("/user/add","/user/authenticate").permitAll().
+                authorizeHttpRequests().requestMatchers("/user/add", "/user/authenticate").permitAll().
                 and().
-                authorizeHttpRequests().requestMatchers("/user/**").hasRole("ADMIN").
+                authorizeHttpRequests().requestMatchers("/user/**").
+                authenticated().
                 and().
-                formLogin().and().build();
+                sessionManagement().
+                sessionCreationPolicy(SessionCreationPolicy.STATELESS).
+                and().
+                authenticationProvider(authenticationProvider()).
+                addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class).
+                build();
     }
 
     @Bean
@@ -49,6 +58,7 @@ public class SpringSecurity {
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         return daoAuthenticationProvider;
     }
+
     @Bean
     public AuthenticationManager authenticationManager() throws Exception {
         return authConfiguration.getAuthenticationManager();
