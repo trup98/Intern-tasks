@@ -1,11 +1,11 @@
 package com.springboot_jwt.service;
 
+import com.springboot_jwt.dto.RequestDto;
 import com.springboot_jwt.entity.UserEntity;
 
 import java.util.List;
 
 public interface UserService {
-    void addUser(UserEntity userEntity);
 
     List<UserEntity> findAll();
 
@@ -14,4 +14,6 @@ public interface UserService {
     void updateUserById(Long updateId, UserEntity userEntity);
 
     void deleteUserById(Long deleteId);
+
+    void addUser(RequestDto requestDto);
 }
