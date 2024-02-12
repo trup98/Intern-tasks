@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -21,9 +22,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableMethodSecurity
 public class SpringSecurity {
     private final AuthenticationConfiguration authConfiguration;
     private final JwtFilter jwtFilter;
+
     @Bean
     public UserDetailsService userDetailsService() {
         return new CustomUserDetailService();
@@ -38,10 +41,9 @@ public class SpringSecurity {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.
                 csrf().disable().
-                authorizeHttpRequests().requestMatchers("/user/add", "/user/authenticate").permitAll().
-                and().
-                authorizeHttpRequests().requestMatchers("/user/**").
-                authenticated().
+                authorizeHttpRequests()
+                .antMatchers(AUTH_WHITELIST)
+                .permitAll().
                 and().
                 sessionManagement().
                 sessionCreationPolicy(SessionCreationPolicy.STATELESS).
@@ -63,4 +65,12 @@ public class SpringSecurity {
     public AuthenticationManager authenticationManager() throws Exception {
         return authConfiguration.getAuthenticationManager();
     }
+
+    private static final String[] AUTH_WHITELIST = {
+            // -- Swagger UI v3 (OpenAPI)
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/user/authenticate"
+            // other public endpoints of your API may be appended to this array
+    };
 }
