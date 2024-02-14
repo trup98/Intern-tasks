@@ -7,7 +7,7 @@ import com.springboot_jwt.service.UserService;
 import com.springboot_jwt.utils.JwtService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.annotation.Secured;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,6 +21,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
     private final UserService userService;
     private final JwtService jwtService;
@@ -78,10 +79,11 @@ public class UserController {
         this.userService.deleteUserById(deleteId);
     }
 
+    //    For Generating Token
     @PostMapping("/authenticate")
-    @Operation(summary = "For Generating Token",description = "for Admin userName:trup  " +
-            "  password:0000  "+
-            "  for User userName:user  "+
+    @Operation(summary = "For Generating Token", description = "for Admin userName:trup  " +
+            "  password:0000  " +
+            "  for User userName:user  " +
             "  password:1111")
     public String authenticateAndGetToken(@RequestBody UserRequestDto userRequestDto) {
         Authentication authenticate = authenticationManager.
@@ -95,6 +97,5 @@ public class UserController {
         } else {
             throw new UsernameNotFoundException("Invalid User Request");
         }
-
     }
 }

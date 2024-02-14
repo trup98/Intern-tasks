@@ -1,6 +1,6 @@
-package com.springboot_jwt.service;
+package com.springboot.authserver.model;
 
-import com.springboot_jwt.entity.UserEntity;
+import com.springboot.authserver.entity.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 
 public class CustomUserDetails implements UserDetails {
+
     private String name;
     private String password;
     private List<GrantedAuthority> authorities;
@@ -27,8 +28,7 @@ public class CustomUserDetails implements UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities()
-    {
+    public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
 
