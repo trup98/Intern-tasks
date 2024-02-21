@@ -25,6 +25,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 public class SpringSecurity {
     private final AuthenticationConfiguration authConfiguration;
+    private final CrossOriginFilter crossOriginFilter;
     private final JwtFilter jwtFilter;
 
     @Bean
@@ -39,6 +40,7 @@ public class SpringSecurity {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.cors().configurationSource(crossOriginFilter.corsConfigurationSource());
         return http.
                 csrf().disable().
                 authorizeHttpRequests()

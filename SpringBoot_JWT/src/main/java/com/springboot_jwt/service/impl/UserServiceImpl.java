@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
         UserEntity user = userRepository.findById(updateId).orElseThrow(() -> new ResourceNotFoundException(CommonEnums.EXCEPTION_MSG.getMessage() + updateId));
         user.setName(userEntity.getName());
         user.setEmail(userEntity.getEmail());
-        user.setPassword(userEntity.getPassword());
+        user.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         this.userRepository.save(user);
     }
 
