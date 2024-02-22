@@ -1,0 +1,15 @@
+server:
+  port: 8095
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/keyclock
+          jwk-set-uri: http://localhost:8080/realms/keyclock/protocol/openid-connect/certs
+
+jwt:
+  auth:
+      converter:
+        resource-id: spring-oauth-keyclock
+        principal-attribute: preferred_username
