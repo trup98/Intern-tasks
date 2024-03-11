@@ -72,7 +72,10 @@ public class SpringSecurity {
             // -- Swagger UI v3 (OpenAPI)
             "/v3/api-docs/**",
             "/swagger-ui/**",
-            "/user/authenticate"
+            "/user/add",
+            "/user/authenticate",
+            "/user/refreshToken"
             // other public endpoints of your API may be appended to this array
     };
+
 }
