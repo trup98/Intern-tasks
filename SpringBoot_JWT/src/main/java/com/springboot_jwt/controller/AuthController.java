@@ -26,9 +26,9 @@ public class AuthController {
     /*For Generating Token*/
     @PostMapping("/authenticate")
     @Operation(summary = "For Generating Token", description = "for Admin userName:trup  " +
-            "  password:0000  " +
+            "  password:000000  " +
             "  for User userName:user  " +
-            "  password:1111")
+            "  password:111111")
     public ResponseToken authenticateAndGetToken(@RequestBody AuthRequestDto authRequestDto) {
         Authentication authenticate = authenticationManager.
                 authenticate(new
@@ -42,6 +42,7 @@ public class AuthController {
     }
 
     @PostMapping("/refreshToken")
+    @Operation(summary = "For Generating Refresh Token")
     public ResponseToken refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest){
         return jwtService.createRefreshToken(refreshTokenRequest);
     }
