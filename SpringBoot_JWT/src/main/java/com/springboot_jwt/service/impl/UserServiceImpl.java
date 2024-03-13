@@ -55,9 +55,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDto findUserById(Long findById) {
+    public UserResponseDto findUserById(Long id) {
         try {
-            var user = this.userRepository.findById(findById);
+            var user = this.userRepository.findById(id);
             if (user.isEmpty()) {
                 throw new CustomException("User Not Found", HttpStatus.NOT_FOUND);
             }
@@ -68,9 +68,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUserById(Long updateId, UserRequestDto requestDto) {
+    public void updateUserById(Long id, UserRequestDto requestDto) {
         try {
-            var user = this.userRepository.findById(updateId);
+            var user = this.userRepository.findById(id);
             if (user.isEmpty()) {
                 throw new CustomException("User Not Found!", HttpStatus.NOT_FOUND);
             }
@@ -87,13 +87,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUserById(Long deleteId) {
+    public void deleteUserById(Long id) {
         try {
-            var user = userRepository.findById(deleteId);
+            var user = userRepository.findById(id);
             if (user.isEmpty()) {
                 throw new CustomException("User Not Found", HttpStatus.NOT_FOUND);
             }
-            this.userRepository.deleteById(deleteId);
+            this.userRepository.deleteById(id);
         } catch (CustomException e) {
             throw new CustomException(e.getMessage(), e.getHttpStatus());
         }

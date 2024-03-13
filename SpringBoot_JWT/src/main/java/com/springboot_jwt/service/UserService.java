@@ -9,11 +9,11 @@ public interface UserService {
 
     List<UserResponseDto> findAll();
 
-    UserResponseDto findUserById(Long findById);
+    UserResponseDto findUserById(Long id);
 
-    void updateUserById(Long updateId, UserRequestDto requestDto);
+    void updateUserById(Long id, UserRequestDto requestDto);
 
-    void deleteUserById(Long deleteId);
+    void deleteUserById(Long id);
 
     void addUser(UserRequestDto requestDto);
 }

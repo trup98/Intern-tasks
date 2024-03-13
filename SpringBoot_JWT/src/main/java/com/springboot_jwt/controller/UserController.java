@@ -45,17 +45,17 @@ public class UserController {
     }
 
     /*Find User By ID*/
-    @GetMapping("/findById/{findById}")
+    @GetMapping("/findById/{id}")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_USER')")
     @Operation(summary = "Used to Fetch Data From Database By ID")
-    public ResponseEntity<ApiResponse> findById(@PathVariable Long findById) {
-        var response = this.userService.findUserById(findById);
+    public ResponseEntity<ApiResponse> findById(@PathVariable Long id) {
+        var response = this.userService.findUserById(id);
         log.info("User Found!!!!");
         return new ResponseEntity<>(new ApiResponse(HttpStatus.OK, "User Found!", response), HttpStatus.OK);
     }
 
     /*Update User*/
-    @PutMapping("/update/{updateId}")
+    @PutMapping("/update/{id}")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @Operation(summary = "Used to Update Data into Database", description =
             "-Name is required " +
@@ -63,18 +63,18 @@ public class UserController {
                     "- Password must be 6  " +
                     "- Role should in capital ex:'ROLE_USER'"
     )
-    public ResponseEntity<ApiResponse> updateUser(@Valid @PathVariable Long updateId, @RequestBody UserRequestDto requestDto) {
-        this.userService.updateUserById(updateId, requestDto);
+    public ResponseEntity<ApiResponse> updateUser(@Valid @PathVariable Long id, @RequestBody UserRequestDto requestDto) {
+        this.userService.updateUserById(id, requestDto);
         log.info("User Updated!!!");
         return new ResponseEntity<>(new ApiResponse(HttpStatus.OK, "User Updated!", new HashSet<>()), HttpStatus.OK);
     }
 
     /*Delete User*/
-    @DeleteMapping("/delete/{deleteId}")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @Operation(summary = "Used to Delete Data From Database")
-    public ResponseEntity<ApiResponse> deleteUser(@PathVariable Long deleteId) {
-        this.userService.deleteUserById(deleteId);
+    public ResponseEntity<ApiResponse> deleteUser(@PathVariable Long id) {
+        this.userService.deleteUserById(id);
         log.info("User Deleted!!!!");
         return new ResponseEntity<>(new ApiResponse(HttpStatus.OK, "User Deleted!", new HashSet<>()), HttpStatus.OK);
     }
