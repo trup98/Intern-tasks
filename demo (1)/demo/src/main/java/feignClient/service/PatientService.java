@@ -1,20 +1,19 @@
 package feignClient.service;
 
-import com.vue.backend.dto.PatientResponseDTO;
-import com.vue.backend.dto.RegisterRequestDTO;
-
-import java.util.List;
+import feignClient.model.ModelApiResponse;
+import feignClient.model.RegisterRequestDTO;
+import org.springframework.http.ResponseEntity;
 
 public interface PatientService {
-    void registerPatient(RegisterRequestDTO requestDTO);
-
-    List<PatientResponseDTO> getAllPatients();
-
-    PatientResponseDTO getPatientById(Long id);
-
-    void updatePatient(Long id, RegisterRequestDTO requestDTO);
-
-    void deletePatient(Long id);
 
 
+    ResponseEntity<ModelApiResponse> getAllPatients();
+
+    ResponseEntity<ModelApiResponse> addPatient(RegisterRequestDTO registerRequestDTO);
+
+    ResponseEntity<ModelApiResponse> findPatientById(Long id);
+
+    ResponseEntity<ModelApiResponse> updatePatient(Long id, RegisterRequestDTO registerRequestDTO);
+
+    ResponseEntity<ModelApiResponse> deletePatient(Long id);
 }
