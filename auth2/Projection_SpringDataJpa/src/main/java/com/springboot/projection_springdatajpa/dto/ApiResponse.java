@@ -21,6 +21,4 @@ public class ApiResponse {
         this.httpStatus = httpStatus;
         this.status = httpStatus.value();
     }
-
-
 }

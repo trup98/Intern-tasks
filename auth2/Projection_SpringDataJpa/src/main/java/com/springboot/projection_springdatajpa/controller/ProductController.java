@@ -32,11 +32,11 @@ public class ProductController {
         return new ResponseEntity<>(new ApiResponse(HttpStatus.OK, "Product received SuccessFully", response), HttpStatus.OK);
     }
 
-    //    get product by Id
+    //    get product by id
     @GetMapping({"/{id}"})
     public ResponseEntity<ApiResponse> getProductById(@PathVariable("id") Long id) {
-        var reponse = this.productService.getProductById(id);
-        return new ResponseEntity<>(new ApiResponse(HttpStatus.OK, "Product received SuccessFully", reponse), HttpStatus.OK);
+        var response = this.productService.getProductById(id);
+        return new ResponseEntity<>(new ApiResponse(HttpStatus.OK, "Product received SuccessFully", response), HttpStatus.OK);
     }
 
     //    update product
@@ -53,9 +53,10 @@ public class ProductController {
         return new ResponseEntity<>(new ApiResponse(HttpStatus.OK, "Product Delete Successfully", new HashMap<>()), HttpStatus.OK);
     }
 
+    //    custom database query
     @GetMapping("/projection")
-    public ResponseEntity<ApiResponse> projectionApi(){
+    public ResponseEntity<ApiResponse> projectionApi() {
         var projection = this.productService.projection();
-        return new ResponseEntity<>(new ApiResponse(HttpStatus.OK,"Projection Match",projection),HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse(HttpStatus.OK, "Projection Match", projection), HttpStatus.OK);
     }
 }

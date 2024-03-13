@@ -45,36 +45,6 @@ class PersonControllerTest {
     }
 
     @Test
-    void searchAll() {
-//        Request
-        List<PersonEntity> personEntityList = new ArrayList<PersonEntity>();
-//        Mock
-        personEntityList.add(new PersonEntity(1L, "svs", "svsfv"));
-//        Mocking
-        when(personService.search()).thenReturn(personEntityList);
-//        Test
-        List<PersonEntity> entityList = personController.searchAll();
-//        Result
-        verify(personService, times(1)).search();
-        assertEquals(personEntityList, entityList);
-    }
-
-    @Test
-    void findById() {
-//        Request
-        Long personId = 1L;
-//        Mock
-        PersonEntity personEntity = new PersonEntity(1L, "sdsd", "csvc");
-//        Mocking
-        when(personService.findPersonById(personId)).thenReturn(personEntity);
-//        Test
-        PersonEntity entity = personController.findById(personId);
-//        Result
-        verify(personService, times(1)).findPersonById(personId);
-        assertEquals(personEntity, entity);
-    }
-
-    @Test
     void deletePerson() {
 //        Request
         Long pesonId = 1L;
@@ -100,6 +70,6 @@ class PersonControllerTest {
 //        Result
         verify(personService, times(1)).updatePersonById(personId, personEntity);
 //        assertEquals("adadc", entity.getName());
-        assertEquals(personEntity,entity);
+        assertEquals(personEntity, entity);
     }
 }

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +24,7 @@ public class ProductServiceImpl implements ProductService {
 
     private final ModelMapper modelMapper;
     private final ProductRepository productRepository;
+    static final String ERRORMSG = "Product Not Found";
 
     public ProductResponseDto mapToProductResponseDto(ProductEntity productEntity) {
         return modelMapper.map(productEntity, ProductResponseDto.class);
@@ -50,7 +51,7 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductResponseDto> getAllProduct() {
         try {
             return this.productRepository.findAll().stream().
-                    map(this::mapToProductResponseDto).collect(Collectors.toList());
+                    map(this::mapToProductResponseDto).toList();
         } catch (CustomException e) {
             throw new CustomException(e.getMessage(), e.getHttpStatus());
         }
@@ -62,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
         try {
             var product = this.productRepository.findById(id);
             if (product.isEmpty()) {
-                throw new CustomException("Product Not Found", HttpStatus.NOT_FOUND);
+                throw new CustomException(ERRORMSG, HttpStatus.NOT_FOUND);
 
             }
             return this.modelMapper.map(product.get(), ProductResponseDto.class);
@@ -76,7 +77,7 @@ public class ProductServiceImpl implements ProductService {
         try {
             var product = productRepository.findById(id);
             if (product.isEmpty()) {
-                throw new CustomException("Product Not Found", HttpStatus.NOT_FOUND);
+                throw new CustomException(ERRORMSG, HttpStatus.NOT_FOUND);
             }
             ProductEntity productEntity = product.get();
             productEntity.setProductName(registerRequestDto.getProductName());
@@ -95,7 +96,7 @@ public class ProductServiceImpl implements ProductService {
         try {
             var product = productRepository.findById(id);
             if (product.isEmpty()) {
-                throw new CustomException("Product Not Found", HttpStatus.NOT_FOUND);
+                throw new CustomException(ERRORMSG, HttpStatus.NOT_FOUND);
             }
             this.productRepository.deleteById(id);
         } catch (CustomException e) {
@@ -107,14 +108,14 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductProjectionDTO> projection() {
         List<ProductProjection> productProjections = this.productRepository.getRequiredAttributes();
         if (productProjections.isEmpty()) {
-            throw new CustomException("Not Found", HttpStatus.NOT_FOUND);
+            throw new CustomException(ERRORMSG, HttpStatus.NOT_FOUND);
         }
         List<ProductProjectionDTO> projectionDTOS = new ArrayList<>();
         for (ProductProjection productProjection : productProjections) {
             projectionDTOS.add(new ProductProjectionDTO(
                     productProjection.getId(),
                     productProjection.getProductName(),
-                    productProjection.getProduct_price()
+                    productProjection.getProductPrice()
             ));
         }
         return projectionDTOS;

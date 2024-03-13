@@ -7,6 +7,6 @@ public interface ProductProjection {
     Long getId();
     @Value("#{target.product_name}")
     String getProductName();
-//    @Value("#{target.product_price}"
-    Double getProduct_price();
+    @Value("#{target.product_price}")
+    Double getProductPrice();
 }

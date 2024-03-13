@@ -15,6 +15,7 @@ public class ProjectionSpringDataJpaApplication {
     @Bean
     public ModelMapper modelMapper(){
         return new ModelMapper();
+
     }
 
 }

@@ -1,6 +1,7 @@
 package com.springboot.exceltodb.service;
 
 import com.springboot.exceltodb.entity.ExcelEntity;
+import com.springboot.exceltodb.filter.DataFilter;
 import com.springboot.exceltodb.filter.ExcelFilter;
 import com.springboot.exceltodb.repository.ExcelRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,8 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
+
+import static com.springboot.exceltodb.filter.CheckData.validateEntity;
+
 
 @Service
 @RequiredArgsConstructor
@@ -32,25 +37,14 @@ public class ExcelService {
         }
     }
 
-    private void validateEntity(ExcelEntity excelEntity) {
-        if (excelEntity.getFirstName() == null || excelEntity.getFirstName().isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be empty for entity: " + excelEntity.getId());
-        }
-        if (excelEntity.getAge() == 0) {
-            throw new IllegalArgumentException("Name cannot be empty for entity: " + excelEntity.getId());
-        }
-        if (excelEntity.getLastName() == null || excelEntity.getLastName().isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be empty for entity: " + excelEntity.getId());
-        }
-        if (excelEntity.getCountry() == null || excelEntity.getCountry().isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be empty for entity: " + excelEntity.getId());
-        }
-        if (excelEntity.getGender() == null || excelEntity.getGender().isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be empty for entity: " + excelEntity.getId());
-        }
-    }
 
     public List<ExcelEntity> getAllExcelData() {
         return this.excelRepository.findAll();
+    }
+
+    public ByteArrayInputStream downloadExcel() throws IOException {
+        List<ExcelEntity> all = excelRepository.findAll();
+        ByteArrayInputStream byteArrayInputStream = DataFilter.dataToExcel(all);
+        return byteArrayInputStream;
     }
 }
