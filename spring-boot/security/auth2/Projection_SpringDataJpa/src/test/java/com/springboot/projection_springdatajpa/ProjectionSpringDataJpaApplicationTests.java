@@ -1,11 +1,11 @@
-package com.springmvc.unittestcase;
+package com.springboot.projection_springdatajpa;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class UnitTestCaseApplicationTests {
+class ProjectionSpringDataJpaApplicationTests {
 
     @Test
     void contextLoads() {

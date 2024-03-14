@@ -36,7 +36,7 @@ public class PatientController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ModelApiResponse> deletePatient(@PathVariable (value = "id") Long id){
+    public ResponseEntity<ModelApiResponse> deletePatient(@PathVariable(value = "id") Long id) {
         return this.patientService.deletePatient(id);
     }
 

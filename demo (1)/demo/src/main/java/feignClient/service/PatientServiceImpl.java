@@ -18,35 +18,35 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public ResponseEntity<ModelApiResponse> getAllPatients() {
         ResponseEntity<ModelApiResponse> allPatients = this.feignClientService.getAllPatients();
-        System.out.println("Body::::::::::::::::::::::::::::::::::::::::::::::::::"+allPatients.getBody().getData());
+        System.out.println("Body::::::::::::::::::::::::::::::::::::::::::::::::::" + allPatients.getBody().getData());
         return allPatients;
     }
 
     @Override
     public ResponseEntity<ModelApiResponse> addPatient(RegisterRequestDTO registerRequestDTO) {
         ResponseEntity<ModelApiResponse> modelApiResponseResponseEntity = this.feignClientService.registerPatient(registerRequestDTO);
-        log.info("Patient Added :::::::::::::::::::::::::::::::::::::"+modelApiResponseResponseEntity);
+        log.info("Patient Added :::::::::::::::::::::::::::::::::::::" + modelApiResponseResponseEntity);
         return modelApiResponseResponseEntity;
     }
 
     @Override
     public ResponseEntity<ModelApiResponse> findPatientById(Long id) {
         ResponseEntity<ModelApiResponse> patientById = this.feignClientService.getPatientById(id);
-        log.info("Patient Found By ID:::::::::::::::::::::::::::::::::::::::::::::::::::::::"+patientById.getBody());
+        log.info("Patient Found By ID:::::::::::::::::::::::::::::::::::::::::::::::::::::::" + patientById.getBody().getData());
         return patientById;
     }
 
     @Override
     public ResponseEntity<ModelApiResponse> updatePatient(Long id, RegisterRequestDTO registerRequestDTO) {
         ResponseEntity<ModelApiResponse> modelApiResponseResponseEntity = this.feignClientService.updatePatient(id, registerRequestDTO);
-        log.info("Update patient Successfully::::::::::::::::::::::::::::::::::"+modelApiResponseResponseEntity.getBody());
+        log.info("Update patient Successfully::::::::::::::::::::::::::::::::::" + modelApiResponseResponseEntity.getBody());
         return modelApiResponseResponseEntity;
     }
 
     @Override
     public ResponseEntity<ModelApiResponse> deletePatient(Long id) {
         ResponseEntity<ModelApiResponse> deletePatient = this.feignClientService.deletePatient(id);
-        log.info("Patient Deleted successfully:::::::::::::::::::::::::::::::::"+deletePatient.getBody());
+        log.info("Patient Deleted successfully:::::::::::::::::::::::::::::::::" + deletePatient.getBody());
         return deletePatient;
     }
 }

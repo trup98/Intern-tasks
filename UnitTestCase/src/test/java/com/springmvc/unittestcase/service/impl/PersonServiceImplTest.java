@@ -47,7 +47,7 @@ class PersonServiceImplTest {
     @Test
     void search() {
 //        Request
-        List<PersonEntity> mockList = new ArrayList<PersonEntity>();
+        List<PersonEntity> mockList = new ArrayList<>();
 //        Mock
         mockList.add(new PersonEntity(1L, "scsdc", "scsdc"));
 //        Mocking

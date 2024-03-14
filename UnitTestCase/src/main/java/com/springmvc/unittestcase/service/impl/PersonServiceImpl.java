@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -36,12 +36,13 @@ public class PersonServiceImpl implements PersonService {
     public void deletePerson(Long deleteId) {
         PersonEntity personEntity = personRepository.findById(deleteId).orElseThrow(() -> new RuntimeException("Cannot Find Data"));
         this.personRepository.delete(personEntity);
-//        if (personRepository.findById(deleteId).isPresent()) {
-//            this.personRepository.deleteById(deleteId);
-//        } else {
-//            throw new PersonException("Cannot Delete Person No Person Found");
-//        }
-
+        /*
+          if (personRepository.findById(deleteId).isPresent()) {
+                      this.personRepository.deleteById(deleteId);
+                  } else {
+                      throw new PersonException("Cannot Delete Person No Person Found");
+                  }
+         */
     }
 
     @Override
@@ -53,4 +54,5 @@ public class PersonServiceImpl implements PersonService {
         return this.personRepository.save(entity);
 
     }
+
 }

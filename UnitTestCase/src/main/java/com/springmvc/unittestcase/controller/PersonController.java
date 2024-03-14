@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -36,7 +36,7 @@ public class PersonController {
     }
 
     @PutMapping("/update/{updateId}")
-    public PersonEntity updatePerson(@Valid @PathVariable Long updateId, @RequestBody PersonEntity PersonEntity) {
-        return this.personService.updatePersonById(updateId, PersonEntity);
+    public PersonEntity updatePerson(@Valid @PathVariable Long updateId, @RequestBody PersonEntity personEntity) {
+        return this.personService.updatePersonById(updateId, personEntity);
     }
 }
