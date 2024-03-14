@@ -1,14 +1,15 @@
 package com.springbatch.config;
 
 import com.springbatch.entity.CustomerEntity;
-import com.springbatch.repository.CustomerRepository;
+import com.springbatch.partition.ThreadPartitioner;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.item.data.RepositoryItemWriter;
+import org.springframework.batch.core.partition.PartitionHandler;
+import org.springframework.batch.core.partition.support.TaskExecutorPartitionHandler;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.LineMapper;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
@@ -17,8 +18,8 @@ import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 @Configuration
 @EnableBatchProcessing
@@ -27,7 +28,7 @@ public class SpringBatchConfig {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
-    private final CustomerRepository customerRepository;
+    private final CustomerWriter customerWriter;
 
     //  to read the information(data) from the source(customer.csv);
     @Bean
@@ -66,35 +67,46 @@ public class SpringBatchConfig {
         return new CustomerProcessor();
     }
 
+
     @Bean
-    public RepositoryItemWriter<CustomerEntity> writer() {
-        RepositoryItemWriter<CustomerEntity> writer = new RepositoryItemWriter<>();
-        writer.setRepository(customerRepository);
-        writer.setMethodName("save");
-        return writer;
+    public ThreadPartitioner partitioner() {
+        return new ThreadPartitioner();
     }
 
     @Bean
-    public Step step1() {
-        return stepBuilderFactory.get("batch-step").<CustomerEntity, CustomerEntity>chunk(10)
-                .reader(reader())
-                .processor(processor())
-                .writer(writer())
-                .taskExecutor(taskExecutor())
-                .build();
+    public PartitionHandler partitionHandler() {
+        TaskExecutorPartitionHandler taskExecutorPartitionHandler = new TaskExecutorPartitionHandler();
+//      this will part csv file into 500 and 500
+        taskExecutorPartitionHandler.setGridSize(2);
+        taskExecutorPartitionHandler.setTaskExecutor(taskExecutor());
+        taskExecutorPartitionHandler.setStep(salveStep());
+        return taskExecutorPartitionHandler;
+    }
+
+    @Bean
+    public Step salveStep() {
+        return stepBuilderFactory.get("salveStep").<CustomerEntity, CustomerEntity>chunk(500).reader(reader()).processor(processor()).writer(customerWriter).build();
+    }
+
+    @Bean
+    public Step masterStep() {
+        return stepBuilderFactory.get("masterStep").
+                partitioner(salveStep().getName(), partitioner()).
+                partitionHandler(partitionHandler()).
+                build();
     }
 
     @Bean
     public Job job() {
-        return jobBuilderFactory.get("importCustomer")
-                .flow(step1())
-                .end().build();
+        return jobBuilderFactory.get("importCustomer").flow(masterStep()).end().build();
     }
 
     @Bean
     public TaskExecutor taskExecutor() {
-        SimpleAsyncTaskExecutor simpleAsyncTaskExecutor = new SimpleAsyncTaskExecutor();
-        simpleAsyncTaskExecutor.setConcurrencyLimit(10);
-        return simpleAsyncTaskExecutor;
+        ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
+        threadPoolTaskExecutor.setMaxPoolSize(4);
+        threadPoolTaskExecutor.setCorePoolSize(4);
+        threadPoolTaskExecutor.setQueueCapacity(4);
+        return threadPoolTaskExecutor;
     }
 }
