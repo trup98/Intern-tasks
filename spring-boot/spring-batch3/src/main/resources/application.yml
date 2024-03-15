@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/spring-batch3?createDatabaseIfNotExist=true&useSSL=false
+    username: root
+    password: root@root
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    show_sql: true
+  batch:
+    job:
+      enabled: false
+    jdbc:
+      initialize-schema: always
+

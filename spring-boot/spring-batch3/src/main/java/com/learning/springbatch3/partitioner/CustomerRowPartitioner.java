@@ -1,17 +1,20 @@
-package com.springbatch.partition;
+package com.learning.springbatch3.partitioner;
+
 
 import org.springframework.batch.core.partition.support.Partitioner;
 import org.springframework.batch.item.ExecutionContext;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ThreadPartitioner implements Partitioner {
+@Component
+public class CustomerRowPartitioner implements Partitioner {
     @Override
     public Map<String, ExecutionContext> partition(int gridSize) {
         int min = 1;
-        int max = 1000;
-        int targetSize = (max - min) / gridSize + 1;//500
+        int max = 5000;
+        int targetSize = (max - min) / gridSize + 1;
         System.out.println("targetSize : " + targetSize);
         Map<String, ExecutionContext> result = new HashMap<>();
 

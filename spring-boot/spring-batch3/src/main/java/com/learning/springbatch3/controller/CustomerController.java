@@ -1,4 +1,4 @@
-package com.springbatch.controller;
+package com.learning.springbatch3.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -14,18 +14,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("spring-batch")
 @RequiredArgsConstructor
+@RequestMapping("/spring-batch")
 public class CustomerController {
 
     private final JobLauncher jobLauncher;
     private final Job job;
 
     @PostMapping("/dump-data")
-    public void importCsvToDb() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+    public void exportCsvToDb() {
         JobParameters jobParameters = new JobParametersBuilder()
-                .addLong("statAt", System.currentTimeMillis()).toJobParameters();
-        jobLauncher.run(job, jobParameters);
+                .addLong("startAt", System.currentTimeMillis()).toJobParameters();
 
+        try {
+            jobLauncher.run(job, jobParameters);
+        } catch (JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException |
+                 JobParametersInvalidException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
