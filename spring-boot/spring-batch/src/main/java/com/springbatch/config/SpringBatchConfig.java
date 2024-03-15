@@ -42,6 +42,7 @@ public class SpringBatchConfig {
         return fileItemReader;
     }
 
+    //    Configures a LineMapper to map each line of the CSV file to a CustomerEntity object.
     private LineMapper<CustomerEntity> lineMapper() {
         DefaultLineMapper<CustomerEntity> lineMapper = new DefaultLineMapper<>();
 
@@ -68,6 +69,7 @@ public class SpringBatchConfig {
     }
 
 
+    //    partitioning the input data.
     @Bean
     public ThreadPartitioner partitioner() {
         return new ThreadPartitioner();
@@ -76,13 +78,14 @@ public class SpringBatchConfig {
     @Bean
     public PartitionHandler partitionHandler() {
         TaskExecutorPartitionHandler taskExecutorPartitionHandler = new TaskExecutorPartitionHandler();
-//      this will part csv file into 500 and 500
+//       input data will be split into two partitions.
         taskExecutorPartitionHandler.setGridSize(2);
         taskExecutorPartitionHandler.setTaskExecutor(taskExecutor());
         taskExecutorPartitionHandler.setStep(salveStep());
         return taskExecutorPartitionHandler;
     }
 
+    //    Uses the reader, processor, and writer defined earlier.
     @Bean
     public Step salveStep() {
         return stepBuilderFactory.get("salveStep").<CustomerEntity, CustomerEntity>chunk(500).reader(reader()).processor(processor()).writer(customerWriter).build();
@@ -101,6 +104,7 @@ public class SpringBatchConfig {
         return jobBuilderFactory.get("importCustomer").flow(masterStep()).end().build();
     }
 
+    //    to handle multithreading
     @Bean
     public TaskExecutor taskExecutor() {
         ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
@@ -109,4 +113,5 @@ public class SpringBatchConfig {
         threadPoolTaskExecutor.setQueueCapacity(4);
         return threadPoolTaskExecutor;
     }
+
 }

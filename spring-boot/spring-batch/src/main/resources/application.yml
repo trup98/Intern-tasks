@@ -17,3 +17,6 @@ spring:
       initialize-schema: always
     job:
       enabled: false
+
+# job.enabled will not start the batch processing, batch will start after hitting the endpoint
+# jdbc.initialize-schema = it will create other tables in database to store the states
