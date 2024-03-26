@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>form Validation</title>
+    <script defer src="js/formvalidation.js"></script>
+  </head>
+  <body>
+    <div id="error"></div>
+
+      <form id="form" onsubmit="return validation()" action="game.html">
+
+        <label>User Name:</label>
+        <input id="user-name" type="text" placeholder="User Name" required/><br /><br />
+        <label>Password:</label>
+        <input id="password" type="password" placeholder="password" required /><br /><br />
+        <button type="submit">Submit</button>
+    
+      </form>
+    
+
+    
+  </body>
+</html>
