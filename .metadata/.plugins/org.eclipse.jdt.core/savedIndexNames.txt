@@ -1,0 +1,2 @@
+INDEX VERSION 1.131+/home/dev1068/Trup/trup@softvan.in/Intern-tasks/.metadata/.plugins/org.eclipse.jdt.core
+1865797976.index

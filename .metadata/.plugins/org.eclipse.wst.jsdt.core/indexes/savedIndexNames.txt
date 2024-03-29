@@ -1,0 +1,8 @@
+INDEX VERSION 1.4+/home/dev1068/Trup/trup@softvan.in/Intern-tasks/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+1484932288.index
+2945072770.index
+2519783286.index
+1253300109.index
+3350584549.index
+3027375412.index
+1381782876.index
