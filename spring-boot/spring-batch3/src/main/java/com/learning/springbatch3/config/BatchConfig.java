@@ -2,7 +2,6 @@ package com.learning.springbatch3.config;
 
 import com.learning.springbatch3.entity.CustomerEntity;
 import com.learning.springbatch3.partitioner.CustomerRowPartitioner;
-import com.learning.springbatch3.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -18,7 +17,6 @@ import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -73,13 +71,7 @@ public class BatchConfig {
 
     @Bean
     public Step childStep(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager) {
-        return new StepBuilder("step1", jobRepository)
-                .<CustomerEntity, CustomerEntity>chunk(1000, platformTransactionManager)
-                .reader(fileItemReader())
-                .processor(processor())
-                .writer(customerWriter)
-                .taskExecutor(taskExecutor())
-                .build();
+        return new StepBuilder("step1", jobRepository).<CustomerEntity, CustomerEntity>chunk(1000, platformTransactionManager).reader(fileItemReader()).processor(processor()).writer(customerWriter).taskExecutor(taskExecutor()).build();
     }
 
     @Bean
@@ -93,9 +85,7 @@ public class BatchConfig {
 
     @Bean
     public Job job(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager) {
-        return new JobBuilder("dumping-csv", jobRepository)
-                .flow(childStep(jobRepository, platformTransactionManager))
-                .end().build();
+        return new JobBuilder("dumping-csv", jobRepository).flow(childStep(jobRepository, platformTransactionManager)).end().build();
     }
 
     @Bean
@@ -110,9 +100,6 @@ public class BatchConfig {
 
     @Bean
     public Step parentStep(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager) {
-        return new StepBuilder("parentStep", jobRepository)
-                .partitioner("childStep", partitioner())
-                .partitionHandler(partitionHandler(jobRepository, platformTransactionManager))
-                .build();
+        return new StepBuilder("parentStep", jobRepository).partitioner("childStep", partitioner()).partitionHandler(partitionHandler(jobRepository, platformTransactionManager)).build();
     }
 }
