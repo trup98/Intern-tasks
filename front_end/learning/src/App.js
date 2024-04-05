@@ -1,20 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
-import {useState} from "react";
+import Greet from "./component/Greet";
+import Welcome from "./component/Welcome";
+import UserGreeting from "./component/UserGreeting";
+import NameList from "./component/NameList";
+
 
 function App() {
-  const [name, setName] = useState("Hola");
-
-  const changeName =
-  () => {
-    setName("Hi")
-    console.log("State change")
-  }
 
   return (
     <div className="App">
-      <h2>{name}</h2>
-      <button onClick={()=>changeName()}>Click Here</button>
+      {/*<Welcome name="Zoya"/>*/}
+      {/*<Greet name="Nick">*/}
+      {/*  <p>Example to show the inner html tag we can object. {<br/>} this is children prop without self closing the tag*/}
+      {/*    .{<br/>} we can do it though props.children tag in children component*/}
+      {/*  </p>*/}
+      {/*</Greet>*/}
+      {/*<Greet name="Soul"/>*/}
+      {/*<Greet name="Kaya"/>*/}
+      {/*<UserGreeting/>*/}
+      <NameList/>
     </div>
   );
 }
