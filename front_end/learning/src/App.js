@@ -10,6 +10,7 @@ import incrementCounter from "./component/IncrementCounter";
 import RefDemo from "./component/RefDemo";
 import Hoc, {HOCRED} from "./component/Hoc";
 import React from "react";
+import ReducerHook from "./component/ReducerHook";
 
 
 function App() {
@@ -37,8 +38,9 @@ function App() {
       {/*)}*/}
       {/*/>*/}
       {/*<RefDemo/>*/}
-      <h1>HOC</h1>
+      {/*<h1>HOC</h1>*/}
       {/*<HOCRED cmp={Hoc}/>*/}
+      <ReducerHook/>
     </div>
   );
 }
