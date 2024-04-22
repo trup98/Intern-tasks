@@ -12,7 +12,7 @@ public class OauthConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http 
+		http
 				.antMatcher("/**")
 				.authorizeRequests()
 				.antMatchers("/","/login**")
@@ -20,8 +20,5 @@ public class OauthConfig extends WebSecurityConfigurerAdapter {
 				.anyRequest()
 				.authenticated();
 	}
-	
-	
-	
 
 }

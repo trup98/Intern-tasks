@@ -22,21 +22,21 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		super.addViewControllers(registry);
-		
+
 		registry.addViewController("/")
 					.setViewName("forward:/index");
-		
+
 		registry.addViewController("/index");
 		registry.addViewController("/secure");
 	}
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		
+
 		registry.addResourceHandler("/resources/**")
         		.addResourceLocations("/resources/");
 	}
-	
+
 	@Bean
     public RequestContextListener requestContextListener() {
         return new RequestContextListener();
@@ -46,8 +46,5 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
     }
-	
-	
-	
 
 }
