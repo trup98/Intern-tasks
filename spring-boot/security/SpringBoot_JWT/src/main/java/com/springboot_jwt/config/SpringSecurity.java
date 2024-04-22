@@ -24,58 +24,58 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 @EnableMethodSecurity
 public class SpringSecurity {
-    private final AuthenticationConfiguration authConfiguration;
-    private final CrossOriginFilter crossOriginFilter;
-    private final JwtFilter jwtFilter;
+  private final AuthenticationConfiguration authConfiguration;
+  private final CrossOriginFilter crossOriginFilter;
+  private final JwtFilter jwtFilter;
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new CustomUserDetailService();
-    }
+  @Bean
+  public UserDetailsService userDetailsService() {
+    return new CustomUserDetailService();
+  }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.cors().configurationSource(crossOriginFilter.corsConfigurationSource());
-        return http.
-                csrf().disable().
-                authorizeHttpRequests()
-                .antMatchers(AUTH_WHITELIST)
-                .permitAll().
-                and().
-                sessionManagement().
-                sessionCreationPolicy(SessionCreationPolicy.STATELESS).
-                and().
-                authenticationProvider(authenticationProvider()).
-                addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class).
-                build();
-    }
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http.cors().configurationSource(crossOriginFilter.corsConfigurationSource());
+    return http.
+      csrf().disable().
+      authorizeHttpRequests()
+      .antMatchers(AUTH_WHITELIST)
+      .permitAll().
+      and().
+      sessionManagement().
+      sessionCreationPolicy(SessionCreationPolicy.STATELESS).
+      and().
+      authenticationProvider(authenticationProvider()).
+      addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class).
+      build();
+  }
 
-    @Bean
-    public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setUserDetailsService(userDetailsService());
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        return daoAuthenticationProvider;
-    }
+  @Bean
+  public AuthenticationProvider authenticationProvider() {
+    DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+    daoAuthenticationProvider.setUserDetailsService(userDetailsService());
+    daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+    return daoAuthenticationProvider;
+  }
 
-    @Bean
-    public AuthenticationManager authenticationManager() throws Exception {
-        return authConfiguration.getAuthenticationManager();
-    }
+  @Bean
+  public AuthenticationManager authenticationManager() throws Exception {
+    return authConfiguration.getAuthenticationManager();
+  }
 
-    private static final String[] AUTH_WHITELIST = {
-            // -- Swagger UI v3 (OpenAPI)
-            "/v3/api-docs/**",
-            "/swagger-ui/**",
-            "/user/add",
-            "/user/authenticate",
-            "/user/refreshToken"
-            // other public endpoints of your API may be appended to this array
-    };
+  private static final String[] AUTH_WHITELIST = {
+    // -- Swagger UI v3 (OpenAPI)
+    "/v3/api-docs/**",
+    "/swagger-ui/**",
+    "/user/add",
+    "/user/authenticate",
+    "/user/refreshToken"
+    // other public endpoints of your API may be appended to this array
+  };
 
 }

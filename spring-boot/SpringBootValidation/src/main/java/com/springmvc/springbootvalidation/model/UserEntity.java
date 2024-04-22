@@ -17,7 +17,6 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @NotBlank(message = "First Name Can't be Empty Or Null")
     private String firstName;
 
@@ -30,7 +29,7 @@ public class UserEntity {
 
     @NotBlank(message = "Password Must Be Required")
     @Size(min = 6, message = "Password Must Be 6")
-//    @Pattern(regexp = "^((?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])){4,12}$",
-//            message = "password must contain at least 1 uppercase, 1 lowercase, 1 special character and 1 digit ")
+    @Pattern(regexp = "^((?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])){4,12}$",
+            message = "password must contain at least 1 uppercase, 1 lowercase, 1 special character and 1 digit ")
     private String password;
 }

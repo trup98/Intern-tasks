@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFoundException("Database Is Empty !!");
         }
         else {
-            return this.userRepository.findAll();    
+            return this.userRepository.findAll();
         }
     }
 
