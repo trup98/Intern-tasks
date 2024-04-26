@@ -19,17 +19,21 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
   @Query(nativeQuery = true,
     value = "SELECT um.`first_ name` as firstName, um.id AS id, um.`last_name` AS lastName, um.gender AS gender, " +
-      "um.email AS email, um.user_name AS userName, um.dob AS dob, " +
-      "GROUP_CONCAT(hm.name ORDER BY hm.name SEPARATOR ',') AS hobbyNames " +
-      "FROM user_master um " +
-      "JOIN user_hobby_mapping uhm ON um.id = uhm.user_id " +
-      "JOIN hobby_master hm ON uhm.hobby_id = hm.id " +
-      "WHERE um.id " +
-      "AND um.user_name LIKE CONCAT('%', :searchKey, '%') " +
-      "OR um.last_name LIKE CONCAT('%', :searchKey, '%')  " +
-      "OR um.email LIKE CONCAT('%', :searchKey, '%')  " +
-      "GROUP BY um.id ")
+            "um.email AS email, um.user_name AS userName, um.dob AS dob, " +
+            "um.is_active as status, " +
+            "GROUP_CONCAT(hm.name ORDER BY hm.name SEPARATOR ',') AS hobbyNames " +
+            "FROM user_master um " +
+            "JOIN user_hobby_mapping uhm ON um.id = uhm.user_id " +
+            "JOIN hobby_master hm ON uhm.hobby_id = hm.id " +
+            "WHERE um.is_active = FALSE " +
+            "AND (um.user_name LIKE CONCAT('%', :searchKey, '%') " +
+            "OR um.last_name LIKE CONCAT('%', :searchKey, '%')  " +
+            "OR um.email LIKE CONCAT('%', :searchKey, '%'))  " +
+            "GROUP BY um.id ")
   Page<GetAllUserProjection> getAllUser(Pageable pageable, @Param("searchKey") String searchKey);
 
+
+  @Query("SELECT um from UserEntity um WHERE um.id=: userID and um.isActive = false ")
+  Optional<UserEntity> findByIdAndIsActive(@Param("userID") Long id);
 
 }

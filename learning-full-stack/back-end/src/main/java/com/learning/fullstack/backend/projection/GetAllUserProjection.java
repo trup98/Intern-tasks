@@ -20,4 +20,7 @@ public interface GetAllUserProjection {
   String getHobbyNames();
 
   Date getDob();
+
+  boolean getStatus();
+
 }
