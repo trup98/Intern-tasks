@@ -3,6 +3,9 @@ package com.learning.fullstack.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -24,15 +27,12 @@ public abstract class Auditable {
   @Column(name = "last_modified_date")
   private Date lastModifiedDate;
 
-  //  this will define a column data type will be boolean and have a default value as a true
-  @Column(name = "is_active", nullable = false, columnDefinition = "boolean default true")
-//  this will allow a null value in database;
-//  @Basic(optional = true)
-//  this can be used for setting a default value;
-//  @ColumnDefault("true")
-  private boolean isActive;
+  @Column(name = "is_active", nullable = false)
+  @ColumnDefault("true")
+  private boolean isActive = Boolean.TRUE;
 
-  @Column(name = "is_deleted", nullable = false, columnDefinition = "boolean default false")
-  private boolean isDeleted;
+  @Column(name = "is_deleted", nullable = false)
+  @ColumnDefault("false")
+  private boolean isDeleted = Boolean.FALSE;
 
 }

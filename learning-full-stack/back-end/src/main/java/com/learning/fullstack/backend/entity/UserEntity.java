@@ -3,6 +3,7 @@ package com.learning.fullstack.backend.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -15,11 +16,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 @ToString
+@DynamicInsert
 public class UserEntity extends Auditable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-    @Column(name = "user_name")
+  @Column(name = "user_name")
   private String userName;
   @Column(name = "first_ name")
   private String firstName;

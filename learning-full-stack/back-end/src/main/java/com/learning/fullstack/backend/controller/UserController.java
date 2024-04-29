@@ -20,6 +20,7 @@ import java.util.HashSet;
 @RequestMapping("/api/user")
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin("http://localhost:3000")
 public class UserController {
 
   private final UserService userService;
@@ -35,7 +36,7 @@ public class UserController {
   @GetMapping(value = "/find")
   public ResponseEntity<ApiResponse> findUser(@RequestParam(value = "pageNo", defaultValue = "0", required = false) Integer pageNo,
                                               @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
-                                              @RequestParam(value = "sortBy", defaultValue = "id", required = false) GetSortBy getSortBy,
+                                              @RequestParam(value = "sortBy", defaultValue = "ID", required = false) GetSortBy getSortBy,
                                               @RequestParam(value = "sortOrder", defaultValue = "ASC", required = false) Sort.Direction sortOrder,
                                               @RequestParam(value = "searchKey", defaultValue = "", required = false) String searchKey) {
     Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortOrder, getSortBy.getValue()));
@@ -55,5 +56,17 @@ public class UserController {
     this.userService.updateUser(id, userRequestDTO);
     return new ResponseEntity<>(new ApiResponse(HttpStatus.OK, "User Updated!", new HashSet<>()), HttpStatus.OK);
 
+  }
+
+  @DeleteMapping(value = "/delete/{id}")
+  public ResponseEntity<ApiResponse> deleteUser(@PathVariable Long id) {
+    this.userService.deleteUser(id);
+    return new ResponseEntity<>(new ApiResponse(HttpStatus.OK, "User Deleted!", new HashSet<>()), HttpStatus.OK);
+  }
+
+  @PatchMapping("/changeStatus/{id}/{status}")
+  public ResponseEntity<ApiResponse> changeStatus(@PathVariable Long id, @PathVariable Boolean status) {
+    this.userService.changeStatus(id, status);
+    return new ResponseEntity<>(new ApiResponse(HttpStatus.OK, "Status Changed!", new HashSet<>()), HttpStatus.OK);
   }
 }
