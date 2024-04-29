@@ -25,15 +25,15 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
             "FROM user_master um " +
             "JOIN user_hobby_mapping uhm ON um.id = uhm.user_id " +
             "JOIN hobby_master hm ON uhm.hobby_id = hm.id " +
-            "WHERE um.is_active = FALSE " +
-            "AND (um.user_name LIKE CONCAT('%', :searchKey, '%') " +
+
+            "WHERE (um.user_name LIKE CONCAT('%', :searchKey, '%') " +
             "OR um.last_name LIKE CONCAT('%', :searchKey, '%')  " +
             "OR um.email LIKE CONCAT('%', :searchKey, '%'))  " +
             "GROUP BY um.id ")
   Page<GetAllUserProjection> getAllUser(Pageable pageable, @Param("searchKey") String searchKey);
 
 
-  @Query("SELECT um from UserEntity um WHERE um.id=: userID and um.isActive = false ")
+  @Query("SELECT um from UserEntity um WHERE um.id= :userID and um.isActive = TRUE ")
   Optional<UserEntity> findByIdAndIsActive(@Param("userID") Long id);
 
 }

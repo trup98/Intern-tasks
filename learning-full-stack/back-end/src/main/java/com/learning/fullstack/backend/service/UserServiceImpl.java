@@ -86,6 +86,7 @@ public class UserServiceImpl implements UserService {
     try {
       Page<GetAllUserProjection> getAllUserProjections = this.userRepository.getAllUser(pageable, searchKey);
       if (getAllUserProjections.isEmpty()) {
+        log.info("Exception Catch:::::::::::::::::::::::");
         throw new CustomException("Users NOT Found", HttpStatus.NOT_FOUND);
       }
       return getAllUserProjections;
@@ -197,7 +198,7 @@ public class UserServiceImpl implements UserService {
         throw new CustomException("User Not Found By ID: " + id, HttpStatus.NOT_FOUND);
       }
       UserEntity user = optionalUser.get();
-      user.setActive(true);
+      user.setActive(false);
 
     } catch (CustomException e) {
       throw new CustomException(e.getMessage(), e.getHttpStatus());
@@ -205,6 +206,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  @Transactional(rollbackFor = Exception.class)
   public void changeStatus(Long id, Boolean status) {
     try {
       Optional<UserEntity> optionalUser = this.userRepository.findById(id);
@@ -212,8 +214,17 @@ public class UserServiceImpl implements UserService {
         throw new CustomException("User Not Found: " + id, HttpStatus.NOT_FOUND);
       }
       UserEntity user = optionalUser.get();
-      user.setActive(status);
-      userRepository.save(user);
+      if (status == true) {
+        user.setActive(false);
+        System.out.println("status true ================== " + status);
+        userRepository.save(user);
+      }
+      if (status == false) {
+        user.setActive(true);
+        System.out.println("status true ================== " + status);
+        userRepository.save(user);
+      }
+
 
     } catch (CustomException e) {
       throw new CustomException(e.getMessage(), e.getHttpStatus());

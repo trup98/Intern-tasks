@@ -20,6 +20,7 @@ import java.util.HashSet;
 @RequestMapping("/api/user")
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin("http://localhost:3000")
 public class UserController {
 
   private final UserService userService;
@@ -58,14 +59,14 @@ public class UserController {
   }
 
   @DeleteMapping(value = "/delete/{id}")
-  public ResponseEntity<ApiResponse> deleteUser(@PathVariable Long id){
+  public ResponseEntity<ApiResponse> deleteUser(@PathVariable Long id) {
     this.userService.deleteUser(id);
     return new ResponseEntity<>(new ApiResponse(HttpStatus.OK, "User Deleted!", new HashSet<>()), HttpStatus.OK);
   }
 
   @PatchMapping("/changeStatus/{id}/{status}")
-  public ResponseEntity<ApiResponse> changeStatus(@PathVariable Long id,@PathVariable Boolean status){
-    this.userService.changeStatus(id,status);
+  public ResponseEntity<ApiResponse> changeStatus(@PathVariable Long id, @PathVariable Boolean status) {
+    this.userService.changeStatus(id, status);
     return new ResponseEntity<>(new ApiResponse(HttpStatus.OK, "Status Changed!", new HashSet<>()), HttpStatus.OK);
   }
 }
