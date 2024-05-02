@@ -1,57 +1,63 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import 'react-datepicker/dist/react-datepicker.css';
+import {Col, Container, Form, FormCheck, FormControl, FormGroup, Row} from "react-bootstrap";
+import DatePicker from "react-datepicker";
 import Select from "react-select";
+import {addUser} from "../service/user-service";
+import {toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function AddUser({isOpen, toggle}) {
 
-  const [user, setUser] = React.useState({
-    userName: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    gender: "",
-    address: '',
-    dob: '',
-    hoddyIdList: []
-  });
+  const [userName, setUserName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [gender, setGender] = useState('male');
+  const [address, setAddress] = useState('');
+  const [dob, setDob] = useState(null);
+  const [hobbyOptions] = useState([
+    {value: '2', label: 'Cricket'},
+    {value: '5', label: 'Gym'},
+    {value: '3', label: 'Hockey'},
+    {value: '1', label: 'Football'},
+    {value: '4', label: 'Basketball'},
+  ]);
 
-  const {userName, firstName, lastName, email, gender, address, dob, hoddyIdList} = user;
+  const [selectedHobby, setSelectedHobby] = useState([]);
 
-  const hobby = [
-    {
-      value: "2", label: "Cricket"
-    },
-    {
-      value: "3", label: "Hocky"
-    },
-    {
-      value: "4", label: "Basketball"
-    },
-    {
-      value: "5", label: "Gym"
-    },
-    {
-      value: "1", label: "Football"
-    }]
-
-
-
-  const [selectedHobby, setSelectedHobby] = React.useState([])
-
-  const handleSelectHobby = (selectHobby) =>{
-    setSelectedHobby(selectHobby)
+  const handleDateChange = (date) => {
+    setDob(date)
   }
 
-  const onInputChange = (e) => {
-    setUser({...user, [e.target.name]: e.target.value});
+  const handleHobbyChange = (selectedOption) => {
+    setSelectedHobby(selectedOption)
   }
 
-
-  const submit = ()=>{
-    console.log(selectedHobby)
+  const handleGenderChange = (e) => {
+    setGender(e.target.value);
   }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const hobbyIds = selectedHobby.map(option => option.value);
+    const userData = {
+      userName,
+      firstName,
+      lastName,
+      address,
+      email,
+      gender,
+      dob,
+      hobbyIdList: hobbyIds
+    }
+    addUser(userData);
+    toast.success('User added successfully.');
+    console.log(userData)
+  }
+
 
 
 
@@ -60,71 +66,61 @@ function AddUser({isOpen, toggle}) {
       <Modal isOpen={isOpen} toggle={toggle}>
         <ModalHeader toggle={toggle}> Add User</ModalHeader>
         <ModalBody>
-          <div className="container">
-            <div className="row align-items-center">
-              <div className="col">
-                <form>
-                  <div className="form-group">
-                    <div className="md-3">
-                      User Name : <input className="form-control mt-2" name="userName" type="text"
-                                         placeholder="Enter User name" value={userName}
-                                         onInput={(e) => onInputChange(e)}/>
+          <Container>
+            <Row>
+              <Col>
+                <Form onSubmit={handleSubmit}>
+                  <Form.Group controlId="userName">
+                    <Form.Label>User Name</Form.Label>
+                    <FormControl type="text" value={userName} onChange={e => setUserName(e.target.value)}
+                                 placeholder="Enter User Name" required/>
+                  </Form.Group>
+                  <Form.Group controlId="firstName">
+                    <Form.Label>First Name</Form.Label>
+                    <FormControl type="text" value={firstName} onChange={e => setFirstName(e.target.value)}
+                                 placeholder="Enter First Name" required/>
+                  </Form.Group>
+                  <Form.Group controlId="lastName">
+                    <Form.Label>Last Name</Form.Label>
+                    <FormControl type="text" value={lastName} onChange={e => setLastName(e.target.value)}
+                                 placeholder="Enter Last Name" required/>
+                  </Form.Group>
+                  <Form.Group controlId="email">
+                    <Form.Label>Email</Form.Label>
+                    <FormControl type="text" value={email} onChange={e => setEmail(e.target.value)}
+                                 placeholder="Enter Email Id" required/>
+                  </Form.Group>
+                  <Form.Group controlId="gender">
+                    <Form.Label>Gender</Form.Label>
+                    <div>
+                      <Form.Check inline type="radio" name="gender" label="Male" value="male"
+                                  onChange={() => setGender("male")}/>
+                      <Form.Check inline type="radio" name="gender" label="Female" value="female"
+                                  onChange={() => setGender("female")}/>
                     </div>
-                    <div className="md-3 mt-2">
-                      First Name : <input className="form-control mt-2" name="firstName" type="text"
-                                          placeholder="Enter First name" value={firstName}
-                                          onInput={(e) => onInputChange(e)}/>
-                    </div>
-                    <div className="md-3 mt-2">
-                      Last Name : <input className="form-control mt-2" name="lastName" type="text"
-                                         placeholder="Enter Last name" value={lastName}
-                                         onInput={(e) => onInputChange(e)}/>
-                    </div>
-                    <div className="md-3 mt-2">
-                      Email Address : <input className="form-control mt-2" name="email" type="text"
-                                             placeholder="Enter your Email Id " value={email}
-                                             onInput={(e) => onInputChange(e)}/>
-                    </div>
-                    <div className="md-3 mt-2">
-                      <h6>Gender</h6>
-                      <div className="form-check">
-                        <input className="form-check-input" type="radio" name="gender" value={gender}
-                               onChange={onInputChange}
-                               id="male"/>
-                        <label className="form-check-label" htmlFor="male">
-                          Male
-                        </label>
-                      </div>
-                      <div className="form-check">
-                        <input className="form-check-input" type="radio" name="gender" value={gender}
-                               onChange={onInputChange}
-                               id="female"/>
-                        <label className="form-check-label" htmlFor="female">
-                          Female
-                        </label>
-                      </div>
-                    </div>
-                    <div className="md-3 mt-2">
-                      Address : <input className="form-control mt-2" name="address" type="text"
-                                       placeholder="Enter your Address " value={address}
-                                       onInput={(e) => onInputChange(e)}/>
-                    </div>
-                    <div className="md-3 mt-2">
-                      <h6>Date of Birth</h6>
-                      <input type="date" onChange={onInputChange}/>
-                    </div>
-                    <div className="md-3 mt-2">
-                      <h6>Hobby</h6>
-                      <Select options={hobby} value={selectedHobby} onChange={handleSelectHobby} isMulti={true}/>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
+                  </Form.Group>
+                  <Form.Group controlId="address">
+                    <Form.Label>Address</Form.Label>
+                    <Form.Control type="text" value={address} onChange={(e) => setAddress(e.target.value)}
+                                  placeholder="Address"/>
+                  </Form.Group>
+                  <Form.Group controlId="dob">
+                    <Form.Label>Date of Birth</Form.Label>
+                    <DatePicker selected={dob} onChange={handleDateChange} placeholderText="Date of Birth"
+                                showYearDropdown dateFormat="yyyy-MM-dd"/>
+                  </Form.Group>
+                  <Form.Group controlId="hobbies">
+                    <Form.Label>Hobbies</Form.Label>
+                    <Select options={hobbyOptions} value={selectedHobby} onChange={handleHobbyChange} isMulti/>
+                  </Form.Group>
+
+                </Form>
+              </Col>
+            </Row>
+          </Container>
         </ModalBody>
         <ModalFooter>
-          <Button color="outline-primary" onClick={submit} >
+          <Button color="outline-primary" onClick={handleSubmit}>
             Submit
           </Button>
           <Button color="outline-secondary" onClick={toggle}>
