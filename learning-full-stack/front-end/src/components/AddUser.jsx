@@ -1,15 +1,17 @@
 import React, {useState} from 'react';
 import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import 'react-datepicker/dist/react-datepicker.css';
-import {Col, Container, Form, FormCheck, FormControl, FormGroup, Row} from "react-bootstrap";
+import {Col, Container, Form, FormControl, Row} from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import Select from "react-select";
 import {addUser} from "../service/user-service";
 import {toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import {userSchema} from "../utils/UserValidation";
 
 
 function AddUser({isOpen, toggle}) {
+
 
   const [userName, setUserName] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -26,6 +28,7 @@ function AddUser({isOpen, toggle}) {
     {value: '4', label: 'Basketball'},
   ]);
 
+
   const [selectedHobby, setSelectedHobby] = useState([]);
 
   const handleDateChange = (date) => {
@@ -36,13 +39,11 @@ function AddUser({isOpen, toggle}) {
     setSelectedHobby(selectedOption)
   }
 
-  const handleGenderChange = (e) => {
-    setGender(e.target.value);
-  }
+  const hobbyIds = selectedHobby.map(option => option.value);
 
-  const handleSubmit = (e) => {
+  const handleSubmitUser = async (e) => {
     e.preventDefault();
-    const hobbyIds = selectedHobby.map(option => option.value);
+
     const userData = {
       userName,
       firstName,
@@ -53,23 +54,37 @@ function AddUser({isOpen, toggle}) {
       dob,
       hobbyIdList: hobbyIds
     }
-    addUser(userData);
-    toast.success('User added successfully.');
-    console.log(userData)
+
+    const isValid = await userSchema.isValid(userData);
+
+    if (isValid === false) {
+      toast.error('Add Proper Data!');
+    }
+    else {
+      addUser(userData)
+        .then(resp => {
+          if (resp.status === 200) {
+            toast.success('User added successfully.');
+            toggle()
+          }
+        })
+        .catch(error => {
+          toast.error("error found ... ",error)
+        })
+    }
+
+
   }
-
-
-
-
   return (
     <div>
+
       <Modal isOpen={isOpen} toggle={toggle}>
         <ModalHeader toggle={toggle}> Add User</ModalHeader>
         <ModalBody>
           <Container>
             <Row>
               <Col>
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmitUser}>
                   <Form.Group controlId="userName">
                     <Form.Label>User Name</Form.Label>
                     <FormControl type="text" value={userName} onChange={e => setUserName(e.target.value)}
@@ -105,9 +120,9 @@ function AddUser({isOpen, toggle}) {
                                   placeholder="Address"/>
                   </Form.Group>
                   <Form.Group controlId="dob">
-                    <Form.Label>Date of Birth</Form.Label>
-                    <DatePicker selected={dob} onChange={handleDateChange} placeholderText="Date of Birth"
-                                showYearDropdown dateFormat="yyyy-MM-dd"/>
+                    <Form.Label>Date of Birth </Form.Label>
+                    <DatePicker selected={dob} onChange={handleDateChange} placeholderText="Choose Date of Birth"
+                                showYearDropdown dateFormat="yyyy-MM-dd" yearDropdownItemNumber={10}/>
                   </Form.Group>
                   <Form.Group controlId="hobbies">
                     <Form.Label>Hobbies</Form.Label>
@@ -120,10 +135,10 @@ function AddUser({isOpen, toggle}) {
           </Container>
         </ModalBody>
         <ModalFooter>
-          <Button color="outline-primary" onClick={handleSubmit}>
+          <Button color="outline-primary" onClick={handleSubmitUser}>
             Submit
           </Button>
-          <Button color="outline-secondary" onClick={toggle}>
+          <Button color="outline-danger" onClick={toggle}>
             Cancel
           </Button>
         </ModalFooter>
