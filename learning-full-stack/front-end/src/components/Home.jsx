@@ -2,44 +2,51 @@ import React, {useEffect} from 'react'
 import {toast, ToastContainer, Zoom} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {handleToggle, loadUserService} from "../service/user-service";
+import {Pagination} from "react-bootstrap";
 
 function Home() {
 
-  const [users, setUser] = React.useState([]);
+  const [users, setUser] = React.useState({
+    data: [],
+    totalPages: 0,
+    pageNumber: 0,
+    pageSize: 10
+  });
+
   const [value, setValues] = React.useState("");
+  const [currentPage, setCurrentPage] = React.useState(0);
 
   useEffect(() => {
-      callAllUsers();
-  }, [value]);
+    callAllUsers(currentPage);
+  }, [currentPage, value]);
 
-
-  const callAllUsers = () => {
-    loadUserService(value)
+  const callAllUsers = (currentPage) => {
+    loadUserService(value, value ? 0 : currentPage, users.pageSize)
       .then(resp => {
-        console.log(resp);
-        setUser(resp.data.data.content);
+        console.log(resp.data)
+        setUser({
+          data: resp.data.data.content,
+          totalPages: resp.data.data.totalPages,
+          pageNumber: currentPage,
+          pageSize: users.pageSize
+        });
       });
-
   }
+
 
   const handleToggleFunctionality = (user) => {
     handleToggle(user.id, user.status)
       .then(resp => {
         console.log(resp);
-        callAllUsers();
+        callAllUsers(users.pageNumber);
         notifyUserStatus();
       })
-      .catch(erro => {
-        console.log(erro)
+      .catch(error => {
+        console.log(error)
       })
       .finally(resp => {
         console.log("all time print::: ");
       });
-  }
-
-  const handleReset = () =>{
-    console.log("functional calll")
-    callAllUsers()
   }
 
 
@@ -49,32 +56,36 @@ function Home() {
     transition: Zoom
   });
 
-  const notifyUserStatus = () => toast.warn("User Status Changed", {
+  const notifyUserStatus = () => toast.success("User Status Changed", {
     position: "top-right",
     autoClose: 5000,
     transition: Zoom
 
   })
 
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+
   return (
+
     <div>
       <div className="container m-3">
         <div className="container-fluid">
-          <div className="d-flex" onSubmit={callAllUsers}>
+          <div className="d-flex" onSubmit={() => callAllUsers(currentPage)}>
             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" value={value}
                    onChange={(e) => {
                      setValues(e.target.value);
-                     callAllUsers(e.target.value);
                    }}/>
             <button className="btn btn-outline-success" type="submit" onClick={notifyUserFound}>Search</button>
-            <button className="btn btn-outline-danger mx-2" type="submit"
-                    onClick={handleReset}>Reset
-            </button>
             <ToastContainer/>
           </div>
         </div>
       </div>
+
       <table className="table table-striped border">
+
         <thead>
         <tr>
           <th scope="col">id</th>
@@ -84,9 +95,10 @@ function Home() {
           <th scope="col">Status</th>
         </tr>
         </thead>
+
         <tbody>
-        {users.length > 0 ? (
-          users.map((user, id) => (
+        {users.data && users.data.length > 0 ? (
+          users.data.map((user, id) => (
             <tr key={id}>
               <th scope="row">{user.id}</th>
               <td>{user.userName}</td>
@@ -110,7 +122,23 @@ function Home() {
           </tr>
         )}
         </tbody>
+
       </table>
+
+      <div className="d-flex justify-content-center">
+        <Pagination>
+          {[...Array(users.totalPages)].map((_, index) => (
+            <Pagination.Item
+              key={index}
+              active={index === users.pageNumber}
+              onClick={() => handlePageChange(index)}
+            >
+              {index + 1}
+            </Pagination.Item>
+          ))}
+        </Pagination>
+      </div>
+
     </div>
   )
 }
