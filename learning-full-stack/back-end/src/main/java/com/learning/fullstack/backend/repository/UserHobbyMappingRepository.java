@@ -14,5 +14,4 @@ public interface UserHobbyMappingRepository extends JpaRepository<UserHobbyMappi
 
   List<UserHobbyMappingEntity> findByUserId(UserEntity id);
 
-  void deleteByUserId(UserEntity user);
 }

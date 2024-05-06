@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@Transactional(rollbackFor = Exception.class, readOnly = true)
+
 public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
@@ -154,10 +154,10 @@ public class UserServiceImpl implements UserService {
 
       // Fetch existing hobby mappings for the user
       List<UserHobbyMappingEntity> existingMappings = userHobbyMappingRepository.findByUserId(user);
+      System.out.println("existingMappings ==== " + existingMappings);
 
       // Create a set of new hobby IDs
       Set<Long> newHobbyIds = userRequestDTO.getHobbyIdList().stream().map(Long::valueOf).collect(Collectors.toSet());
-
       System.out.println("newHobbyIds ========== " + newHobbyIds);
 
       // Delete old hobby mappings not present in the new hobby IDs
@@ -194,6 +194,7 @@ public class UserServiceImpl implements UserService {
       }
       UserEntity user = optionalUser.get();
       user.setActive(false);
+      user.setDeleted(true);
 
     } catch (CustomException e) {
       throw new CustomException(e.getMessage(), e.getHttpStatus());
