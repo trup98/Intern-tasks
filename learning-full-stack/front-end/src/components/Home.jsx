@@ -3,8 +3,44 @@ import {toast, ToastContainer, Zoom} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {handleToggle, loadUserService} from "../service/user-service";
 import {Pagination} from "react-bootstrap";
+import EditIcon from '@mui/icons-material/Edit';
+import InfoIcon from '@mui/icons-material/Info';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ViewUser from "./ViewUser";
+import EditUser from "./EditUser";
+import DeleteUser from "./DeleteUser";
+
 
 function Home() {
+  const [modelOpen, setModelOpen] = React.useState(false);
+  const toggleModel = () => setModelOpen(!modelOpen);
+
+  const [selectedUser, setSelectedUser] = React.useState(null)
+  const [viewUserOpen, setViewUserOpen] = React.useState(false);
+  const [editUserOpen, setEditUserOpen] = React.useState(false);
+  const [deleteUserOpen, setDeleteUserOpen] = React.useState(false);
+
+  const handleViewUser = (users) => {
+    setSelectedUser(users)
+    setViewUserOpen(true);
+    setEditUserOpen(false); // Ensure Edit User is closed
+    toast.success("User Found successfully!",{
+      transition: Zoom
+    })
+  }
+
+  const handleUpdateUser = (users) => {
+    setSelectedUser(users)
+    setEditUserOpen(true);
+    setViewUserOpen(false);
+  }
+
+  const handleDeleteUser = (users) => {
+    setSelectedUser(users)
+    setDeleteUserOpen(true);
+    setEditUserOpen(false);
+    setViewUserOpen(false);
+  }
 
   const [users, setUser] = React.useState({
     data: [],
@@ -79,12 +115,12 @@ function Home() {
                      setValues(e.target.value);
                    }}/>
             <button className="btn btn-outline-success" type="submit" onClick={notifyUserFound}>Search</button>
-            <ToastContainer/>
+            <ToastContainer theme="colored"/>
           </div>
         </div>
       </div>
 
-      <table className="table table-striped border">
+      <table className="table table-striped border ">
 
         <thead>
         <tr>
@@ -100,7 +136,7 @@ function Home() {
         {users.data && users.data.length > 0 ? (
           users.data.map((user, id) => (
             <tr key={id}>
-              <th scope="row">{user.id}</th>
+              <th scope="row">{id+1}</th>
               <td>{user.userName}</td>
               <td>{user.email}</td>
               <td>{user.hobbyNames}</td>
@@ -113,6 +149,20 @@ function Home() {
                     onClick={() => handleToggleFunctionality(user)}
                   />
                 </div>
+              </td>
+              <td>
+                <div className="mx-2 ">
+
+                  <div className="button-wrapper mx-2 d-inline-block" onClick={() => handleUpdateUser(user)}>
+                    <EditIcon color="action"/></div>
+                  <div className="button-wrapper mx-2 d-inline-block" onClick={() => handleViewUser(user)}>
+                    <InfoIcon color="info"/>
+                  </div>
+                  <div className="button-wrapper mx-2 d-inline-block" onClick={() => handleDeleteUser(user)}>
+                    <DeleteIcon color="warning"/>
+                  </div>
+                </div>
+
               </td>
             </tr>
           ))
@@ -138,6 +188,24 @@ function Home() {
           ))}
         </Pagination>
       </div>
+
+      {
+        viewUserOpen && (
+          <ViewUser isOpen={true} toggle={() => setViewUserOpen(false)} user={selectedUser}/>
+        )
+      }
+
+
+      {
+        editUserOpen && (
+          <EditUser isOpen={true} toggle={() => setEditUserOpen(false)} user={selectedUser}/>
+        )
+      }
+      {
+        deleteUserOpen && (
+          <DeleteUser isOpen={true} toggle={() => setDeleteUserOpen(false)} user={selectedUser}/>
+        )
+      }
 
     </div>
   )

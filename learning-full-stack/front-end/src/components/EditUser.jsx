@@ -1,17 +1,15 @@
 import React, {useState} from 'react';
 import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
-import 'react-datepicker/dist/react-datepicker.css';
+import {userSchema} from "../utils/UserValidation";
+import {toast, Zoom} from "react-toastify";
+import {loadUserService, updateUser} from "../service/user-service";
 import {Col, Container, Form, FormControl, Row} from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import Select from "react-select";
-import {addUser} from "../service/user-service";
-import {toast, Zoom} from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import {userSchema} from "../utils/UserValidation";
 
-
-function AddUser({isOpen, toggle}) {
-
+function EditUser({isOpen, toggle, user}) {
+  const userId = user.id;
+  console.log("user Edit", userId);
 
   const [userName, setUserName] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -40,7 +38,6 @@ function AddUser({isOpen, toggle}) {
   }
 
   const hobbyIds = selectedHobby.map(option => option.value);
-
   const handleSubmitUser = async (e) => {
     e.preventDefault();
 
@@ -55,47 +52,50 @@ function AddUser({isOpen, toggle}) {
       hobbyIdList: hobbyIds
     }
 
+    console.log(userData)
     try {
 
 
       await userSchema.validate(userData, {abortEarly: false})
 
-      addUser(userData)
+      updateUser(userId, userData)
         .then(resp => {
           if (resp.status === 200) {
-            toast.success(resp.data.message,{
+            toast.success(resp.data.message, {
               transition: Zoom
             });
-            toggle()
+            toggle();
+
           }
         })
-        .catch(error=> {
-          toast.error(error.response.data.message,{
-            transition:Zoom
+        .catch(error => {
+          toast.error(error.response.data.message, {
+            transition: Zoom
           })
         })
 
     } catch (error) {
       if (error.inner && error.inner.length > 0) {
         error.inner.forEach(error => {
-          toast.error(`${error.message}`,{
-            transition:Zoom
+          toast.error(`${error.message}`, {
+            transition: Zoom
           });
         });
       } else {
-        toast.error('Error adding User!' + error.message,{
-          transition:Zoom
+        toast.error('Error adding User!' + error.message, {
+          transition: Zoom
         });
       }
     }
 
 
   }
+
+
   return (
     <div>
-
       <Modal isOpen={isOpen} toggle={toggle}>
-        <ModalHeader toggle={toggle}> Add User</ModalHeader>
+        <ModalHeader toggle={toggle}> Update User</ModalHeader>
         <ModalBody>
           <Container>
             <Row>
@@ -104,23 +104,22 @@ function AddUser({isOpen, toggle}) {
                   <Form.Group controlId="userName">
                     <Form.Label>User Name</Form.Label>
                     <FormControl type="text" value={userName} onChange={e => setUserName(e.target.value)}
-                                 placeholder="Enter User Name" required/>
-
+                                 placeholder={user.userName} required/>
                   </Form.Group>
                   <Form.Group controlId="firstName">
                     <Form.Label>First Name</Form.Label>
                     <FormControl type="text" value={firstName} onChange={e => setFirstName(e.target.value)}
-                                 placeholder="Enter First Name" required/>
+                                 placeholder={user.firstName} required/>
                   </Form.Group>
                   <Form.Group controlId="lastName">
                     <Form.Label>Last Name</Form.Label>
                     <FormControl type="text" value={lastName} onChange={e => setLastName(e.target.value)}
-                                 placeholder="Enter Last Name" required/>
+                                 placeholder={user.lastName} required/>
                   </Form.Group>
                   <Form.Group controlId="email">
                     <Form.Label>Email</Form.Label>
                     <FormControl type="text" value={email} onChange={e => setEmail(e.target.value)}
-                                 placeholder="Enter Email Id" required/>
+                                 placeholder={user.email} required/>
                   </Form.Group>
                   <Form.Group controlId="gender">
                     <Form.Label>Gender</Form.Label>
@@ -134,16 +133,17 @@ function AddUser({isOpen, toggle}) {
                   <Form.Group controlId="address">
                     <Form.Label>Address</Form.Label>
                     <Form.Control type="text" value={address} onChange={(e) => setAddress(e.target.value)}
-                                  placeholder="Address"/>
+                                  placeholder={user.address}/>
                   </Form.Group>
                   <Form.Group controlId="dob">
                     <Form.Label>Date of Birth </Form.Label>
-                    <DatePicker selected={dob} onChange={handleDateChange} placeholderText="Choose Date of Birth"
+                    <DatePicker selected={dob} onChange={handleDateChange} placeholderText={user.dob}
                                 showYearDropdown dateFormat="yyyy-MM-dd" yearDropdownItemNumber={10}/>
                   </Form.Group>
                   <Form.Group controlId="hobbies">
                     <Form.Label>Hobbies</Form.Label>
-                    <Select options={hobbyOptions} value={selectedHobby} onChange={handleHobbyChange} isMulti noOptionsMessage={()=>"No Hobbies Found"}/>
+                    <Select options={hobbyOptions} value={selectedHobby} onChange={handleHobbyChange} isMulti
+                            placeholder={user.hobbyNames}/>
                   </Form.Group>
 
                 </Form>
@@ -162,6 +162,7 @@ function AddUser({isOpen, toggle}) {
       </Modal>
     </div>
   );
+
 }
 
-export default AddUser;
+export default EditUser;

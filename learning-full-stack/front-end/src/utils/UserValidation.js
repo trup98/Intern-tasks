@@ -5,7 +5,7 @@ export const userSchema = Yup.object().shape({
   firstName: Yup.string().required('First name is required'),
   lastName: Yup.string().required('Last name is required'),
   email: Yup.string().required('Email is required'),
-  dob: Yup.date().required('Do date is required'),
+  dob: Yup.date().required('Date Of  Birth is required'),
   gender: Yup.string().required('Gender is required'),
   address: Yup.string().required('Address is required'),
 })
