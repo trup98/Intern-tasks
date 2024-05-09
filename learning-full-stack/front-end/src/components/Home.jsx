@@ -24,7 +24,7 @@ function Home() {
     setSelectedUser(users)
     setViewUserOpen(true);
     setEditUserOpen(false); // Ensure Edit User is closed
-    toast.success("User Found successfully!",{
+    toast.success("User Found successfully!", {
       transition: Zoom
     })
   }
@@ -136,7 +136,7 @@ function Home() {
         {users.data && users.data.length > 0 ? (
           users.data.map((user, id) => (
             <tr key={id}>
-              <th scope="row">{id+1}</th>
+              <th scope="row">{id + 1}</th>
               <td>{user.userName}</td>
               <td>{user.email}</td>
               <td>{user.hobbyNames}</td>
@@ -154,12 +154,12 @@ function Home() {
                 <div className="mx-2 ">
 
                   <div className="button-wrapper mx-2 d-inline-block" onClick={() => handleUpdateUser(user)}>
-                    <EditIcon color="action"/></div>
+                    <EditIcon/></div>
                   <div className="button-wrapper mx-2 d-inline-block" onClick={() => handleViewUser(user)}>
-                    <InfoIcon color="info"/>
+                    <InfoIcon color="action"/>
                   </div>
                   <div className="button-wrapper mx-2 d-inline-block" onClick={() => handleDeleteUser(user)}>
-                    <DeleteIcon color="warning"/>
+                    <DeleteIcon color="error"/>
                   </div>
                 </div>
 
