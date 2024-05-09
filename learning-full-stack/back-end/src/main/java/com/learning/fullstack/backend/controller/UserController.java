@@ -2,7 +2,6 @@ package com.learning.fullstack.backend.controller;
 
 import com.learning.fullstack.backend.dto.ApiResponse;
 import com.learning.fullstack.backend.dto.UserRequestDTO;
-import com.learning.fullstack.backend.dto.UserResponseDTO;
 import com.learning.fullstack.backend.enums.GetSortBy;
 import com.learning.fullstack.backend.service.UserService;
 import lombok.RequiredArgsConstructor;

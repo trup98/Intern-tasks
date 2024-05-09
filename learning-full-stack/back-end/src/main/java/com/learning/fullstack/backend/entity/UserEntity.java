@@ -33,6 +33,7 @@ public class UserEntity extends Auditable {
   private String gender;
   @Column(name = "address")
   private String address;
+
   @Column(name = "dob")
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
   @JsonFormat(pattern = "yyyy-MM-dd")
