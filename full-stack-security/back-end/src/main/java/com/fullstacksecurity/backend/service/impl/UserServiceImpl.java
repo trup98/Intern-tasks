@@ -4,12 +4,15 @@ import com.fullstacksecurity.backend.entity.RoleEntity;
 import com.fullstacksecurity.backend.entity.UserDetailsEntity;
 import com.fullstacksecurity.backend.entity.UserEntity;
 import com.fullstacksecurity.backend.entity.UserRoleMappingEntity;
+import com.fullstacksecurity.backend.enums.ExceptionEnum;
 import com.fullstacksecurity.backend.exception.CustomException;
+import com.fullstacksecurity.backend.projection.GetAllUserDetails;
 import com.fullstacksecurity.backend.repository.RoleRepository;
 import com.fullstacksecurity.backend.repository.UserDetailsRepository;
 import com.fullstacksecurity.backend.repository.UserRepository;
 import com.fullstacksecurity.backend.repository.UserRoleMappingRepository;
 import com.fullstacksecurity.backend.request.dto.RegisterUserDTO;
+import com.fullstacksecurity.backend.request.dto.UpdateUserDTO;
 import com.fullstacksecurity.backend.response.dto.UserResponseDTO;
 import com.fullstacksecurity.backend.service.UserService;
 import com.fullstacksecurity.backend.utill.Utilities;
@@ -22,8 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -42,10 +44,10 @@ public class UserServiceImpl implements UserService {
   @Transactional(rollbackFor = Exception.class)
   public void registerUser(RegisterUserDTO registerUserDTO) {
     try {
-//      checking user is already
+//      checking user is already exist
       var user = this.userRepository.findByEmail(registerUserDTO.getEmail());
       if (user.isPresent()) {
-        log.info("User Already Exist::", registerUserDTO.getEmail());
+        log.info("User Already Exist::");
         throw new CustomException("User Already Exist", HttpStatus.NOT_ACCEPTABLE);
       }
 //      fetch current user
@@ -65,19 +67,14 @@ public class UserServiceImpl implements UserService {
       UserDetailsEntity userDetailsEntity = getUserDetailsEntity(registerUserDTO, saveUserEntity, currentUser);
       this.userDetailsRepository.save(userDetailsEntity);
 
-      List<UserRoleMappingEntity> roleMappingEntityList = new ArrayList<>();
+      RoleEntity roleEntity = roleRepository.findById(registerUserDTO.getRolesId().longValue()).orElseThrow(() -> new CustomException(ExceptionEnum.ROLE_NOT_FOUND.getMessage(), HttpStatus.BAD_REQUEST));
 
-      registerUserDTO.getRoles().forEach(roleId -> {
-        RoleEntity roleEntity = this.roleRepository.findById(roleId.longValue()).orElseThrow(() -> new CustomException("Role Not Found" + roleId, HttpStatus.NOT_FOUND));
-        UserRoleMappingEntity userRoleMapping = new UserRoleMappingEntity();
-        userRoleMapping.setUserId(saveUserEntity);
-        userRoleMapping.setRoleId(roleEntity);
-        userRoleMapping.setCreatedBy(currentUser);
-        userRoleMapping.setUpdatedBy(currentUser);
-        roleMappingEntityList.add(userRoleMapping);
-      });
-      this.userRoleMappingRepository.saveAll(roleMappingEntityList);
-      log.info("User Role Mapping saved to database::::{}", roleMappingEntityList);
+      UserRoleMappingEntity userRoleMappingEntity = new UserRoleMappingEntity();
+      userRoleMappingEntity.setRoleId(roleEntity);
+      userRoleMappingEntity.setUserId(saveUserEntity);
+      userRoleMappingEntity.setCreatedBy(currentUser);
+      userRoleMappingEntity.setUpdatedBy(currentUser);
+      this.userRoleMappingRepository.save(userRoleMappingEntity);
 
     } catch (CustomException e) {
       log.info("Exception Catch at Adding User At Database in UserServiceImpl::::{}", HttpStatus.BAD_REQUEST);
@@ -86,8 +83,156 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public Page<UserResponseDTO> getAll(Pageable pageable, String searchKey) {
-    return null;
+  public Page<GetAllUserDetails> getAll(Pageable pageable, String searchKey) {
+    try {
+      return this.userRepository.findAllUserDetail(pageable, searchKey);
+    } catch (CustomException e) {
+      log.info("Exception catch in get All user Details in user service imp");
+      throw new CustomException(e.getMessage(), e.getHttpStatus());
+    }
+  }
+
+  @Override
+  public UserResponseDTO getUserById(Long id) {
+    try {
+      var optionalUser = this.userRepository.findById(id);
+
+      UserEntity currentUser = optionalUser.get();
+
+      var userDetails = this.userDetailsRepository.findById(currentUser.getId());
+
+      UserDetailsEntity currentUserDetails = userDetails.get();
+
+      UserResponseDTO userResponseDTO = getUserResponseDTO(currentUser, currentUserDetails);
+      return userResponseDTO;
+
+    } catch (CustomException e) {
+      throw new CustomException(e.getMessage(), e.getHttpStatus());
+    }
+  }
+
+  @Override
+  @Transactional(rollbackFor = Exception.class)
+  public void changeStatus(Long id, Boolean status) {
+    try {
+      var currentUser = this.userRepository.findById(id);
+      UserEntity user = currentUser.get();
+      var userDetailsEntity = this.userDetailsRepository.findById(user.getId());
+      var userRoleMappingEntity = this.userRoleMappingRepository.findById(user.getId());
+
+      UserDetailsEntity currentUserDetails = userDetailsEntity.get();
+      UserRoleMappingEntity currentUserRoleMapping = userRoleMappingEntity.get();
+
+
+      if (status) {
+        user.setActive(false);
+        currentUserDetails.setActive(false);
+        currentUserRoleMapping.setActive(false);
+        this.userRepository.save(user);
+        this.userDetailsRepository.save(currentUserDetails);
+        this.userRoleMappingRepository.save(currentUserRoleMapping);
+      }
+      if (!status) {
+        user.setActive(true);
+        currentUserDetails.setActive(true);
+        currentUserRoleMapping.setActive(true);
+        this.userRepository.save(user);
+        this.userDetailsRepository.save(currentUserDetails);
+        this.userRoleMappingRepository.save(currentUserRoleMapping);
+      }
+
+
+    } catch (CustomException e) {
+      throw new CustomException(e.getMessage(), e.getHttpStatus());
+    }
+
+  }
+
+  @Override
+  @Transactional(rollbackFor = Exception.class)
+  public void updateUser(Long id, UpdateUserDTO updateUserDTO) {
+    try {
+//      checking user is present or not
+      var user = this.userRepository.findById(id);
+      if (user.isEmpty()) {
+        throw new CustomException(ExceptionEnum.USER_NOT_FOUND.getMessage(), HttpStatus.NOT_FOUND);
+      }
+//      fetch current user
+      UserEntity currentUser = utilities.currentUser();
+
+      UserEntity entity = user.get();
+      entity.setUserName(updateUserDTO.getUserName());
+      entity.setCreatedBy(currentUser);
+      entity.setUpdatedBy(currentUser);
+
+      var saveUserEntity = this.userRepository.save(entity);
+
+      var userDetail = this.userDetailsRepository.findById(saveUserEntity.getId());
+
+      UserDetailsEntity userDetailsEntity = userDetail.get();
+
+      userDetailsEntity.setUserId(saveUserEntity);
+      userDetailsEntity.setGender(updateUserDTO.getGender());
+      userDetailsEntity.setLastName(updateUserDTO.getLastName());
+      userDetailsEntity.setFirstName(updateUserDTO.getFirstName());
+      userDetailsEntity.setDob(updateUserDTO.getDob());
+      userDetailsEntity.setAddress(updateUserDTO.getAddress());
+      userDetailsEntity.setCreatedBy(currentUser);
+      userDetailsEntity.setUpdatedBy(currentUser);
+      this.userDetailsRepository.save(userDetailsEntity);
+
+//      getting new role from request
+      var roleEntity = this.roleRepository.findById(updateUserDTO.getRolesId());
+      RoleEntity role = roleEntity.get();
+
+//      getting role from database
+
+      Optional<UserRoleMappingEntity> userRole = this.userRoleMappingRepository.findByUserId(saveUserEntity);
+
+//      updating role
+      if (userRole.isPresent()) {
+        UserRoleMappingEntity userRoleMappingEntity = userRole.get();
+
+        userRoleMappingEntity.setRoleId(role);
+        userRoleMappingEntity.setUserId(saveUserEntity);
+        userRoleMappingEntity.setCreatedBy(currentUser);
+        userRoleMappingEntity.setUpdatedBy(currentUser);
+        this.userRoleMappingRepository.save(userRoleMappingEntity);
+      }
+
+    } catch (CustomException e) {
+      throw new CustomException(e.getMessage(), e.getHttpStatus());
+    }
+  }
+
+  @Override
+  @Transactional(rollbackFor = Exception.class)
+  public void deleteUser(Long id) {
+
+    try {
+//    checking user is present
+      var user = this.userRepository.findById(id);
+
+      if (user.isEmpty()) {
+        throw new CustomException(ExceptionEnum.USER_NOT_FOUND.getMessage(), HttpStatus.NOT_FOUND);
+      } else {
+        UserEntity entity = user.get();
+        UserDetailsEntity userDetailsEntity = this.userDetailsRepository.findById(entity.getId()).orElseThrow(() -> new CustomException(ExceptionEnum.USER_NAME_NOT_FOUND.getMessage(), HttpStatus.NOT_FOUND));
+        UserRoleMappingEntity userRoleMappingEntity = this.userRoleMappingRepository.findById(entity.getId()).orElseThrow(() -> new CustomException(ExceptionEnum.USER_NAME_NOT_FOUND.getMessage(), HttpStatus.NOT_FOUND));
+        entity.setActive(false);
+        entity.setDelete(true);
+        userDetailsEntity.setActive(false);
+        userDetailsEntity.setDelete(true);
+        userRoleMappingEntity.setActive(false);
+        userRoleMappingEntity.setDelete(true);
+        this.userRepository.save(entity);
+        this.userDetailsRepository.save(userDetailsEntity);
+        this.userRoleMappingRepository.save(userRoleMappingEntity);
+      }
+    } catch (CustomException e) {
+      throw new CustomException(e.getMessage(), e.getHttpStatus());
+    }
+
   }
 
 
@@ -102,5 +247,19 @@ public class UserServiceImpl implements UserService {
     userDetailsEntity.setCreatedBy(currentUser);
     userDetailsEntity.setUpdatedBy(currentUser);
     return userDetailsEntity;
+  }
+
+  private static UserResponseDTO getUserResponseDTO(UserEntity currentUser, UserDetailsEntity currentUserDetails) {
+    UserResponseDTO userResponseDTO = new UserResponseDTO();
+    userResponseDTO.setUserId(currentUser.getId());
+    userResponseDTO.setEmail(currentUser.getEmail());
+    userResponseDTO.setUserName(currentUser.getUserName());
+    userResponseDTO.setAddress(currentUserDetails.getAddress());
+    userResponseDTO.setDateOfBirth(currentUserDetails.getDob());
+    userResponseDTO.setFirstName(currentUserDetails.getFirstName());
+    userResponseDTO.setLastName(currentUserDetails.getLastName());
+    userResponseDTO.setGender(currentUserDetails.getGender());
+    userResponseDTO.setIsActive(currentUser.isActive());
+    return userResponseDTO;
   }
 }

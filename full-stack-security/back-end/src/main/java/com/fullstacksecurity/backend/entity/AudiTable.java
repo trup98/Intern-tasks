@@ -16,21 +16,21 @@ import java.time.LocalDate;
 @Data
 public abstract class AudiTable {
   @CreatedDate
-  @Temporal(TemporalType.TIMESTAMP)
+  @Temporal(TemporalType.DATE)
   @Column(name = "created_Date", nullable = false, updatable = false)
   private LocalDate createDate;
 
   @LastModifiedDate
-  @Temporal(TemporalType.TIMESTAMP)
+  @Temporal(TemporalType.DATE)
   @Column(name = "last_modified_date")
   private LocalDate lastModifiedDate;
 
 
-  @Column(name = "is_active", nullable = true)
+  @Column(name = "is_active",nullable = false)
   @ColumnDefault("true")
   private boolean isActive = Boolean.TRUE;
 
-  @Column(name = "is_delete", nullable = true)
+  @Column(name = "is_delete",nullable = false)
   @ColumnDefault("false")
   private boolean isDelete = Boolean.FALSE;
 
