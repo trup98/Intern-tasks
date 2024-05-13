@@ -122,4 +122,5 @@ public class ControllerAdvice {
         log.error("handleMethodArgumentNotValidException :: ", e);
         return ResponseEntity.status(httpStatus).body(apiResponse);
     }
+
 }

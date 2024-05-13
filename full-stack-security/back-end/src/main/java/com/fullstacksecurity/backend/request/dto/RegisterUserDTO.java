@@ -42,6 +42,6 @@ public class RegisterUserDTO {
   private String gender;
   private String address;
 
-  private List<Integer> roles;
+  private Integer rolesId;
 
 }

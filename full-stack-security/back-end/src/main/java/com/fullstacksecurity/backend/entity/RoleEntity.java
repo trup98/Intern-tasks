@@ -11,12 +11,12 @@ import lombok.*;
 @ToString
 @Entity
 @Table(name = "role_master")
-public class RoleEntity {
+public class RoleEntity extends AudiTable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "role",nullable = false)
+  @Column(name = "role", nullable = false)
   private String role;
 }
