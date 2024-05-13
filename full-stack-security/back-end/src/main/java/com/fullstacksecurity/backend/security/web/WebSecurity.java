@@ -1,5 +1,6 @@
 package com.fullstacksecurity.backend.security.web;
 
+import com.fullstacksecurity.backend.security.jwt.JwtAuthenticationEntryPoint;
 import com.fullstacksecurity.backend.security.jwt.JwtTokenFilter;
 import com.fullstacksecurity.backend.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class WebSecurity {
   private final AuthenticationProvider authenticationProvider;
   private final CrossOriginFilter crossOriginFilter;
   private final JwtTokenProvider jwtTokenProvider;
+  private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
   @Primary
   @Bean

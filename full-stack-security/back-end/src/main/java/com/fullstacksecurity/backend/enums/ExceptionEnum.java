@@ -21,6 +21,7 @@ public enum ExceptionEnum {
   USER_ALREADY_EXIST_WITH_THIS_EMAIL("User already exist with this email", "USER_ALREADY_EXIST_WITH_THIS_EMAIL"),
   INVALID_TOKEN("Invalid token", "INVALID_TOKEN"),
   ROLE_NOT_FOUND("Role not found", "ROLE_NOT_FOUND"),
+  ROLE_ALREADY_EXIST("Role already exists", "ROLE_EXISTS"),
 
   ;
 

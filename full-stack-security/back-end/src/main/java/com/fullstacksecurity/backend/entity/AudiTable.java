@@ -15,9 +15,10 @@ import java.time.LocalDate;
 @EntityListeners(AuditingEntityListener.class)
 @Data
 public abstract class AudiTable {
+
   @CreatedDate
   @Temporal(TemporalType.DATE)
-  @Column(name = "created_Date", nullable = false, updatable = false)
+  @Column(name = "created_Date")
   private LocalDate createDate;
 
   @LastModifiedDate
