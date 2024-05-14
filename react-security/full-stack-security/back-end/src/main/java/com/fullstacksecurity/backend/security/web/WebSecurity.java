@@ -44,7 +44,7 @@ public class WebSecurity {
 
   private String[] getPublicUrls() {
     return new String[]{
-      "/api/auth/getToken",
+      "/api/v1/auth/login",
       // for Swagger UI v2
       "/v2/api-docs",
       "/swagger-ui.html",
