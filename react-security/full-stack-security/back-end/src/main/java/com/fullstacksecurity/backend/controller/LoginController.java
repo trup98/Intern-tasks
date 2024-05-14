@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/auth")
+@RequestMapping("/api/v1/auth")
 @Slf4j
+@CrossOrigin("http://localhost:3001")
 public class LoginController {
 
   private final LoginService loginService;
@@ -32,7 +33,7 @@ public class LoginController {
     return "hello Admin";
   }
 
-  @PostMapping("/getToken")
+  @PostMapping("/login")
   public ResponseEntity<ApiResponse> getToken(@RequestBody @Valid LoginRequestDTO loginRequestDTO) {
     log.info("Login User Details::::::", loginRequestDTO);
     ResponseTokenDTO responseTokenDTO = this.loginService.getToken(loginRequestDTO);
