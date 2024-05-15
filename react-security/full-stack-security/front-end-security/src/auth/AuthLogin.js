@@ -10,13 +10,13 @@ export const doLogin = (response) => {
 // isLoggedIn
 export const isAuthenticated = () => {
   let token = Cookies.get("token");
-  if (token != null && token != undefined) return true;
+  if (token == null && token == undefined) return true;
   else return false;
 }
 
 // logout
 export const doLogout = () => {
-  Cookies.remove("token");
+  Cookies.remove("token")
 
 }
 
