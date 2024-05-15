@@ -4,10 +4,11 @@ import {isAuthenticated} from "../auth/AuthLogin";
 
 function PrivateRoute() {
 
+
   if (isAuthenticated()) {
-    return <Outlet/>
+    return <Navigate to="/login"/>;
   } else {
-    return <Navigate to={"/login"}/>
+    return <Outlet/>
   }
 }
 
