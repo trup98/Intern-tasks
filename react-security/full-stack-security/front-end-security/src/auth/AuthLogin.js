@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 //store in cookies
 export const doLogin = (response) => {
   const token = response.data.token;
-  Cookies.set("token", token, {expires: new Date(Date.now() + 900000)});
+  Cookies.set("token", token, {expires: 900000});
 
 }
 
@@ -22,7 +22,7 @@ export const doLogout = () => {
 
 // get current user
 export const getCurrentUser = () => {
-  if (isAuthenticated()) {
-    return Cookies.get("token");
-  } else return false;
+  let token = Cookies.get("token");
+  if (token == null && token == undefined) return null;
+  else return token;
 }

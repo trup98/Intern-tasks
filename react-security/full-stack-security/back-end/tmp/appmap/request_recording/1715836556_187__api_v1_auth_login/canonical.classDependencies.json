@@ -1,0 +1,22 @@
+[
+  {
+    "caller": "POST /api/v1/auth/login",
+    "callee": "com/fullstacksecurity"
+  },
+  {
+    "caller": "com/fullstacksecurity",
+    "callee": "POST /api/v1/auth/login"
+  },
+  {
+    "caller": "com/fullstacksecurity",
+    "callee": "select r1_0.id,r1_0.created_date,r1_0.created_by,r1_0.is_active,r1_0.is_delete,r1_0.last_modified_date,r1_0.role,r1_0.updated_by from role_master r1_0 where r1_0.id=?"
+  },
+  {
+    "caller": "com/fullstacksecurity",
+    "callee": "select u1_0.id,u1_0.created_date,u1_0.created_by,u1_0.is_active,u1_0.is_delete,u1_0.last_modified_date,u1_0.role_id,u1_0.updated_by,u1_0.user_id from user_role_mapping u1_0 where u1_0.user_id=?"
+  },
+  {
+    "caller": "com/fullstacksecurity",
+    "callee": "select u1_0.id,u1_0.created_date,u1_0.created_by,u1_0.user_email,u1_0.is_active,u1_0.is_delete,u1_0.last_modified_date,u1_0.password,u1_0.updated_by,u1_0.user_name from user_master u1_0 where u1_0.user_email=?"
+  }
+]

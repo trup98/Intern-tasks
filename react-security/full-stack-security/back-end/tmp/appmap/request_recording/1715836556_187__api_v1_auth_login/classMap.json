@@ -1,0 +1,186 @@
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "name": "getTokenResponse",
+                            "type": "function",
+                            "static": false,
+                            "location": "src/main/java/com/fullstacksecurity/backend/service/impl/LoginServiceImpl.java:65"
+                          },
+                          {
+                            "name": "getToken",
+                            "type": "function",
+                            "static": false,
+                            "location": "src/main/java/com/fullstacksecurity/backend/service/impl/LoginServiceImpl.java:38"
+                          }
+                        ],
+                        "name": "LoginServiceImpl",
+                        "type": "class"
+                      },
+                      {
+                        "children": [
+                          {
+                            "name": "findUserByEmail",
+                            "type": "function",
+                            "static": false,
+                            "location": "src/main/java/com/fullstacksecurity/backend/service/impl/UserAuthenticationServiceImpl.java:31"
+                          }
+                        ],
+                        "name": "UserAuthenticationServiceImpl",
+                        "type": "class"
+                      }
+                    ],
+                    "name": "impl",
+                    "type": "package"
+                  }
+                ],
+                "name": "service",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "name": "findByEmail",
+                        "type": "function",
+                        "static": false,
+                        "location": "src/main/java/com/fullstacksecurity/backend/repository/UserRepository.java:-1"
+                      }
+                    ],
+                    "name": "UserRepository",
+                    "type": "class"
+                  },
+                  {
+                    "children": [
+                      {
+                        "name": "findByUserId",
+                        "type": "function",
+                        "static": false,
+                        "location": "src/main/java/com/fullstacksecurity/backend/repository/UserRoleMappingRepository.java:-1"
+                      }
+                    ],
+                    "name": "UserRoleMappingRepository",
+                    "type": "class"
+                  }
+                ],
+                "name": "repository",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "name": "createToken",
+                            "type": "function",
+                            "static": false,
+                            "location": "src/main/java/com/fullstacksecurity/backend/security/jwt/JwtTokenProvider.java:155"
+                          },
+                          {
+                            "name": "resolveToken",
+                            "type": "function",
+                            "static": false,
+                            "location": "src/main/java/com/fullstacksecurity/backend/security/jwt/JwtTokenProvider.java:46"
+                          },
+                          {
+                            "name": "verifyClaims",
+                            "type": "function",
+                            "static": false,
+                            "location": "src/main/java/com/fullstacksecurity/backend/security/jwt/JwtTokenProvider.java:140"
+                          }
+                        ],
+                        "name": "JwtTokenProvider",
+                        "type": "class"
+                      },
+                      {
+                        "children": [
+                          {
+                            "name": "doFilterInternal",
+                            "type": "function",
+                            "static": false,
+                            "location": "src/main/java/com/fullstacksecurity/backend/security/jwt/JwtTokenFilter.java:26"
+                          }
+                        ],
+                        "name": "JwtTokenFilter",
+                        "type": "class"
+                      }
+                    ],
+                    "name": "jwt",
+                    "type": "package"
+                  }
+                ],
+                "name": "security",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "name": "getToken",
+                        "type": "function",
+                        "static": false,
+                        "location": "src/main/java/com/fullstacksecurity/backend/controller/LoginController.java:38"
+                      }
+                    ],
+                    "name": "LoginController",
+                    "type": "class"
+                  }
+                ],
+                "name": "controller",
+                "type": "package"
+              }
+            ],
+            "name": "backend",
+            "type": "package"
+          }
+        ],
+        "name": "fullstacksecurity",
+        "type": "package"
+      }
+    ],
+    "name": "com",
+    "type": "package"
+  },
+  {
+    "type": "http",
+    "name": "HTTP server requests",
+    "children": [
+      {
+        "type": "route",
+        "name": "POST /api/v1/auth/login"
+      }
+    ]
+  },
+  {
+    "type": "database",
+    "name": "Database",
+    "children": [
+      {
+        "type": "query",
+        "name": "select u1_0.id,u1_0.created_date,u1_0.created_by,u1_0.user_email,u1_0.is_active,u1_0.is_delete,u1_0.last_modified_date,u1_0.password,u1_0.updated_by,u1_0.user_name from user_master u1_0 where u1_0.user_email=?"
+      },
+      {
+        "type": "query",
+        "name": "select u1_0.id,u1_0.created_date,u1_0.created_by,u1_0.is_active,u1_0.is_delete,u1_0.last_modified_date,u1_0.role_id,u1_0.updated_by,u1_0.user_id from user_role_mapping u1_0 where u1_0.user_id=?"
+      },
+      {
+        "type": "query",
+        "name": "select r1_0.id,r1_0.created_date,r1_0.created_by,r1_0.is_active,r1_0.is_delete,r1_0.last_modified_date,r1_0.role,r1_0.updated_by from role_master r1_0 where r1_0.id=?"
+      }
+    ]
+  }
+]

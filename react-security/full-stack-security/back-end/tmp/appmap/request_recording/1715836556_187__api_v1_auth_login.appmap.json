@@ -1,0 +1,873 @@
+{
+  "events": [
+    {
+      "defined_class": "com.fullstacksecurity.backend.security.jwt.JwtTokenFilter",
+      "event": "call",
+      "id": 1,
+      "lineno": 26,
+      "method_id": "doFilterInternal",
+      "parameters": [
+        {
+          "class": "org.springframework.security.web.header.HeaderWriterFilter$HeaderWriterRequest",
+          "kind": "req",
+          "name": "request",
+          "object_id": 1784270366,
+          "value": "org.springframework.security.web.header.HeaderWriterFilter$HeaderWriterRequest@6a59ce1e"
+        },
+        {
+          "class": "org.springframework.security.web.header.HeaderWriterFilter$HeaderWriterResponse",
+          "kind": "req",
+          "name": "response",
+          "object_id": 353220508,
+          "value": "org.springframework.security.web.header.HeaderWriterFilter$HeaderWriterResponse@150db79c"
+        },
+        {
+          "class": "org.springframework.security.web.FilterChainProxy$VirtualFilterChain",
+          "kind": "req",
+          "name": "filterChain",
+          "object_id": 590795350,
+          "value": "org.springframework.security.web.FilterChainProxy$VirtualFilterChain@2336d256"
+        }
+      ],
+      "path": "src/main/java/com/fullstacksecurity/backend/security/jwt/JwtTokenFilter.java",
+      "receiver": {
+        "class": "com.fullstacksecurity.backend.security.jwt.JwtTokenFilter",
+        "object_id": 274703233,
+        "value": "com.fullstacksecurity.backend.security.jwt.JwtTokenFilter@105fa381"
+      },
+      "static": false,
+      "thread_id": 50
+    },
+    {
+      "defined_class": "com.fullstacksecurity.backend.security.jwt.JwtTokenProvider",
+      "event": "call",
+      "id": 2,
+      "lineno": 46,
+      "method_id": "resolveToken",
+      "parameters": [
+        {
+          "class": "org.springframework.security.web.header.HeaderWriterFilter$HeaderWriterRequest",
+          "kind": "req",
+          "name": "request",
+          "object_id": 1784270366,
+          "value": "org.springframework.security.web.header.HeaderWriterFilter$HeaderWriterRequest@6a59ce1e"
+        }
+      ],
+      "path": "src/main/java/com/fullstacksecurity/backend/security/jwt/JwtTokenProvider.java",
+      "receiver": {
+        "class": "com.fullstacksecurity.backend.security.jwt.JwtTokenProvider",
+        "object_id": 1493448513,
+        "value": "com.fullstacksecurity.backend.security.jwt.JwtTokenProvider@59043741"
+      },
+      "static": false,
+      "thread_id": 50
+    },
+    {
+      "elapsed": 0.0000253647,
+      "event": "return",
+      "id": 3,
+      "parent_id": 2,
+      "thread_id": 50
+    },
+    {
+      "defined_class": "com.fullstacksecurity.backend.security.jwt.JwtTokenFilter",
+      "event": "call",
+      "id": 4,
+      "lineno": 26,
+      "method_id": "doFilterInternal",
+      "parameters": [
+        {
+          "class": "org.springframework.security.web.servletapi.HttpServlet3RequestFactory$Servlet3SecurityContextHolderAwareRequestWrapper",
+          "kind": "req",
+          "name": "request",
+          "object_id": 854187521,
+          "value": "SecurityContextHolderAwareRequestWrapper[ org.springframework.security.web.header.HeaderWriterFilter$HeaderWriterRequest@6a59ce1e]"
+        },
+        {
+          "class": "org.springframework.security.web.header.HeaderWriterFilter$HeaderWriterResponse",
+          "kind": "req",
+          "name": "response",
+          "object_id": 353220508,
+          "value": "org.springframework.security.web.header.HeaderWriterFilter$HeaderWriterResponse@150db79c"
+        },
+        {
+          "class": "org.apache.catalina.core.ApplicationFilterChain",
+          "kind": "req",
+          "name": "filterChain",
+          "object_id": 272710748,
+          "value": "org.apache.catalina.core.ApplicationFilterChain@10413c5c"
+        }
+      ],
+      "path": "src/main/java/com/fullstacksecurity/backend/security/jwt/JwtTokenFilter.java",
+      "receiver": {
+        "class": "com.fullstacksecurity.backend.security.jwt.JwtTokenFilter",
+        "object_id": 831786347,
+        "value": "com.fullstacksecurity.backend.security.jwt.JwtTokenFilter@31940d6b"
+      },
+      "static": false,
+      "thread_id": 50
+    },
+    {
+      "defined_class": "com.fullstacksecurity.backend.security.jwt.JwtTokenProvider",
+      "event": "call",
+      "id": 5,
+      "lineno": 46,
+      "method_id": "resolveToken",
+      "parameters": [
+        {
+          "class": "org.springframework.security.web.servletapi.HttpServlet3RequestFactory$Servlet3SecurityContextHolderAwareRequestWrapper",
+          "kind": "req",
+          "name": "request",
+          "object_id": 854187521,
+          "value": "SecurityContextHolderAwareRequestWrapper[ org.springframework.security.web.header.HeaderWriterFilter$HeaderWriterRequest@6a59ce1e]"
+        }
+      ],
+      "path": "src/main/java/com/fullstacksecurity/backend/security/jwt/JwtTokenProvider.java",
+      "receiver": {
+        "class": "com.fullstacksecurity.backend.security.jwt.JwtTokenProvider",
+        "object_id": 1493448513,
+        "value": "com.fullstacksecurity.backend.security.jwt.JwtTokenProvider@59043741"
+      },
+      "static": false,
+      "thread_id": 50
+    },
+    {
+      "elapsed": 0.0000158986,
+      "event": "return",
+      "id": 6,
+      "parent_id": 5,
+      "thread_id": 50
+    },
+    {
+      "event": "call",
+      "http_server_request": {
+        "headers": {
+          "sec-fetch-mode": "cors",
+          "content-length": "55",
+          "referer": "http://localhost:9096/swagger-ui/index.html",
+          "sec-fetch-site": "same-origin",
+          "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
+          "origin": "http://localhost:9096",
+          "accept": "*/*",
+          "sec-ch-ua": "\"Google Chrome\";v=\"119\", \"Chromium\";v=\"119\", \"Not?A_Brand\";v=\"24\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": "\"Linux\"",
+          "host": "localhost:9096",
+          "connection": "keep-alive",
+          "content-type": "application/json",
+          "accept-encoding": "gzip, deflate, br, zstd",
+          "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+          "sec-fetch-dest": "empty"
+        },
+        "normalized_path_info": "/api/v1/auth/login",
+        "path_info": "/api/v1/auth/login",
+        "protocol": "HTTP/1.1",
+        "request_method": "POST"
+      },
+      "id": 7,
+      "thread_id": 50
+    },
+    {
+      "defined_class": "com.fullstacksecurity.backend.controller.LoginController",
+      "event": "call",
+      "id": 8,
+      "lineno": 38,
+      "method_id": "getToken",
+      "parameters": [
+        {
+          "class": "com.fullstacksecurity.backend.request.dto.LoginRequestDTO",
+          "kind": "req",
+          "name": "loginRequestDTO",
+          "object_id": 1996792649,
+          "value": "LoginRequestDTO(email=user@gmail.com, password=111111)"
+        }
+      ],
+      "path": "src/main/java/com/fullstacksecurity/backend/controller/LoginController.java",
+      "receiver": {
+        "class": "com.fullstacksecurity.backend.controller.LoginController",
+        "object_id": 1622943130,
+        "value": "com.fullstacksecurity.backend.controller.LoginController@60bc259a"
+      },
+      "static": false,
+      "thread_id": 50
+    },
+    {
+      "defined_class": "com.fullstacksecurity.backend.service.impl.LoginServiceImpl",
+      "event": "call",
+      "id": 9,
+      "lineno": 38,
+      "method_id": "getToken",
+      "parameters": [
+        {
+          "class": "com.fullstacksecurity.backend.request.dto.LoginRequestDTO",
+          "kind": "req",
+          "name": "loginRequestDTO",
+          "object_id": 1996792649,
+          "value": "LoginRequestDTO(email=user@gmail.com, password=111111)"
+        }
+      ],
+      "path": "src/main/java/com/fullstacksecurity/backend/service/impl/LoginServiceImpl.java",
+      "receiver": {
+        "class": "com.fullstacksecurity.backend.service.impl.LoginServiceImpl",
+        "object_id": 217686513,
+        "value": "com.fullstacksecurity.backend.service.impl.LoginServiceImpl@cf9a1f1"
+      },
+      "static": false,
+      "thread_id": 50
+    },
+    {
+      "defined_class": "com.fullstacksecurity.backend.service.impl.UserAuthenticationServiceImpl",
+      "event": "call",
+      "id": 10,
+      "lineno": 31,
+      "method_id": "findUserByEmail",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "userName",
+          "object_id": 765437041,
+          "value": "user@gmail.com"
+        }
+      ],
+      "path": "src/main/java/com/fullstacksecurity/backend/service/impl/UserAuthenticationServiceImpl.java",
+      "receiver": {
+        "class": "com.fullstacksecurity.backend.service.impl.UserAuthenticationServiceImpl",
+        "object_id": 2085242043,
+        "value": "com.fullstacksecurity.backend.service.impl.UserAuthenticationServiceImpl@7c4a44bb"
+      },
+      "static": false,
+      "thread_id": 50
+    },
+    {
+      "defined_class": "com.fullstacksecurity.backend.repository.UserRepository",
+      "event": "call",
+      "id": 11,
+      "lineno": -1,
+      "method_id": "findByEmail",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "p0",
+          "object_id": 765437041,
+          "value": "user@gmail.com"
+        }
+      ],
+      "path": "src/main/java/com/fullstacksecurity/backend/repository/UserRepository.java",
+      "receiver": {
+        "class": "jdk.proxy2.$Proxy207",
+        "object_id": 630703662,
+        "value": "org.springframework.data.jpa.repository.support.SimpleJpaRepository@2f0202a4"
+      },
+      "static": false,
+      "thread_id": 50
+    },
+    {
+      "event": "call",
+      "id": 12,
+      "sql_query": {
+        "database_type": "MySQL",
+        "sql": "select u1_0.id,u1_0.created_date,u1_0.created_by,u1_0.user_email,u1_0.is_active,u1_0.is_delete,u1_0.last_modified_date,u1_0.password,u1_0.updated_by,u1_0.user_name from user_master u1_0 where u1_0.user_email=?"
+      },
+      "thread_id": 50
+    },
+    {
+      "elapsed": 0.0005428291,
+      "event": "return",
+      "id": 13,
+      "parent_id": 12,
+      "thread_id": 50
+    },
+    {
+      "elapsed": 0.030127505,
+      "event": "return",
+      "id": 14,
+      "parent_id": 11,
+      "return_value": {
+        "class": "java.util.Optional",
+        "object_id": 766203403,
+        "value": "Optional[UserEntity(id=2, email=user@gmail.com, userName=guru, password=$2a$10$izERh77PCAMHpYPUwvNEnemERzd5/cBQZbi.udKW8nY3krXmHgZhm)]"
+      },
+      "thread_id": 50
+    },
+    {
+      "defined_class": "com.fullstacksecurity.backend.repository.UserRoleMappingRepository",
+      "event": "call",
+      "id": 15,
+      "lineno": -1,
+      "method_id": "findByUserId",
+      "parameters": [
+        {
+          "class": "com.fullstacksecurity.backend.entity.UserEntity",
+          "kind": "req",
+          "name": "p0",
+          "object_id": 657932830,
+          "value": "UserEntity(id=2, email=user@gmail.com, userName=guru, password=$2a$10$izERh77PCAMHpYPUwvNEnemERzd5/cBQZbi.udKW8nY3krXmHgZhm)"
+        }
+      ],
+      "path": "src/main/java/com/fullstacksecurity/backend/repository/UserRoleMappingRepository.java",
+      "receiver": {
+        "class": "jdk.proxy2.$Proxy209",
+        "object_id": 576047698,
+        "value": "org.springframework.data.jpa.repository.support.SimpleJpaRepository@11d19ff6"
+      },
+      "static": false,
+      "thread_id": 50
+    },
+    {
+      "event": "call",
+      "id": 16,
+      "sql_query": {
+        "database_type": "MySQL",
+        "sql": "select u1_0.id,u1_0.created_date,u1_0.created_by,u1_0.is_active,u1_0.is_delete,u1_0.last_modified_date,u1_0.role_id,u1_0.updated_by,u1_0.user_id from user_role_mapping u1_0 where u1_0.user_id=?"
+      },
+      "thread_id": 50
+    },
+    {
+      "elapsed": 0.0000972953,
+      "event": "return",
+      "id": 17,
+      "parent_id": 16,
+      "thread_id": 50
+    },
+    {
+      "event": "call",
+      "id": 18,
+      "sql_query": {
+        "database_type": "MySQL",
+        "sql": "select r1_0.id,r1_0.created_date,r1_0.created_by,r1_0.is_active,r1_0.is_delete,r1_0.last_modified_date,r1_0.role,r1_0.updated_by from role_master r1_0 where r1_0.id=?"
+      },
+      "thread_id": 50
+    },
+    {
+      "elapsed": 0.0000385439,
+      "event": "return",
+      "id": 19,
+      "parent_id": 18,
+      "thread_id": 50
+    },
+    {
+      "elapsed": 0.004215012,
+      "event": "return",
+      "id": 20,
+      "parent_id": 15,
+      "return_value": {
+        "class": "java.util.Optional",
+        "object_id": 1783610686,
+        "value": "Optional[AudiTable(createDate=2024-05-10, lastModifiedDate=2024-05-10, isActive=true, isDelete=false, createdBy=UserEntity(id=2, email=user@gmail.com, userName=guru, password=$2a$10$izERh77PCAMHpYPUwvNEnemERzd5/cBQZbi.udKW8nY3krXmHgZhm), updatedBy=UserEntity(id=2, email=user@gmail.com, userName=guru, password=$2a$10$izERh77PCAMHpYPUwvNEnemERzd5/cBQZbi.udKW8nY3krXmHgZhm))]"
+      },
+      "thread_id": 50
+    },
+    {
+      "elapsed": 0.035462234,
+      "event": "return",
+      "id": 21,
+      "parent_id": 10,
+      "return_value": {
+        "class": "java.util.Optional",
+        "object_id": 1295173523,
+        "value": "Optional[org.springframework.security.core.userdetails.User [Username=guru, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, credentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_USER]]]"
+      },
+      "thread_id": 50
+    },
+    {
+      "defined_class": "com.fullstacksecurity.backend.repository.UserRepository",
+      "event": "call",
+      "id": 22,
+      "lineno": -1,
+      "method_id": "findByEmail",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "p0",
+          "object_id": 765437041,
+          "value": "user@gmail.com"
+        }
+      ],
+      "path": "src/main/java/com/fullstacksecurity/backend/repository/UserRepository.java",
+      "receiver": {
+        "class": "jdk.proxy2.$Proxy207",
+        "object_id": 630703662,
+        "value": "org.springframework.data.jpa.repository.support.SimpleJpaRepository@2f0202a4"
+      },
+      "static": false,
+      "thread_id": 50
+    },
+    {
+      "event": "call",
+      "id": 23,
+      "sql_query": {
+        "database_type": "MySQL",
+        "sql": "select u1_0.id,u1_0.created_date,u1_0.created_by,u1_0.user_email,u1_0.is_active,u1_0.is_delete,u1_0.last_modified_date,u1_0.password,u1_0.updated_by,u1_0.user_name from user_master u1_0 where u1_0.user_email=?"
+      },
+      "thread_id": 50
+    },
+    {
+      "elapsed": 0.0000543455,
+      "event": "return",
+      "id": 24,
+      "parent_id": 23,
+      "thread_id": 50
+    },
+    {
+      "elapsed": 0.0004956039,
+      "event": "return",
+      "id": 25,
+      "parent_id": 22,
+      "return_value": {
+        "class": "java.util.Optional",
+        "object_id": 712184619,
+        "value": "Optional[UserEntity(id=2, email=user@gmail.com, userName=guru, password=$2a$10$izERh77PCAMHpYPUwvNEnemERzd5/cBQZbi.udKW8nY3krXmHgZhm)]"
+      },
+      "thread_id": 50
+    },
+    {
+      "defined_class": "com.fullstacksecurity.backend.service.impl.LoginServiceImpl",
+      "event": "call",
+      "id": 26,
+      "lineno": 65,
+      "method_id": "getTokenResponse",
+      "parameters": [
+        {
+          "class": "com.fullstacksecurity.backend.entity.UserEntity",
+          "kind": "req",
+          "name": "userEntity",
+          "object_id": 657932830,
+          "value": "UserEntity(id=2, email=user@gmail.com, userName=guru, password=$2a$10$izERh77PCAMHpYPUwvNEnemERzd5/cBQZbi.udKW8nY3krXmHgZhm)"
+        }
+      ],
+      "path": "src/main/java/com/fullstacksecurity/backend/service/impl/LoginServiceImpl.java",
+      "receiver": {
+        "class": "com.fullstacksecurity.backend.service.impl.LoginServiceImpl",
+        "object_id": 217686513,
+        "value": "com.fullstacksecurity.backend.service.impl.LoginServiceImpl@cf9a1f1"
+      },
+      "static": false,
+      "thread_id": 50
+    },
+    {
+      "defined_class": "com.fullstacksecurity.backend.repository.UserRoleMappingRepository",
+      "event": "call",
+      "id": 27,
+      "lineno": -1,
+      "method_id": "findByUserId",
+      "parameters": [
+        {
+          "class": "com.fullstacksecurity.backend.entity.UserEntity",
+          "kind": "req",
+          "name": "p0",
+          "object_id": 657932830,
+          "value": "UserEntity(id=2, email=user@gmail.com, userName=guru, password=$2a$10$izERh77PCAMHpYPUwvNEnemERzd5/cBQZbi.udKW8nY3krXmHgZhm)"
+        }
+      ],
+      "path": "src/main/java/com/fullstacksecurity/backend/repository/UserRoleMappingRepository.java",
+      "receiver": {
+        "class": "jdk.proxy2.$Proxy209",
+        "object_id": 576047698,
+        "value": "org.springframework.data.jpa.repository.support.SimpleJpaRepository@11d19ff6"
+      },
+      "static": false,
+      "thread_id": 50
+    },
+    {
+      "event": "call",
+      "id": 28,
+      "sql_query": {
+        "database_type": "MySQL",
+        "sql": "select u1_0.id,u1_0.created_date,u1_0.created_by,u1_0.is_active,u1_0.is_delete,u1_0.last_modified_date,u1_0.role_id,u1_0.updated_by,u1_0.user_id from user_role_mapping u1_0 where u1_0.user_id=?"
+      },
+      "thread_id": 50
+    },
+    {
+      "elapsed": 0.0000610918,
+      "event": "return",
+      "id": 29,
+      "parent_id": 28,
+      "thread_id": 50
+    },
+    {
+      "elapsed": 0.0004935817,
+      "event": "return",
+      "id": 30,
+      "parent_id": 27,
+      "return_value": {
+        "class": "java.util.Optional",
+        "object_id": 1812686507,
+        "value": "Optional[AudiTable(createDate=2024-05-10, lastModifiedDate=2024-05-10, isActive=true, isDelete=false, createdBy=UserEntity(id=2, email=user@gmail.com, userName=guru, password=$2a$10$izERh77PCAMHpYPUwvNEnemERzd5/cBQZbi.udKW8nY3krXmHgZhm), updatedBy=UserEntity(id=2, email=user@gmail.com, userName=guru, password=$2a$10$izERh77PCAMHpYPUwvNEnemERzd5/cBQZbi.udKW8nY3krXmHgZhm))]"
+      },
+      "thread_id": 50
+    },
+    {
+      "defined_class": "com.fullstacksecurity.backend.security.jwt.JwtTokenProvider",
+      "event": "call",
+      "id": 31,
+      "lineno": 155,
+      "method_id": "createToken",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "username",
+          "object_id": 236647672,
+          "value": "user@gmail.com"
+        },
+        {
+          "class": "java.lang.Long",
+          "kind": "req",
+          "name": "userId",
+          "object_id": 1737094491,
+          "value": "2"
+        },
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "userRole",
+          "object_id": 1599534102,
+          "value": "ROLE_USER"
+        }
+      ],
+      "path": "src/main/java/com/fullstacksecurity/backend/security/jwt/JwtTokenProvider.java",
+      "receiver": {
+        "class": "com.fullstacksecurity.backend.security.jwt.JwtTokenProvider",
+        "object_id": 1493448513,
+        "value": "com.fullstacksecurity.backend.security.jwt.JwtTokenProvider@59043741"
+      },
+      "static": false,
+      "thread_id": 50
+    },
+    {
+      "defined_class": "com.fullstacksecurity.backend.security.jwt.JwtTokenProvider",
+      "event": "call",
+      "id": 32,
+      "lineno": 140,
+      "method_id": "verifyClaims",
+      "parameters": [
+        {
+          "class": "java.util.HashMap",
+          "kind": "req",
+          "name": "customClaims",
+          "object_id": 1759506281,
+          "value": "{userRole=ROLE_USER, userId=2}"
+        }
+      ],
+      "path": "src/main/java/com/fullstacksecurity/backend/security/jwt/JwtTokenProvider.java",
+      "receiver": {
+        "class": "com.fullstacksecurity.backend.security.jwt.JwtTokenProvider",
+        "object_id": 1493448513,
+        "value": "com.fullstacksecurity.backend.security.jwt.JwtTokenProvider@59043741"
+      },
+      "static": false,
+      "thread_id": 50
+    },
+    {
+      "elapsed": 0.0002691037,
+      "event": "return",
+      "id": 33,
+      "parent_id": 32,
+      "return_value": {
+        "class": "com.nimbusds.jwt.JWTClaimsSet",
+        "object_id": 607992561,
+        "value": "{\"userRole\":\"ROLE_USER\",\"userId\":2}"
+      },
+      "thread_id": 50
+    },
+    {
+      "elapsed": 0.011808394,
+      "event": "return",
+      "id": 34,
+      "parent_id": 31,
+      "return_value": {
+        "class": "java.lang.String",
+        "object_id": 364584697,
+        "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqd3Qtc2VjdXJpdHkiLCJzdWIiOiJ1c2VyQGdtYWlsLmNvbSIsInVzZXJSb2xlIjoiUk9MRV9VU0VSIiwiZXhwIjoxNzE1ODM3NDU2LCJ1c2VySWQiOjIsImlhdCI6MTcxNTgzNjU1Nn0.LqHikkXjGwIBwNJp0Jh_jzKuM_kMm1Afk4VEi78wbhw"
+      },
+      "thread_id": 50
+    },
+    {
+      "elapsed": 0.012469368,
+      "event": "return",
+      "id": 35,
+      "parent_id": 26,
+      "return_value": {
+        "class": "com.fullstacksecurity.backend.response.dto.ResponseTokenDTO",
+        "object_id": 99931523,
+        "value": "ResponseTokenDTO(token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqd3Qtc2VjdXJpdHkiLCJzdWIiOiJ1c2VyQGdtYWlsLmNvbSIsInVzZXJSb2xlIjoiUk9MRV9VU0VSIiwiZXhwIjoxNzE1ODM3NDU2LCJ1c2VySWQiOjIsImlhdCI6MTcxNTgzNjU1Nn0.LqHikkXjGwIBwNJp0Jh_jzKuM_kMm1Afk4VEi78wbhw, userRole=ROLE_USER, userId=2)"
+      },
+      "thread_id": 50
+    },
+    {
+      "elapsed": 0.07855169,
+      "event": "return",
+      "id": 36,
+      "parent_id": 9,
+      "return_value": {
+        "class": "com.fullstacksecurity.backend.response.dto.ResponseTokenDTO",
+        "object_id": 99931523,
+        "value": "ResponseTokenDTO(token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqd3Qtc2VjdXJpdHkiLCJzdWIiOiJ1c2VyQGdtYWlsLmNvbSIsInVzZXJSb2xlIjoiUk9MRV9VU0VSIiwiZXhwIjoxNzE1ODM3NDU2LCJ1c2VySWQiOjIsImlhdCI6MTcxNTgzNjU1Nn0.LqHikkXjGwIBwNJp0Jh_jzKuM_kMm1Afk4VEi78wbhw, userRole=ROLE_USER, userId=2)"
+      },
+      "thread_id": 50
+    },
+    {
+      "elapsed": 0.07880515,
+      "event": "return",
+      "id": 37,
+      "parent_id": 8,
+      "return_value": {
+        "class": "org.springframework.http.ResponseEntity",
+        "object_id": 998489496,
+        "value": "<200 OK OK,ApiResponse(status=200, message=Logged In User, data=ResponseTokenDTO(token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqd3Qtc2VjdXJpdHkiLCJzdWIiOiJ1c2VyQGdtYWlsLmNvbSIsInVzZXJSb2xlIjoiUk9MRV9VU0VSIiwiZXhwIjoxNzE1ODM3NDU2LCJ1c2VySWQiOjIsImlhdCI6MTcxNTgzNjU1Nn0.LqHikkXjGwIBwNJp0Jh_jzKuM_kMm1Afk4VEi78wbhw, userRole=ROLE_USER, userId=2), httpStatus=200 OK),[]>"
+      },
+      "thread_id": 50
+    },
+    {
+      "elapsed": 0.086852744,
+      "event": "return",
+      "http_server_response": {
+        "headers": {
+          "X-Frame-Options": "DENY",
+          "Transfer-Encoding": "chunked",
+          "Keep-Alive": "timeout=60",
+          "Cache-Control": "no-cache, no-store, max-age=0, must-revalidate",
+          "X-Content-Type-Options": "nosniff",
+          "Connection": "keep-alive",
+          "Vary": "Origin",
+          "Pragma": "no-cache",
+          "Expires": "0",
+          "X-XSS-Protection": "0",
+          "Date": "Thu, 16 May 2024 05:15:57 GMT",
+          "Content-Type": "application/json"
+        },
+        "status": 200
+      },
+      "id": 38,
+      "parent_id": 7,
+      "thread_id": 50
+    },
+    {
+      "elapsed": 0.08750355,
+      "event": "return",
+      "id": 39,
+      "parent_id": 4,
+      "thread_id": 50
+    },
+    {
+      "elapsed": 0.08757264,
+      "event": "return",
+      "id": 40,
+      "parent_id": 1,
+      "thread_id": 50
+    }
+  ],
+  "version": "1.2",
+  "metadata": {
+    "name": "POST /api/v1/auth/login (200) - 10:45:56.187",
+    "app": "back-end",
+    "language": {
+      "name": "java",
+      "version": "20.0.2.1+10-FR",
+      "engine": "OpenJDK 64-Bit Server VM"
+    },
+    "client": {
+      "name": "appmap-java",
+      "url": "https://github.com/appland/appmap-java"
+    },
+    "recorder": {
+      "name": "request_recording",
+      "type": "requests"
+    },
+    "recording": {},
+    "git": {
+      "repository": "https://github.com/trup98/Intern-tasks.git",
+      "branch": "develop",
+      "commit": "e2b0809679774ff3215dbdf44c3bd6d46c6b990c"
+    }
+  },
+  "classMap": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "name": "getTokenResponse",
+                              "type": "function",
+                              "static": false,
+                              "location": "src/main/java/com/fullstacksecurity/backend/service/impl/LoginServiceImpl.java:65"
+                            },
+                            {
+                              "name": "getToken",
+                              "type": "function",
+                              "static": false,
+                              "location": "src/main/java/com/fullstacksecurity/backend/service/impl/LoginServiceImpl.java:38"
+                            }
+                          ],
+                          "name": "LoginServiceImpl",
+                          "type": "class"
+                        },
+                        {
+                          "children": [
+                            {
+                              "name": "findUserByEmail",
+                              "type": "function",
+                              "static": false,
+                              "location": "src/main/java/com/fullstacksecurity/backend/service/impl/UserAuthenticationServiceImpl.java:31"
+                            }
+                          ],
+                          "name": "UserAuthenticationServiceImpl",
+                          "type": "class"
+                        }
+                      ],
+                      "name": "impl",
+                      "type": "package"
+                    }
+                  ],
+                  "name": "service",
+                  "type": "package"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "name": "findByEmail",
+                          "type": "function",
+                          "static": false,
+                          "location": "src/main/java/com/fullstacksecurity/backend/repository/UserRepository.java:-1"
+                        }
+                      ],
+                      "name": "UserRepository",
+                      "type": "class"
+                    },
+                    {
+                      "children": [
+                        {
+                          "name": "findByUserId",
+                          "type": "function",
+                          "static": false,
+                          "location": "src/main/java/com/fullstacksecurity/backend/repository/UserRoleMappingRepository.java:-1"
+                        }
+                      ],
+                      "name": "UserRoleMappingRepository",
+                      "type": "class"
+                    }
+                  ],
+                  "name": "repository",
+                  "type": "package"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "name": "createToken",
+                              "type": "function",
+                              "static": false,
+                              "location": "src/main/java/com/fullstacksecurity/backend/security/jwt/JwtTokenProvider.java:155"
+                            },
+                            {
+                              "name": "resolveToken",
+                              "type": "function",
+                              "static": false,
+                              "location": "src/main/java/com/fullstacksecurity/backend/security/jwt/JwtTokenProvider.java:46"
+                            },
+                            {
+                              "name": "verifyClaims",
+                              "type": "function",
+                              "static": false,
+                              "location": "src/main/java/com/fullstacksecurity/backend/security/jwt/JwtTokenProvider.java:140"
+                            }
+                          ],
+                          "name": "JwtTokenProvider",
+                          "type": "class"
+                        },
+                        {
+                          "children": [
+                            {
+                              "name": "doFilterInternal",
+                              "type": "function",
+                              "static": false,
+                              "location": "src/main/java/com/fullstacksecurity/backend/security/jwt/JwtTokenFilter.java:26"
+                            }
+                          ],
+                          "name": "JwtTokenFilter",
+                          "type": "class"
+                        }
+                      ],
+                      "name": "jwt",
+                      "type": "package"
+                    }
+                  ],
+                  "name": "security",
+                  "type": "package"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "name": "getToken",
+                          "type": "function",
+                          "static": false,
+                          "location": "src/main/java/com/fullstacksecurity/backend/controller/LoginController.java:38"
+                        }
+                      ],
+                      "name": "LoginController",
+                      "type": "class"
+                    }
+                  ],
+                  "name": "controller",
+                  "type": "package"
+                }
+              ],
+              "name": "backend",
+              "type": "package"
+            }
+          ],
+          "name": "fullstacksecurity",
+          "type": "package"
+        }
+      ],
+      "name": "com",
+      "type": "package"
+    },
+    {
+      "type": "http",
+      "name": "HTTP server requests",
+      "children": [
+        {
+          "type": "route",
+          "name": "POST /api/v1/auth/login"
+        }
+      ]
+    },
+    {
+      "type": "database",
+      "name": "Database",
+      "children": [
+        {
+          "type": "query",
+          "name": "select u1_0.id,u1_0.created_date,u1_0.created_by,u1_0.user_email,u1_0.is_active,u1_0.is_delete,u1_0.last_modified_date,u1_0.password,u1_0.updated_by,u1_0.user_name from user_master u1_0 where u1_0.user_email=?"
+        },
+        {
+          "type": "query",
+          "name": "select u1_0.id,u1_0.created_date,u1_0.created_by,u1_0.is_active,u1_0.is_delete,u1_0.last_modified_date,u1_0.role_id,u1_0.updated_by,u1_0.user_id from user_role_mapping u1_0 where u1_0.user_id=?"
+        },
+        {
+          "type": "query",
+          "name": "select r1_0.id,r1_0.created_date,r1_0.created_by,r1_0.is_active,r1_0.is_delete,r1_0.last_modified_date,r1_0.role,r1_0.updated_by from role_master r1_0 where r1_0.id=?"
+        }
+      ]
+    }
+  ]
+}

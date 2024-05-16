@@ -19,9 +19,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/v1/user")
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin("http://localhost:3001")
 public class UserController {
 
   private final UserService userService;

@@ -1,0 +1,5 @@
+language: "java"
+name: "back-end"
+appmap_dir: "tmp/appmap"
+packages:
+- path: "com.fullstacksecurity.backend"

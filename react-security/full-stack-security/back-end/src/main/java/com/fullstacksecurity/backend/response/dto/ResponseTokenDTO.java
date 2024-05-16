@@ -14,4 +14,6 @@ public class ResponseTokenDTO {
   private String token;
   private String userRole;
   private Long userId;
+  private String userName;
+
 }
