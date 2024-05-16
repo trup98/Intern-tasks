@@ -38,7 +38,6 @@ public class LoginServiceImpl implements LoginService {
     this.authenticate(loginRequestDTO.getEmail(), loginRequestDTO.getPassword());
 
     var user = this.getUser(loginRequestDTO.getEmail());
-    log.info("User Info:::::", user);
 
     if (this.passwordEncoder.matches(loginRequestDTO.getPassword(), user.getPassword())) {
       return getTokenResponse(user);
@@ -72,7 +71,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     try {
-      return new ResponseTokenDTO(jwtTokenProvider.createToken(userEntity.getEmail(), userEntity.getId(), userRole), userRole, userEntity.getId());
+      return new ResponseTokenDTO(jwtTokenProvider.createToken(userEntity.getEmail(), userEntity.getId(), userRole), userRole, userEntity.getId(), userEntity.getUserName());
     } catch (Exception e) {
       log.info("Exception Catch In Login Service::::");
       throw new CustomException("Error While Creating Token", HttpStatus.INTERNAL_SERVER_ERROR);

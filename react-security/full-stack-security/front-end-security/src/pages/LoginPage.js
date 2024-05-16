@@ -4,7 +4,7 @@ import {login} from "../service/user-service";
 import {doLogin} from "../auth/AuthLogin";
 import {useNavigate} from "react-router-dom";
 
-export const LoginPage = ({isOpen, toggle}) => {
+export const LoginPage = () => {
 
   const [loginDetail, setLoginDetail] = useState({
     email: '',
@@ -13,14 +13,6 @@ export const LoginPage = ({isOpen, toggle}) => {
 
   const navigate = useNavigate();
 
-
-  const handleChange = (e, field) => {
-    let value = e.target.value;
-    setLoginDetail({
-      ...loginDetail,
-      [field]: value
-    })
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault();

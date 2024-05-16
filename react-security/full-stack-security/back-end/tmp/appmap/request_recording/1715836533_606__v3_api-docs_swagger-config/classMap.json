@@ -1,0 +1,66 @@
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "name": "resolveToken",
+                            "type": "function",
+                            "static": false,
+                            "location": "src/main/java/com/fullstacksecurity/backend/security/jwt/JwtTokenProvider.java:46"
+                          }
+                        ],
+                        "name": "JwtTokenProvider",
+                        "type": "class"
+                      },
+                      {
+                        "children": [
+                          {
+                            "name": "doFilterInternal",
+                            "type": "function",
+                            "static": false,
+                            "location": "src/main/java/com/fullstacksecurity/backend/security/jwt/JwtTokenFilter.java:26"
+                          }
+                        ],
+                        "name": "JwtTokenFilter",
+                        "type": "class"
+                      }
+                    ],
+                    "name": "jwt",
+                    "type": "package"
+                  }
+                ],
+                "name": "security",
+                "type": "package"
+              }
+            ],
+            "name": "backend",
+            "type": "package"
+          }
+        ],
+        "name": "fullstacksecurity",
+        "type": "package"
+      }
+    ],
+    "name": "com",
+    "type": "package"
+  },
+  {
+    "type": "http",
+    "name": "HTTP server requests",
+    "children": [
+      {
+        "type": "route",
+        "name": "GET /v3/api-docs/swagger-config"
+      }
+    ]
+  }
+]

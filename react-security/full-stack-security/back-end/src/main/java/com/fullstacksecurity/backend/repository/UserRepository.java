@@ -45,7 +45,8 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     "OR ud.last_name  LIKE CONCAT('%', :searchKey, '%') " +
     "OR um.user_email  LIKE CONCAT('%', :searchKey, '%') " +
     ") " +
-    "GROUP BY um.id")
+    "GROUP BY " +
+    "um.id, um.is_active, um.user_name, um.user_email, ud.gender, ud.first_name, ud.address, ud.dob, ud.last_name ")
   Page<GetAllUserDetails> findAllUserDetail(Pageable pageable, @Param("searchKey") String searchKey);
 
 

@@ -1,0 +1,8 @@
+[
+  "com/fullstacksecurity/backend/controller/LoginController",
+  "com/fullstacksecurity/backend/repository/UserRepository",
+  "com/fullstacksecurity/backend/repository/UserRoleMappingRepository",
+  "com/fullstacksecurity/backend/security/jwt/JwtTokenProvider",
+  "com/fullstacksecurity/backend/service/impl/LoginServiceImpl",
+  "com/fullstacksecurity/backend/service/impl/UserAuthenticationServiceImpl"
+]

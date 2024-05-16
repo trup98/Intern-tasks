@@ -1,0 +1,6 @@
+[
+  "com/fullstacksecurity/backend/controller",
+  "com/fullstacksecurity/backend/repository",
+  "com/fullstacksecurity/backend/security/jwt",
+  "com/fullstacksecurity/backend/service/impl"
+]

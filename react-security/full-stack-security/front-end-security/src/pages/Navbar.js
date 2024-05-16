@@ -22,6 +22,7 @@ export const Navbar = () => {
           <div className="container-fluid d-flex justify-content-end align-items-center">
             <a className="navbar-brand text-white">CRUD- Security</a>
             <div className="ms-auto">
+              <a></a>
               <Button color="btn btn-outline-primary mx-2 text-white" onClick={handleLogOut}>Logout</Button>
             </div>
           </div>

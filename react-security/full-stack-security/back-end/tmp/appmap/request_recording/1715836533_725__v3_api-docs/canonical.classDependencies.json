@@ -1,0 +1,10 @@
+[
+  {
+    "caller": "GET /v3/api-docs",
+    "callee": "com/fullstacksecurity"
+  },
+  {
+    "caller": "com/fullstacksecurity",
+    "callee": "GET /v3/api-docs"
+  }
+]
