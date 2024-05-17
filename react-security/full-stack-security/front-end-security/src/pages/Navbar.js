@@ -1,11 +1,33 @@
 import {Button} from "reactstrap";
 import SideBar from "./SideBar";
-import {doLogout} from "../auth/AuthLogin";
+import {doLogout, refreshToken} from "../service/auth/AuthTokenProvider";
 import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
+import useUserActivity from "../hooks/useUserActivity";
+import {useEffect} from "react";
 
 export const Navbar = () => {
 
   const navigate = useNavigate();
+
+  const logOut = () => {
+    toast.error("Log Out due to inactivity!");
+    doLogout();
+    navigate("/login");
+  }
+
+
+  const isActive = useUserActivity(logOut);
+  useEffect(() => {
+    let refreshInterval;
+    if (isActive) {
+      refreshInterval = setInterval(() => {
+        refreshToken();
+      }, 30000)
+    }
+    return () => clearInterval(refreshInterval);
+  }, [isActive]);
+
 
   const handleLogOut = ()=>{
     doLogout();

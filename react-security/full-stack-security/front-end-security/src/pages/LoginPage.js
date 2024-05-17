@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {toast, Zoom} from "react-toastify";
 import {login} from "../service/user-service";
-import {doLogin} from "../auth/AuthLogin";
+import {doLogin} from "../service/auth/AuthTokenProvider";
 import {useNavigate} from "react-router-dom";
 
 export const LoginPage = () => {
@@ -26,11 +26,10 @@ export const LoginPage = () => {
     try {
       //   calling the server and getting the token
       login(loginDetail).then((response) => {
-        // save token in cookies
-        doLogin(response);
-        navigate("/user")
-
         if (response.status == 200) {
+          // save token in cookies
+          doLogin(response);
+          navigate("/user")
           toast.success("Login successfully!", {
             transition: Zoom
           });
