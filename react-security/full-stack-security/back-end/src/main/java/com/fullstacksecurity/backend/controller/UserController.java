@@ -50,8 +50,8 @@ public class UserController {
     return new ResponseEntity<>(new ApiResponse(HttpStatus.OK, "User Found Successfully", response), HttpStatus.OK);
   }
 
-  @PatchMapping("/changeStatus/{id}/{status}")
-  @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_USER')")
+  @PutMapping("/changeStatus/{id}/{status}")
+  @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
   public ResponseEntity<ApiResponse> changeTheStatus(@PathVariable(value = "id") Long id, @PathVariable(value = "status") Boolean status) {
     this.userService.changeStatus(id, status);
     return new ResponseEntity<>(new ApiResponse(HttpStatus.OK, "Status Changed", new HashMap<>()), HttpStatus.OK);
