@@ -143,7 +143,7 @@ function AddUser({isOpen, toggle}) {
                   </Form.Group>
                   <Form.Group controlId="hobbies">
                     <Form.Label>Hobbies</Form.Label>
-                    <Select options={hobbyOptions} value={selectedHobby} onChange={handleHobbyChange} isMulti noOptionsMessage={()=>"No Hobbies Found"}/>
+                    <Select options={hobbyOptions} value={selectedHobby} onChange={setSelectedHobby} isMulti noOptionsMessage={()=>"No Hobbies Found"}/>
                   </Form.Group>
 
                 </Form>

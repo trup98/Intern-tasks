@@ -6,6 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import {User} from "./pages/User";
 import {LoginPage} from "./pages/LoginPage";
 import PrivateRoute from "./components/PrivateRoute";
+import {AddUser} from "./pages/AddUser";
+import {EditUser} from "./pages/EditUser";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/" element={<PrivateRoute/>}>
 
             <Route path="user" element={<User/>}/>
+            <Route path="/add" element={<AddUser/>}/>
+            <Route path="/edit" element={<EditUser/>}/>
 
           </Route>
         </Routes>
