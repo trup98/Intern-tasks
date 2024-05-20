@@ -17,7 +17,7 @@ const useUserActivity = (logoutCallBack) => {
       clearTimeout(logOutTimeOut);
       activityTimeOut = setTimeout(() => {
         setIsActive(false);
-      }, 30000)
+      }, 300000)
       logOutTimeOut = setTimeout(() => {
         logoutCallBack();
         doLogout()

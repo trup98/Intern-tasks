@@ -2,11 +2,14 @@ import {useEffect, useState} from "react";
 import {callAllUser, changeStatus} from "../service/user-service";
 import {Pagination} from "react-bootstrap";
 import {toast, Zoom} from "react-toastify";
-import {doLogout, refreshToken} from "../service/auth/AuthTokenProvider";
-import {useNavigate} from "react-router-dom";
-import useUserActivity from "../hooks/useUserActivity";
-import ToggleOnIcon from '@mui/icons-material/ToggleOn';
+import {Link, useNavigate} from "react-router-dom";
 import {Switch} from "@mui/material";
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import EditIcon from '@mui/icons-material/Edit';
+import InfoIcon from '@mui/icons-material/Info';
+import DeleteIcon from '@mui/icons-material/Delete';
+import {ViewUser} from "./modal/ViewUser";
+import {DeleteUser} from "./modal/DeleteUser";
 
 export const User = () => {
 
@@ -20,6 +23,25 @@ export const User = () => {
   });
   const [value, setValues] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
+
+  const [selectedUser, setSelectedUser] = useState(null)
+  const [viewUserOpen, setViewUserOpen] = useState(false);
+  const [deleteUserOpen, setDeleteUserOpen] = useState(false);
+
+
+  const handleViewUser = (users) => {
+    setSelectedUser(users)
+    setViewUserOpen(true);
+    toast.success("User Found successfully!", {
+      transition: Zoom
+    })
+  }
+
+  const handleDeleteUser = (users) => {
+    setSelectedUser(users)
+    setDeleteUserOpen(true);
+    setViewUserOpen(false);
+  }
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -57,11 +79,22 @@ export const User = () => {
     changeStatus(user.id, user.status)
       .then(response => {
         getAll(users.pageNumber)
-        toast.success("User changed successfully")
+        toast.success("User changed successfully", {
+          transition: Zoom
+        })
       })
       .catch(error => {
         console.log(error)
       })
+
+  }
+
+  const handleAddPage = () => {
+    navigate("/add");
+  }
+
+  const handleEditUser = (user) => {
+    navigate("/edit", {state: {user}})
 
   }
 
@@ -70,7 +103,10 @@ export const User = () => {
     <>
       <div className="container">
         <div className="py-4">
-          <table className="table border table-striped  shadow">
+          <div className="container-fluid d-flex justify-content-end align-items-center">
+            <PersonAddIcon onClick={() => handleAddPage()}/>
+          </div>
+          <table className="table border table-striped shadow mt-4">
             <thead>
             <tr>
               <th scope="col">id</th>
@@ -94,6 +130,21 @@ export const User = () => {
                     <td>{user.roleNames}</td>
                     <td>
                       <Switch checked={user.status} onClick={() => handleChangeStatus(user)}/>
+                    </td>
+                    <td>
+                      <div className="mx-2 ">
+
+                        <div className="button-wrapper mx-2 d-inline-block">
+                          <EditIcon onClick={() => handleEditUser(user)}/>
+                        </div>
+                        <div className="button-wrapper mx-2 d-inline-block">
+                          <InfoIcon color="action" onClick={() => handleViewUser(user)}/>
+                        </div>
+                        <div className="button-wrapper mx-2 d-inline-block">
+                          <DeleteIcon color="error" onClick={() => handleDeleteUser(user)}/>
+                        </div>
+                      </div>
+
                     </td>
                   </tr>
                 )
@@ -122,6 +173,18 @@ export const User = () => {
           </div>
         </div>
       </div>
+
+      {
+        viewUserOpen && (
+          <ViewUser isOpen={true} toggle={() => setViewUserOpen(false)} user={selectedUser}/>
+        )
+      }
+
+      {
+        deleteUserOpen && (
+          <DeleteUser isOpen={true} toggle={() => setDeleteUserOpen(false)} user={selectedUser}/>
+        )
+      }
     </>
   )
 }
