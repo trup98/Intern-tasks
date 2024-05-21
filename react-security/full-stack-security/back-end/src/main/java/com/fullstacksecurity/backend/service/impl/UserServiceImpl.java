@@ -103,8 +103,7 @@ public class UserServiceImpl implements UserService {
 
       UserDetailsEntity currentUserDetails = userDetails.get();
 
-      UserResponseDTO userResponseDTO = getUserResponseDTO(currentUser, currentUserDetails);
-      return userResponseDTO;
+      return getUserResponseDTO(currentUser, currentUserDetails);
 
     } catch (CustomException e) {
       throw new CustomException(e.getMessage(), e.getHttpStatus());
@@ -115,33 +114,32 @@ public class UserServiceImpl implements UserService {
   @Transactional(rollbackFor = Exception.class)
   public void changeStatus(Long id, Boolean status) {
     try {
-      var currentUser = this.userRepository.findById(id);
-      UserEntity user = currentUser.get();
-      var userDetailsEntity = this.userDetailsRepository.findById(user.getId());
-      var userRoleMappingEntity = this.userRoleMappingRepository.findById(user.getId());
 
-      UserDetailsEntity currentUserDetails = userDetailsEntity.get();
-      UserRoleMappingEntity currentUserRoleMapping = userRoleMappingEntity.get();
+      UserEntity userEntity = this.userRepository.findById(id)
+        .orElseThrow(() -> new CustomException(ExceptionEnum.USER_NOT_FOUND.getMessage(), HttpStatus.BAD_REQUEST));
 
+      UserDetailsEntity userDetailsEntity = this.userDetailsRepository.findByUserId(userEntity)
+        .orElseThrow(() -> new CustomException(ExceptionEnum.USER_DETAILS_NOT_FOUND.getMessage(), HttpStatus.BAD_REQUEST));
+
+      UserRoleMappingEntity roleMappingEntity = this.userRoleMappingRepository.findByUserId(userEntity)
+        .orElseThrow(() -> new CustomException(ExceptionEnum.USER_ROLE_MAPPING_NOT_FOUND.getMessage(), HttpStatus.BAD_REQUEST));
 
       if (status) {
-        user.setActive(false);
-        currentUserDetails.setActive(false);
-        currentUserRoleMapping.setActive(false);
-        this.userRepository.save(user);
-        this.userDetailsRepository.save(currentUserDetails);
-        this.userRoleMappingRepository.save(currentUserRoleMapping);
+        userEntity.setActive(false);
+        userDetailsEntity.setActive(false);
+        roleMappingEntity.setActive(false);
+        this.userRepository.save(userEntity);
+        this.userDetailsRepository.save(userDetailsEntity);
+        this.userRoleMappingRepository.save(roleMappingEntity);
       }
       if (!status) {
-        user.setActive(true);
-        currentUserDetails.setActive(true);
-        currentUserRoleMapping.setActive(true);
-        this.userRepository.save(user);
-        this.userDetailsRepository.save(currentUserDetails);
-        this.userRoleMappingRepository.save(currentUserRoleMapping);
+        userEntity.setActive(true);
+        userDetailsEntity.setActive(true);
+        roleMappingEntity.setActive(true);
+        this.userRepository.save(userEntity);
+        this.userDetailsRepository.save(userDetailsEntity);
+        this.userRoleMappingRepository.save(roleMappingEntity);
       }
-
-
     } catch (CustomException e) {
       throw new CustomException(e.getMessage(), e.getHttpStatus());
     }
@@ -186,7 +184,6 @@ public class UserServiceImpl implements UserService {
       RoleEntity role = roleEntity.get();
 
 //      getting role from database
-
       Optional<UserRoleMappingEntity> userRole = this.userRoleMappingRepository.findByUserId(saveUserEntity);
 
 //      updating role

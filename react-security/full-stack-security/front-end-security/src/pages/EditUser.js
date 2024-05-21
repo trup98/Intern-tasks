@@ -144,14 +144,15 @@ export const EditUser = () => {
               </Form.Group>
 
             </Form>
-            <Button color="outline-primary" onClick={handleSubmit}
-                    className="mt-4 justify-content-end align-items-center">
-              Submit
-            </Button>
+            <div className="d-flex justify-content-end mt-4">
+              <Button color="outline-primary" onClick={handleSubmit} className="mx-2">
+                Submit
+              </Button>
 
-            <Button color="outline-danger" onClick={handleCancel} className="mt-4 mx-2 justify-content-end">
-              Cancel
-            </Button>
+              <Button color="outline-danger" onClick={handleCancel} className="mx-2">
+                Cancel
+              </Button>
+            </div>
           </Col>
         </Row>
       </Container>

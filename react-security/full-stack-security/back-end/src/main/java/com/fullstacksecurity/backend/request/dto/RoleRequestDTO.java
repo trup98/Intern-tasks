@@ -14,7 +14,7 @@ public class RoleRequestDTO {
 
 
   @NotEmpty(message = "Role Cannot Be Empty")
-  @Size(min = 6, max = 15)
+  @Size(min = 6, max = 17)
   private String roleName;
 
 }

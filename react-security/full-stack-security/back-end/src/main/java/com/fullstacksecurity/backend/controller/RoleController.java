@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 
 @RestController
-@RequestMapping("/api/role")
+@RequestMapping("/api/v1/role")
 @RequiredArgsConstructor
 public class RoleController {
 

@@ -16,8 +16,6 @@ export const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(loginDetail);
-
     // validation
     if (loginDetail.email.trim() == "" || loginDetail.password.trim() == "") {
       toast.error("Email and Password is required!!!");
@@ -29,7 +27,10 @@ export const LoginPage = () => {
         if (response.status == 200) {
           // save token in cookies
           doLogin(response);
-          navigate("/user")
+
+          const redirectPath = localStorage.getItem("redirectAfterLogin") || "/user";
+          localStorage.removeItem("redirectAfterLogin");
+          navigate(redirectPath)
           toast.success("Login successfully!", {
             transition: Zoom
           });
