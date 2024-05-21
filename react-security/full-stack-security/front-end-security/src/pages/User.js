@@ -50,14 +50,12 @@ export const User = () => {
 
   useEffect(() => {
     getAll(currentPage)
-    // callAllUser();
   }, [currentPage, value]);
 
 
   const getAll = (currentPage) => {
     callAllUser(value, value ? 0 : currentPage, users.pageSize)
       .then(response => {
-        console.log(response.data.content)
         setUser({
           data: response.data.content,
           totalPages: response.data.totalPages,
@@ -75,7 +73,6 @@ export const User = () => {
   }
 
   const handleChangeStatus = (user) => {
-    console.log()
     changeStatus(user.id, user.status)
       .then(response => {
         getAll(users.pageNumber)
@@ -84,7 +81,9 @@ export const User = () => {
         })
       })
       .catch(error => {
-        console.log(error)
+        toast(error.response.data.message, {
+          transition: Zoom
+        })
       })
 
   }
@@ -124,7 +123,7 @@ export const User = () => {
                 users.data.map((user, id) =>
 
                   <tr key={id}>
-                    <th scope="row">{user.id}</th>
+                    <th scope="row">{id + 1}</th>
                     <td>{user.userName}</td>
                     <td>{user.email}</td>
                     <td>{user.roleNames}</td>

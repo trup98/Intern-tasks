@@ -29,13 +29,13 @@ export const AddUser = () => {
 
   const [selectedRole, setSelectedRole] = useState([]);
 
-  const rolesId  = selectedRole.value
+  const rolesId = selectedRole.value
 
   const handleDateChange = (date) => {
     setDob(date)
   }
 
-  const handleCancel =()=>{
+  const handleCancel = () => {
     navigate("/user")
   }
 
@@ -54,34 +54,34 @@ export const AddUser = () => {
       rolesId
 
     }
-    console.log(userData)
-
     try {
       await userSchema.validate(userData, {abortEarly: false});
 
-      addUser(userData)
-        .then(response => {
-          if (response.status == 200) {
-            toast.success("User added successfully", {
-              transition: Zoom
-            })
-          }
-        })
-    } catch (error) {
-      if (error.inner && error.inner.length > 0) {
-        error.inner.forEach(error => {
-          toast.error(`${error.message}`, {
-            transition: Zoom
-          });
+      const response = await addUser(userData);
+
+      if (response.status === 200) {
+        toast.success(response.data.message, {
+          transition: Zoom
         });
       } else {
-        toast.error('Error adding User!' + error.message, {
+        toast.error(response.data.message, {
+          transition: Zoom
+        });
+      }
+    } catch (error) {
+      if (error.response && error.response.data) {
+        // Show server error message
+        toast.error(error.response.data.message, {
+          transition: Zoom
+        });
+      } else {
+        // Show general error message
+        toast.error('Error adding User ! ' + error.message, {
           transition: Zoom
         });
       }
     }
-
-  }
+  };
 
   return (
     <>
@@ -148,13 +148,17 @@ export const AddUser = () => {
               </Form.Group>
 
             </Form>
-            <Button color="outline-primary" onClick={handleSubmit} className="mt-4 justify-content-end align-items-center">
-              Submit
-            </Button>
 
-            <Button color="outline-danger" onClick={handleCancel} className="mt-4 mx-2 justify-content-end">
-              Cancel
-            </Button>
+            <div className="d-flex justify-content-end mt-4">
+              <Button color="outline-primary" onClick={handleSubmit} className="mx-2">
+                Submit
+              </Button>
+
+              <Button color="outline-danger" onClick={handleCancel} className="mx-2">
+                Cancel
+              </Button>
+            </div>
+
           </Col>
         </Row>
       </Container>

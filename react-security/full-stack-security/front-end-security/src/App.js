@@ -8,6 +8,9 @@ import {LoginPage} from "./pages/LoginPage";
 import PrivateRoute from "./components/PrivateRoute";
 import {AddUser} from "./pages/AddUser";
 import {EditUser} from "./pages/EditUser";
+import {Role} from "./pages/Role";
+import {AddRole} from "./pages/rolePage/AddRole";
+import {EditRole} from "./pages/rolePage/EditRole";
 
 function App() {
   return (
@@ -22,6 +25,9 @@ function App() {
             <Route path="user" element={<User/>}/>
             <Route path="/add" element={<AddUser/>}/>
             <Route path="/edit" element={<EditUser/>}/>
+            <Route path="/role" element={<Role/>}/>
+            <Route path="/role/add" element={<AddRole/>}/>
+            <Route path="/editRole" element={<EditRole/>}/>
 
           </Route>
         </Routes>

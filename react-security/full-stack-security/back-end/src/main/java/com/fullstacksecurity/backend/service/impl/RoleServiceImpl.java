@@ -28,7 +28,7 @@ public class RoleServiceImpl implements RoleService {
   private final Utilities utilities;
   private final ModalMapperConfig modalMapperConfig;
 
-  private RoleResponseDTO mapEntityToDto(RoleEntity roleEntity) {
+  private  RoleResponseDTO mapEntityToDto(RoleEntity roleEntity) {
     return modalMapperConfig.modelMapper().map(roleEntity, RoleResponseDTO.class);
   }
 
@@ -60,7 +60,7 @@ public class RoleServiceImpl implements RoleService {
   @Override
   public List<RoleResponseDTO> getAllRole() {
     try {
-      return this.roleRepository.findAll().stream().map(this::mapEntityToDto).collect(Collectors.toList());
+      return this.roleRepository.findAllActiveRole().stream().map(this::mapEntityToDto).collect(Collectors.toList());
     } catch (CustomException e) {
       throw new CustomException(e.getMessage(), e.getHttpStatus());
     }

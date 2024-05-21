@@ -16,6 +16,8 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
   Optional<UserEntity> findByEmail(String username);
 
+//  Optional<UserEntity> findByIdAndDeleteFalse (Long id);
+
   /*<>This method is native sql query,
    getting data from sql and storing them in class-based projection<>
    * */

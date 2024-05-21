@@ -9,8 +9,12 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import {useNavigate} from "react-router-dom";
 
 function SideBar() {
+
+  const navigate = useNavigate();
+
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -24,6 +28,16 @@ function SideBar() {
     }
     setState({...state, [anchor]: open});
   };
+
+  const handleRole = () => {
+    navigate("/role")
+  }
+
+  const handleUser = () => {
+    navigate("/user")
+  }
+
+
   const list = (anchor) => (
     <Box
       sx={{width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250}}
@@ -34,15 +48,15 @@ function SideBar() {
       <List>
         <ListItem disablePadding>
           <ListItemIcon>
-            <HomeIcon/>
+            <HomeIcon onClick={() => handleUser()} className="pe-auto"/>
           </ListItemIcon>
-          <ListItemText primary={"Home"}/>
+          <ListItemText primary={"User"} onClick={() => handleUser()} className="pe-auto"/>
         </ListItem>
         <ListItem disablePadding>
           <ListItemIcon>
-            <AdminPanelSettingsIcon/>
+            <AdminPanelSettingsIcon onClick={() => handleRole()} className="pe-auto"/>
           </ListItemIcon>
-          <ListItemText primary={"Role"}/>
+          <ListItemText primary={"Role"} onClick={() => handleRole()} className="pe-auto"/>
         </ListItem>
       </List>
       <Divider/>

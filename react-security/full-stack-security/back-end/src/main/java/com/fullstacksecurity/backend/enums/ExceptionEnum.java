@@ -13,6 +13,7 @@ public enum ExceptionEnum {
   USER_NAME_NOT_FOUND("UserName not found", "USER_NAME_NOT_FOUND"),
   USER_NOT_FOUND("User not found", "USER_NOT_FOUND"),
   USER_DETAILS_NOT_FOUND("User details  not found", "USER_DETAILS_NOT_FOUND"),
+  USER_ROLE_MAPPING_NOT_FOUND("User Role Mapping Not Found","USER_ROLE_MAPPING_NOT_FOUND"),
   USER_ROLE_NOT_FOUND("User role not found", "USER_ROLE_NOT_FOUND"),
   INCORRECT_USERNAME_OR_PASSWORD("Incorrect username or password", "INCORRECT_USERNAME_OR_PASSWORD"),
   INVALID_CREDENTIALS("Invalid credentials", "INVALID_CREDENTIALS"),
