@@ -1,38 +1,39 @@
 import {Button} from "reactstrap";
 import SideBar from "./SideBar";
-import {doLogout, refreshToken} from "../service/auth/AuthTokenProvider";
+import {doLogout, refreshToken} from "../service/auth/CookieStore";
 import {useNavigate} from "react-router-dom";
-import {toast} from "react-toastify";
+import {toast, Zoom} from "react-toastify";
 import useUserActivity from "../hooks/useUserActivity";
 import {useEffect} from "react";
 
 export const Navbar = () => {
-
   const navigate = useNavigate();
 
   const logOut = () => {
     toast.error("Log Out due to inactivity!");
     doLogout();
     navigate("/login");
-  }
-
+  };
 
   const isActive = useUserActivity(logOut);
+
   useEffect(() => {
     let refreshInterval;
     if (isActive) {
       refreshInterval = setInterval(() => {
         refreshToken();
-      }, 30000)
+      }, 900000); // 15 minutes
     }
     return () => clearInterval(refreshInterval);
   }, [isActive]);
 
-
-  const handleLogOut = ()=>{
+  const handleLogOut = () => {
     doLogout();
     navigate("/login");
-  }
+    toast.success("Log Out successfully", {
+      transition: Zoom
+    });
+  };
 
   return (
     <>
@@ -49,8 +50,6 @@ export const Navbar = () => {
           </div>
         </div>
       </nav>
-
-
     </>
-  )
-}
+  );
+};

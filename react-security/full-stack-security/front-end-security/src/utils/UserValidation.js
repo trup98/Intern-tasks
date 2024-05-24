@@ -10,3 +10,5 @@ export const userSchema = Yup.object().shape({
   gender: Yup.string().required('Gender is required'),
   address: Yup.string().required('Address is required'),
 })
+
+

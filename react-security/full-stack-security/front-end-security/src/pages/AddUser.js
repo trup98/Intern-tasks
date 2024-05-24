@@ -36,7 +36,7 @@ export const AddUser = () => {
   }
 
   const handleCancel = () => {
-    navigate("/user")
+    navigate("/")
   }
 
   const handleSubmit = async (e) => {
@@ -63,6 +63,7 @@ export const AddUser = () => {
         toast.success(response.data.message, {
           transition: Zoom
         });
+        navigate("/")
       } else {
         toast.error(response.data.message, {
           transition: Zoom

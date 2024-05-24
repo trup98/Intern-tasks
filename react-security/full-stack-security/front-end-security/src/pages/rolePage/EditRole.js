@@ -32,6 +32,7 @@ export const EditRole = () => {
         toast.success(response.data.message, {
           transition: Zoom
         });
+        navigate("/role")
       } else {
         toast.error(response.data.message, {
           transition: Zoom
