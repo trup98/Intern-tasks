@@ -34,7 +34,7 @@ function SideBar() {
   }
 
   const handleUser = () => {
-    navigate("/user")
+    navigate("/")
   }
 
 

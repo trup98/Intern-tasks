@@ -1,8 +1,8 @@
 import {useState} from "react";
 import {toast, Zoom} from "react-toastify";
 import {login} from "../service/user-service";
-import {doLogin} from "../service/auth/AuthTokenProvider";
-import {useNavigate} from "react-router-dom";
+import {fourteenMinutesTime, setCookie, setRoleToCookies} from "../service/auth/CookieStore";
+import {useLocation, useNavigate} from "react-router-dom";
 
 export const LoginPage = () => {
 
@@ -12,33 +12,49 @@ export const LoginPage = () => {
   });
 
   const navigate = useNavigate();
+  const location = useLocation();
+
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // validation
-    if (loginDetail.email.trim() == "" || loginDetail.password.trim() == "") {
+    if (loginDetail.email.trim() === "" || loginDetail.password.trim() === "") {
       toast.error("Email and Password is required!!!");
     }
 
     try {
       //   calling the server and getting the token
       login(loginDetail).then((response) => {
-        if (response.status == 200) {
-          // save token in cookies
-          doLogin(response);
 
-          const redirectPath = localStorage.getItem("redirectAfterLogin") || "/user";
-          localStorage.removeItem("redirectAfterLogin");
-          navigate(redirectPath)
+        if (response.status === 200) {
+          // save token in cookies
+          // doLogin(response);
+
+          setCookie("token", response.data.token, {
+            expires: fourteenMinutesTime()
+          });
+
+          setRoleToCookies("role", response.data.userRole, {
+            expires: fourteenMinutesTime(),
+          });
+
+
+          // Read the redirect query parameter
+          const redirectPath = new URLSearchParams(location.search).get("redirect") || "/";
+          navigate(redirectPath, {replace: true});
+
           toast.success("Login successfully!", {
             transition: Zoom
           });
+
         } else {
           toast.error(response.data.message)
         }
       }).catch(error => {
-        toast.error("Invalid email or password")
+        toast.error(error.response.data.message, {
+          transition: Zoom
+        })
       })
     } catch (error) {
       if (error.inner && error.inner.length > 0) {
@@ -88,6 +104,7 @@ export const LoginPage = () => {
                 <div className="text-center">
                   <button type="submit" className="btn btn-outline-primary px-5 mb-5 w-100">Login</button>
                 </div>
+
               </form>
             </div>
 

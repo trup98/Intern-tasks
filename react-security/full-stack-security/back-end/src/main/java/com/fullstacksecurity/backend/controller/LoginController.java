@@ -21,18 +21,6 @@ public class LoginController {
 
   private final LoginService loginService;
 
-  @GetMapping("/hello")
-  @PreAuthorize("hasAnyAuthority('ROLE_USER')")
-  public String helloUser() {
-    return "Hello User";
-  }
-
-  @GetMapping("/helloAdmin")
-  @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-  public String helloAdmin() {
-    return "hello Admin";
-  }
-
   @PostMapping("/login")
   public ResponseEntity<ApiResponse> getToken(@RequestBody @Valid LoginRequestDTO loginRequestDTO) {
     log.info("Login User Details::::::", loginRequestDTO);

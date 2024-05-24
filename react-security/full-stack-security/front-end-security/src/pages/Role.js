@@ -7,10 +7,9 @@ import {getRoleAll} from "../service/role-service";
 import {toast, Zoom} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 import {Button} from "reactstrap";
-import {ViewUser} from "./modal/ViewUser";
-import {DeleteUser} from "./modal/DeleteUser";
 import {DeleteRole} from "./modal/DeleteRole";
 import {ViewRole} from "./modal/ViewRole";
+import {isRoleAuthenticated} from "../service/auth/CookieStore";
 
 export const Role = () => {
 
@@ -72,7 +71,7 @@ export const Role = () => {
   }
 
   const handleCancel = () => {
-    navigate("/user")
+    navigate("/")
   }
 
   const handleEditRole = (userRole) => {
@@ -80,13 +79,18 @@ export const Role = () => {
 
   }
 
+  const adminRole = isRoleAuthenticated();
+
   return (
 
     <>
       <div className="container">
         <div className="py-4">
           <div className="container-fluid d-flex justify-content-end align-items-center">
-            <PersonAddIcon onClick={() => handleRole()}/>
+            {
+              adminRole && <PersonAddIcon onClick={() => handleRole()}/>
+            }
+
           </div>
           <table className="table border table-striped shadow mt-4">
             <thead>

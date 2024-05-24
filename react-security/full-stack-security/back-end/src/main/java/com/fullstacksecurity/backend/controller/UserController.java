@@ -36,7 +36,7 @@ public class UserController {
   }
 
   @GetMapping("/getAll")
-  @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+  @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_USER')")
   public ResponseEntity<ApiResponse> getAll(@RequestParam(value = "pageNo", required = false, defaultValue = "0") Integer pageNo, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize, @RequestParam(value = "sortBy", required = false, defaultValue = "ID") GetSortBy getSortBy, @RequestParam(value = "sortOrder", required = false, defaultValue = "ASC") Sort.Direction sortOrder, @RequestParam(value = "searchKey", required = false, defaultValue = "") String searchKey) {
     Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortOrder, getSortBy.getValue()));
     var response = this.userService.getAll(pageable, searchKey);
