@@ -31,7 +31,9 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     "ud.address AS address, " +
     "ud.dob AS dateOfBirth, " +
     "ud.last_name AS lastName, " +
-    "GROUP_CONCAT(rm.`role` SEPARATOR ',') AS roleNames " +
+    "GROUP_CONCAT(" +
+    " REPLACE(REPLACE(rm.`role`, 'ROLE_', ''), '_', ' ') SEPARATOR ',' " +
+    ") AS roleNames " +
     "FROM " +
     "`react-security`.user_master um " +
     "JOIN " +
@@ -43,12 +45,12 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     "WHERE " +
     "um.is_delete = FALSE " +
     "AND ( " +
-    "ud.first_name  LIKE CONCAT('%', :searchKey, '%') " +
-    "OR ud.last_name  LIKE CONCAT('%', :searchKey, '%') " +
-    "OR um.user_email  LIKE CONCAT('%', :searchKey, '%') " +
+    "ud.first_name LIKE CONCAT('%', :searchKey, '%') " +
+    "OR ud.last_name LIKE CONCAT('%', :searchKey, '%') " +
+    "OR um.user_email LIKE CONCAT('%', :searchKey, '%') " +
     ") " +
     "GROUP BY " +
-    "um.id, um.is_active, um.user_name, um.user_email, ud.gender, ud.first_name, ud.address, ud.dob, ud.last_name ")
+    "um.id, um.is_active, um.user_name, um.user_email, ud.gender, ud.first_name, ud.address, ud.dob, ud.last_name")
   Page<GetAllUserDetails> findAllUserDetail(Pageable pageable, @Param("searchKey") String searchKey);
 
 
