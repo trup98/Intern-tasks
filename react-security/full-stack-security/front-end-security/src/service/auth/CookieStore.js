@@ -44,6 +44,7 @@ export const isRoleAuthenticated = () => {
 export const doLogout = () => {
   Cookies.remove("token")
   Cookies.remove("refreshToken")
+  Cookies.remove("role")
 
 }
 
