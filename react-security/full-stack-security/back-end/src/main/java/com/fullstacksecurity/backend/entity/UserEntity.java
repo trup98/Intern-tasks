@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user_master")
-public class UserEntity extends AudiTable{
+public class UserEntity extends BaseAudit {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

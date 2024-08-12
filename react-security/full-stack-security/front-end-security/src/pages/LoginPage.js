@@ -79,14 +79,15 @@ export const LoginPage = () => {
       <div className="container">
         <div className="row">
           <div className="col-md-6 offset-md-3">
-            <h2 className="text-center text-dark mt-5">Login Form</h2>
+            <h2 className="text-center text-dark mt-5">Login</h2>
 
             <div className="card my-5">
 
               <form className="card-body cardbody-color p-lg-5" onSubmit={handleSubmit}>
 
                 <div className="text-center">
-                  <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
+                  <img
+                    src="https://img.freepik.com/free-photo/view-3d-boy-using-laptop_23-2150709886.jpg?t=st=1717070567~exp=1717074167~hmac=13b2093b7d8f4bc0c511a773eba3627d41ea965e7ffdf16529cae7b32f93d8c1&w=740"
                        className="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
                        width="200px" alt="profile"/>
                 </div>

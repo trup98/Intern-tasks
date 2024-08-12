@@ -15,14 +15,14 @@ public class SwaggerConfig {
     return new OpenAPI().info(
         new Info()
           .title("Back-End")
-          .description("Back-End for react-Js Full stack with Security")
+          .description("Back-End for react-Js with Security")
           .version("0.0.1"))
       .schemaRequirement(
         HttpHeaders.AUTHORIZATION,
         new SecurityScheme()
           .type(SecurityScheme.Type.HTTP)
           .scheme("bearer")
-          .description("<b>Jwt Token Coming From Sign in API</b>")
+          .description("<b>Jwt Token Coming From Login API</b>")
           .name(HttpHeaders.AUTHORIZATION))
       .addSecurityItem(
         new SecurityRequirement()

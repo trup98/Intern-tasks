@@ -1,13 +1,15 @@
 import {useState} from "react";
 import {Col, Container, Form, FormControl, Row} from "react-bootstrap";
-import DatePicker from "react-datepicker";
-import 'react-datepicker/dist/react-datepicker.css';
 import {Button} from "reactstrap";
 import Select from "react-select";
 import {userSchema} from "../utils/UserValidation";
 import {toast, Zoom} from "react-toastify";
 import {addUser} from "../service/user-service";
 import {useNavigate} from "react-router-dom";
+import {DatePicker} from '@mui/x-date-pickers/DatePicker';
+import {DemoContainer} from '@mui/x-date-pickers/internals/demo';
+import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 
 export const AddUser = () => {
 
@@ -22,9 +24,12 @@ export const AddUser = () => {
   const [gender, setGender] = useState('male');
   const [address, setAddress] = useState('');
   const [role] = useState([
-    {value: '1', label: 'ROLE_ADMIN'},
-    {value: '2', label: 'ROLE_USER'},
-    {value: '3', label: 'ROLE_MANAGER'},
+    {value: '1', label: 'ADMIN'},
+    {value: '2', label: 'USER'},
+    {value: '4', label: 'MANAGER'},
+    {value: '5',label: 'SUPER_ADMIN'},
+    {value: '6',label: 'NORMAL'},
+
   ]);
 
   const [selectedRole, setSelectedRole] = useState([]);
@@ -139,8 +144,14 @@ export const AddUser = () => {
 
               <Form.Group controlId="dob">
                 <Form.Label>Date of Birth : </Form.Label>
-                <DatePicker selected={dob} onChange={handleDateChange} placeholderText=" Choose Date of Birth"
-                            showYearDropdown dateFormat="yyyy-MM-dd" yearDropdownItemNumber={10}/>
+
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['DatePicker']}>
+                    <DatePicker selected={dob} onChange={handleDateChange} placeholderText=" Choose Date of Birth"
+                                showYearDropdown dateFormat="yyyy-MM-dd" yearDropdownItemNumber={10}/>
+                  </DemoContainer>
+                </LocalizationProvider>
+
               </Form.Group>
 
               <Form.Group controlId="hobbies">

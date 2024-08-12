@@ -232,6 +232,11 @@ public class UserServiceImpl implements UserService {
 
   }
 
+  @Override
+  public void m2() {
+    System.out.println("primary logic");
+  }
+
 
   private static UserDetailsEntity getUserDetailsEntity(RegisterUserDTO registerUserDTO, UserEntity saveUserEntity, UserEntity currentUser) {
     UserDetailsEntity userDetailsEntity = new UserDetailsEntity();

@@ -1,11 +1,13 @@
 import {useLocation, useNavigate} from "react-router-dom";
-import {useRef, useState} from "react";
+import {useState} from "react";
 import {Col, Container, Form, FormControl, Row} from "react-bootstrap";
-import DatePicker from "react-datepicker";
+import {DatePicker} from '@mui/x-date-pickers/DatePicker';
+import {DemoContainer} from '@mui/x-date-pickers/internals/demo';
+import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import Select from "react-select";
 import {Button} from "reactstrap";
-import {userSchema} from "../utils/UserValidation";
-import {addUser, updateUser} from "../service/user-service";
+import {updateUser} from "../service/user-service";
 import {toast, Zoom} from "react-toastify";
 
 export const EditUser = () => {
@@ -61,7 +63,7 @@ export const EditUser = () => {
 
       updateUser(updateUserId, userData)
         .then(response => {
-          if (response.status == 200) {
+          if (response.status === 200) {
             toast.success(response.data.message, {
               transition: Zoom
             });
@@ -134,8 +136,12 @@ export const EditUser = () => {
 
               <Form.Group controlId="dob">
                 <Form.Label>Date of Birth : </Form.Label>
-                <DatePicker selected={dob} onChange={handleDateChange} placeholderText={user.dob}
-                            showYearDropdown dateFormat="yyyy-MM-dd" yearDropdownItemNumber={10}/>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['DatePicker']}>
+                    <DatePicker selected={dob} onChange={handleDateChange} placeholderText=" Choose Date of Birth"
+                                showYearDropdown dateFormat="yyyy-MM-dd" yearDropdownItemNumber={10}/>
+                  </DemoContainer>
+                </LocalizationProvider>
               </Form.Group>
 
               <Form.Group controlId="hobbies">

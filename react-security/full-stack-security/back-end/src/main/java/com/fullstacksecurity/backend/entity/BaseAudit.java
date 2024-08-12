@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @Data
-public abstract class AudiTable {
+public abstract class BaseAudit {
 
   @CreatedDate
   @Temporal(TemporalType.DATE)

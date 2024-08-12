@@ -23,9 +23,7 @@ const routes = [
       {path: "/role/add", element: <AddRole/>},
       {path: "/editRole", element: <EditRole/>}
     ]
-
   }
-
 ]
 
 export default routes;

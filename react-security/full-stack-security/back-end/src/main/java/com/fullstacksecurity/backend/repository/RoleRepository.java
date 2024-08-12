@@ -1,7 +1,6 @@
 package com.fullstacksecurity.backend.repository;
 
 import com.fullstacksecurity.backend.entity.RoleEntity;
-import com.fullstacksecurity.backend.response.dto.RoleResponseDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

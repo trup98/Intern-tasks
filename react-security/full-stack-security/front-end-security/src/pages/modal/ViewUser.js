@@ -22,7 +22,7 @@ export const ViewUser = ({isOpen, toggle, user}) => {
                 Last Name : {user.lastName}<br/>
                 Date Of Birth : {user.dateOfBirth}<br/>
                 Gender : {user.gender}<br/>
-                Role :{user.roleNames}
+                Role : {user.roleNames}
 
               </Col>
             </Row>

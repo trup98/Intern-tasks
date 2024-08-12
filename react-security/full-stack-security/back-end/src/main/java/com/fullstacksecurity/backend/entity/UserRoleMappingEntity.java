@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @Table(name = "user_role_mapping")
 @Builder
-public class UserRoleMappingEntity extends AudiTable {
+public class UserRoleMappingEntity extends BaseAudit {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

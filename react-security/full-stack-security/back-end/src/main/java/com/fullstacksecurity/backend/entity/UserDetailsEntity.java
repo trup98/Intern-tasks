@@ -7,7 +7,6 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -17,7 +16,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user_details")
-public class UserDetailsEntity  extends AudiTable{
+public class UserDetailsEntity extends BaseAudit {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -39,8 +38,8 @@ public class UserDetailsEntity  extends AudiTable{
   @Column(name = "address", nullable = false)
   private String address;
 
-  @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id",referencedColumnName = "id")
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id", referencedColumnName = "id")
   private UserEntity userId;
 
 }
